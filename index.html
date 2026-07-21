@@ -1,41 +1,41 @@
 <!doctype html>
-<html lang="en">
+<html lang="gl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Breren</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9B%B0%EF%B8%8F%3C/text%3E%3C/svg%3E">
 <style>
+  /* Gruvbox palette: https://github.com/morhetz/gruvbox */
   :root {
     color-scheme: light dark;
-    --bg: #f3ede3;
-    --bg-alt: #e9e0d0;
-    --fg: #2c241b;
-    --fg-muted: #6b5f4e;
-    --card-bg: #fffaf2;
-    --card-border: #ded0b8;
-    --accent: #8a6d3b;
-    --shadow: rgba(60, 45, 20, 0.12);
+  }
+  :root, :root[data-theme="light"] {
+    --bg: #fbf1c7;        /* gruvbox light bg0 */
+    --bg-alt: #f2e5bc;    /* gruvbox light bg0_s */
+    --fg: #3c3836;        /* gruvbox light fg1 */
+    --fg-muted: #7c6f64;  /* gruvbox light fg4 */
+    --card-bg: #ebdbb2;   /* gruvbox light bg1 */
+    --card-border: #d5c4a1; /* gruvbox light bg2 */
+    --accent: #d65d0e;    /* gruvbox light orange */
+    --shadow: rgba(60, 45, 20, 0.15);
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #1c1811;
-      --bg-alt: #241f17;
-      --fg: #ece3d2;
-      --fg-muted: #a99d86;
-      --card-bg: #2a251c;
-      --card-border: #3c3527;
-      --accent: #d8b877;
-      --shadow: rgba(0, 0, 0, 0.4);
+      --bg: #282828;        /* gruvbox dark bg0 */
+      --bg-alt: #1d2021;    /* gruvbox dark bg0_h */
+      --fg: #ebdbb2;        /* gruvbox dark fg1 */
+      --fg-muted: #a89984;  /* gruvbox dark fg4 */
+      --card-bg: #3c3836;   /* gruvbox dark bg1 */
+      --card-border: #504945; /* gruvbox dark bg2 */
+      --accent: #fe8019;    /* gruvbox dark bright orange */
+      --shadow: rgba(0, 0, 0, 0.45);
     }
   }
-  :root[data-theme="light"] {
-    --bg: #f3ede3; --bg-alt: #e9e0d0; --fg: #2c241b; --fg-muted: #6b5f4e;
-    --card-bg: #fffaf2; --card-border: #ded0b8; --accent: #8a6d3b; --shadow: rgba(60, 45, 20, 0.12);
-  }
   :root[data-theme="dark"] {
-    --bg: #1c1811; --bg-alt: #241f17; --fg: #ece3d2; --fg-muted: #a99d86;
-    --card-bg: #2a251c; --card-border: #3c3527; --accent: #d8b877; --shadow: rgba(0, 0, 0, 0.4);
+    --bg: #282828; --bg-alt: #1d2021; --fg: #ebdbb2; --fg-muted: #a89984;
+    --card-bg: #3c3836; --card-border: #504945; --accent: #fe8019;
+    --shadow: rgba(0, 0, 0, 0.45);
   }
 
   * { box-sizing: border-box; }
@@ -49,7 +49,50 @@
     max-width: 960px;
     margin: 0 auto;
     padding: 4rem 1.5rem 5rem;
+    position: relative;
   }
+  .toolbar {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .lang-group {
+    display: flex;
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .lang-btn, .theme-btn {
+    font: inherit;
+    cursor: pointer;
+    border: none;
+    background: var(--card-bg);
+    color: var(--fg-muted);
+    padding: 0.4rem 0.6rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .lang-btn + .lang-btn { border-left: 1px solid var(--card-border); }
+  .lang-btn[aria-pressed="true"] {
+    background: var(--accent);
+    color: var(--bg);
+  }
+  .theme-btn {
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    width: 2.1rem;
+    height: 2.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+  .lang-btn:hover, .theme-btn:hover { border-color: var(--accent); }
   header {
     text-align: center;
     margin-bottom: 3rem;
@@ -116,7 +159,7 @@
     align-items: center;
     justify-content: center;
     font-size: 1.3rem;
-    background: color-mix(in srgb, var(--tile-color, var(--accent)) 22%, transparent);
+    background: color-mix(in srgb, var(--tile-color, var(--accent)) 25%, transparent);
   }
   .tile-text {
     min-width: 0;
@@ -149,36 +192,158 @@
 </head>
 <body>
 <main>
+  <div class="toolbar">
+    <div class="lang-group" id="lang-group" role="group"></div>
+    <button class="theme-btn" id="theme-toggle" type="button"></button>
+  </div>
   <header>
     <span class="mark">⛰️</span>
     <h1 id="page-title">Breren</h1>
     <p class="tagline" id="page-tagline"></p>
   </header>
   <div id="content"></div>
-  <footer>
-    Edit <a href="links.toml">links.toml</a> to change these tiles — no other file needs to change.
-  </footer>
+  <footer id="page-footer"></footer>
 </main>
 <script>
 (function () {
-  var root = document.documentElement;
-  var applyTheme = function () {
-    var mq = window.matchMedia('(prefers-color-scheme: dark)');
-    // No manual toggle on this page; data-theme is left for hosts that stamp it.
-  };
-  applyTheme();
+  var LINKS_FILE = 'links.toml';
+  var SUPPORTED_LANGS = ['gl', 'en', 'eo'];
+  var LANG_LABELS = { gl: 'GL', en: 'EN', eo: 'EO' };
 
-  fetch('links.toml', { cache: 'no-store' })
+  var STRINGS = {
+    gl: {
+      tagline: 'Un alicerce que leva adiante o que importa.',
+      footer: 'Edita {file} para cambiar estas ligazóns — non hai que tocar ningún outro ficheiro.',
+      empty: 'Aínda non hai ligazóns — engade algunhas a {file}.',
+      errorPrefix: 'Non se puido cargar {file}',
+      themeToLight: 'Cambiar a modo claro',
+      themeToDark: 'Cambiar a modo escuro'
+    },
+    en: {
+      tagline: 'A foundation that carries what matters forward.',
+      footer: 'Edit {file} to change these tiles — no other file needs to change.',
+      empty: 'No links yet — add some to {file}.',
+      errorPrefix: 'Could not load {file}',
+      themeToLight: 'Switch to light mode',
+      themeToDark: 'Switch to dark mode'
+    },
+    eo: {
+      tagline: 'Fundamento kiu portas antaŭen tion, kio gravas.',
+      footer: 'Redaktu {file} por ŝanĝi ĉi tiujn kahelojn — neniu alia dosiero devas ŝanĝiĝi.',
+      empty: 'Ankoraŭ neniuj ligiloj — aldonu kelkajn al {file}.',
+      errorPrefix: 'Ne eblis ŝargi {file}',
+      themeToLight: 'Ŝanĝi al luma reĝimo',
+      themeToDark: 'Ŝanĝi al malluma reĝimo'
+    }
+  };
+
+  var currentLang = detectLang();
+  var latestData = null;
+  var latestError = null;
+
+  setupLangSwitcher();
+  setupThemeToggle();
+  applyTheme(effectiveTheme());
+  applyTexts();
+
+  fetch(LINKS_FILE, { cache: 'no-store' })
     .then(function (r) {
-      if (!r.ok) throw new Error('links.toml responded with ' + r.status);
+      if (!r.ok) throw new Error(LINKS_FILE + ' responded with ' + r.status);
       return r.text();
     })
-    .then(function (text) { return parseTOML(text); })
-    .then(render)
+    .then(parseTOML)
+    .then(function (data) { latestData = data; render(data); })
     .catch(function (err) {
-      document.getElementById('content').innerHTML =
-        '<p class="error">Could not load links.toml (' + escapeHtml(err.message) + ').</p>';
+      latestError = err;
+      renderError(err);
     });
+
+  // ---- i18n ----------------------------------------------------------
+
+  function detectLang() {
+    var stored = localStorage.getItem('breren-lang');
+    if (stored && SUPPORTED_LANGS.indexOf(stored) !== -1) return stored;
+    var candidates = navigator.languages || [navigator.language || 'gl'];
+    for (var i = 0; i < candidates.length; i++) {
+      var code = (candidates[i] || '').slice(0, 2).toLowerCase();
+      if (SUPPORTED_LANGS.indexOf(code) !== -1) return code;
+    }
+    return 'gl';
+  }
+
+  function t(key, vars) {
+    var dict = STRINGS[currentLang] || STRINGS.gl;
+    var str = dict[key] || STRINGS.gl[key] || key;
+    if (vars) {
+      Object.keys(vars).forEach(function (k) {
+        str = str.replace('{' + k + '}', vars[k]);
+      });
+    }
+    return str;
+  }
+
+  function setupLangSwitcher() {
+    var group = document.getElementById('lang-group');
+    SUPPORTED_LANGS.forEach(function (code) {
+      var btn = document.createElement('button');
+      btn.className = 'lang-btn';
+      btn.type = 'button';
+      btn.textContent = LANG_LABELS[code];
+      btn.setAttribute('aria-pressed', String(code === currentLang));
+      btn.addEventListener('click', function () {
+        currentLang = code;
+        localStorage.setItem('breren-lang', code);
+        document.documentElement.lang = code;
+        Array.prototype.forEach.call(group.children, function (b) {
+          b.setAttribute('aria-pressed', String(b.textContent === LANG_LABELS[code]));
+        });
+        applyTexts();
+      });
+      group.appendChild(btn);
+    });
+    document.documentElement.lang = currentLang;
+  }
+
+  function applyTexts() {
+    document.getElementById('page-tagline').textContent = t('tagline');
+    document.getElementById('page-footer').innerHTML =
+      t('footer', { file: '<a href="' + LINKS_FILE + '">' + LINKS_FILE + '</a>' });
+    updateThemeButtonLabel();
+    if (latestData) render(latestData);
+    else if (latestError) renderError(latestError);
+  }
+
+  // ---- theme ----------------------------------------------------------
+
+  function effectiveTheme() {
+    var stored = localStorage.getItem('breren-theme');
+    if (stored) return stored;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    var btn = document.getElementById('theme-toggle');
+    btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    updateThemeButtonLabel();
+  }
+
+  function updateThemeButtonLabel() {
+    var theme = document.documentElement.getAttribute('data-theme');
+    var btn = document.getElementById('theme-toggle');
+    btn.setAttribute('aria-label', theme === 'dark' ? t('themeToLight') : t('themeToDark'));
+    btn.title = btn.getAttribute('aria-label');
+  }
+
+  function setupThemeToggle() {
+    document.getElementById('theme-toggle').addEventListener('click', function () {
+      var next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('breren-theme', next);
+      applyTheme(next);
+    });
+  }
+
+  // ---- TOML parsing ----------------------------------------------------
 
   // Minimal TOML subset parser: top-level string/bool/number keys, plus
   // [[array.of.tables]] headers nested the way TOML actually nests them
@@ -252,16 +417,18 @@
     }
   }
 
+  // ---- rendering ----------------------------------------------------
+
   function render(data) {
     if (data.title) document.getElementById('page-title').textContent = data.title;
-    if (data.tagline) document.getElementById('page-tagline').textContent = data.tagline;
     document.title = data.title || 'Breren';
 
     var container = document.getElementById('content');
+    container.innerHTML = '';
     var categories = Array.isArray(data.categories) ? data.categories : [];
 
     if (categories.length === 0) {
-      container.innerHTML = '<p class="empty">No links yet — add some to links.json.</p>';
+      container.innerHTML = '<p class="empty">' + escapeHtml(t('empty', { file: LINKS_FILE })) + '</p>';
       return;
     }
 
@@ -285,6 +452,12 @@
       section.appendChild(grid);
       container.appendChild(section);
     });
+  }
+
+  function renderError(err) {
+    document.getElementById('content').innerHTML =
+      '<p class="error">' + escapeHtml(t('errorPrefix', { file: LINKS_FILE })) +
+      ' (' + escapeHtml(err.message) + ').</p>';
   }
 
   function renderTile(item) {

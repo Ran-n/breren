@@ -271,6 +271,7 @@
 <script>
 (function () {
   var LINKS_FILE = 'links.toml';
+  var TRANSLATIONS_FILE = 'translations.toml';
 
   // Custom SVG flags for languages without an ISO country flag emoji.
   var FLAG_GALEGO = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#ffffff"/><polygon points="0,20 0,14 24,0 30,0" fill="#0090d6"/></svg>';
@@ -516,6 +517,7 @@
   var currentLang = detectLang();
   var latestData = null;
   var latestError = null;
+  var translations = {};
 
   setupLangPicker();
   setupThemeToggle();
@@ -523,17 +525,25 @@
   applyDirection(currentLang);
   applyTexts();
 
-  fetch(LINKS_FILE, { cache: 'no-store' })
-    .then(function (r) {
-      if (!r.ok) throw new Error(LINKS_FILE + ' responded with ' + r.status);
-      return r.text();
-    })
-    .then(parseTOML)
+  fetchTOML(TRANSLATIONS_FILE)
+    .then(function (data) { translations = data; if (latestData) render(latestData); })
+    .catch(function () { translations = {}; }); // optional file; missing/broken -> no translations
+
+  fetchTOML(LINKS_FILE)
     .then(function (data) { latestData = data; render(data); })
     .catch(function (err) {
       latestError = err;
       renderError(err);
     });
+
+  function fetchTOML(file) {
+    return fetch(file, { cache: 'no-store' })
+      .then(function (r) {
+        if (!r.ok) throw new Error(file + ' responded with ' + r.status);
+        return r.text();
+      })
+      .then(parseTOML);
+  }
 
   // ---- i18n ----------------------------------------------------------
 
@@ -559,12 +569,17 @@
     return str;
   }
 
-  // Reads `<base>_<currentLang>` from a links.toml category/item (e.g.
-  // `name_es`) if present, falling back to the plain `<base>` field.
-  // Translations are written by hand in links.toml — ask to have a new
-  // tile translated when you add it; there's no runtime translation.
+  // Looks up `<base>_<currentLang>` (e.g. `name_es`) for a links.toml
+  // category/item, in this priority order: translations.toml's table for
+  // this object's `id`, then an inline `<base>_<code>` field on the
+  // object itself (kept as an escape hatch), then the plain `<base>`
+  // field untranslated. Translations are written by hand — ask to have a
+  // new tile translated when you add it; there's no runtime translation.
   function localized(obj, base) {
-    return obj[base + '_' + currentLang] || obj[base];
+    var key = base + '_' + currentLang;
+    var fromFile = obj.id && translations[obj.id];
+    if (fromFile && fromFile[key]) return fromFile[key];
+    return obj[key] || obj[base];
   }
 
   function setupLangPicker() {

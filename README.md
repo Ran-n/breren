@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.586825 )
-[//]: # (+ Revised: 	2026/07/21 18:01:09.728824 )
+[//]: # (+ Revised: 	2026/07/21 19:20:26.741894 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Breren
@@ -28,14 +28,14 @@ needs to change.
   languages (Arabic, Urdu, Persian) flip the page direction
   automatically. UI copy lives in `index.html`'s `LANGUAGES`/`STRINGS`
   objects — add a language by adding an entry to both.
-- **Tile translations** — optional, per-language, in `links.toml`. Add
-  `name_<code>` / `description_<code>` next to a tile's `name` /
-  `description` (e.g. `name_es = "..."`) and it's shown when that
-  language is selected; missing translations fall back to the plain
-  `name`/`description`. Category `name` supports the same
-  `name_<code>` pattern. There's no runtime translation — when adding a
-  new tile, ask for it to be translated and the fields get filled in
-  directly.
+- **Tile translations** — optional, per-language, in
+  [translations.toml](translations.toml), kept separate so `links.toml`
+  stays uncluttered. Give a category/item an `id` in `links.toml`, then
+  add a matching `[id]` table in `translations.toml` with
+  `name_<code>` / `description_<code>` fields (e.g. `name_es = "..."`).
+  Missing translations fall back to the plain `name`/`description` in
+  `links.toml`. There's no runtime translation — when adding a new tile,
+  ask for it to be translated and the fields get filled in directly.
 
 ## Docs
 

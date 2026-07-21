@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/07/21 17:45:17.017994 )
+[//]: # (+ Revised: 	2026/07/21 19:20:26.865453 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -15,9 +15,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Optional per-language tile/category translations in `links.toml`
+- Optional per-language tile/category translations, keyed by a new
+  `id` field on categories/items and stored in `translations.toml`
   (`name_<code>` / `description_<code>`), falling back to the plain
-  field when a language isn't provided.
+  `name`/`description` in `links.toml` when a language isn't provided.
+  Keeps `links.toml` itself free of translation clutter.
+- Filled in the example tile's translations for all 25 supported
+  languages.
 
 - Light/dark theme toggle (Gruvbox palette), persisted per visitor.
 - Localization expanded to 25 languages: the most-spoken languages

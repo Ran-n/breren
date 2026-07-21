@@ -561,6 +561,8 @@
 
   // Reads `<base>_<currentLang>` from a links.toml category/item (e.g.
   // `name_es`) if present, falling back to the plain `<base>` field.
+  // Translations are written by hand in links.toml — ask to have a new
+  // tile translated when you add it; there's no runtime translation.
   function localized(obj, base) {
     return obj[base + '_' + currentLang] || obj[base];
   }

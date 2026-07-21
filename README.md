@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.586825 )
-[//]: # (+ Revised: 	2026/07/21 17:45:16.902645 )
+[//]: # (+ Revised: 	2026/07/21 18:01:09.728824 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Breren
@@ -33,8 +33,9 @@ needs to change.
   `description` (e.g. `name_es = "..."`) and it's shown when that
   language is selected; missing translations fall back to the plain
   `name`/`description`. Category `name` supports the same
-  `name_<code>` pattern. There's no automatic machine translation —
-  the site is static with no backend, so this is opt-in and manual.
+  `name_<code>` pattern. There's no runtime translation — when adding a
+  new tile, ask for it to be translated and the fields get filled in
+  directly.
 
 ## Docs
 

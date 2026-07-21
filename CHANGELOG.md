@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/07/21 17:38:29.474579 )
+[//]: # (+ Revised: 	2026/07/21 17:45:17.017994 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+- Optional per-language tile/category translations in `links.toml`
+  (`name_<code>` / `description_<code>`), falling back to the plain
+  field when a language isn't provided.
 
 - Light/dark theme toggle (Gruvbox palette), persisted per visitor.
 - Localization expanded to 25 languages: the most-spoken languages

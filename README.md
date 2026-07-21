@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.586825 )
-[//]: # (+ Revised: 	2026/07/21 17:38:29.358702 )
+[//]: # (+ Revised: 	2026/07/21 17:45:16.902645 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Breren
@@ -27,8 +27,14 @@ needs to change.
   to Galego; the switcher remembers an explicit choice afterwards. RTL
   languages (Arabic, Urdu, Persian) flip the page direction
   automatically. UI copy lives in `index.html`'s `LANGUAGES`/`STRINGS`
-  objects — add a language by adding an entry to both. Tile content in
-  `links.toml` itself is not translated.
+  objects — add a language by adding an entry to both.
+- **Tile translations** — optional, per-language, in `links.toml`. Add
+  `name_<code>` / `description_<code>` next to a tile's `name` /
+  `description` (e.g. `name_es = "..."`) and it's shown when that
+  language is selected; missing translations fall back to the plain
+  `name`/`description`. Category `name` supports the same
+  `name_<code>` pattern. There's no automatic machine translation —
+  the site is static with no backend, so this is opt-in and manual.
 
 ## Docs
 

@@ -5,7 +5,11 @@ name = "Get started"
 
   [[categories.items]]
   name = "Edit this file"
+  name_gl = "Edita este ficheiro"
+  name_es = "Edita este archivo"
   url = "https://github.com/Ran-n/breren/edit/main/links.toml"
   description = "links.toml — add, remove, or reorder tiles here. Push and the page updates automatically."
+  description_gl = "links.toml — engade, quita ou reordena ligazóns aquí. Fai push e a páxina actualízase automaticamente."
+  description_es = "links.toml — añade, elimina o reordena tarjetas aquí. Haz push y la página se actualiza automáticamente."
   icon = "✏️"
   color = "#d65d0e"

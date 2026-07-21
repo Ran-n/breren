@@ -559,6 +559,12 @@
     return str;
   }
 
+  // Reads `<base>_<currentLang>` from a links.toml category/item (e.g.
+  // `name_es`) if present, falling back to the plain `<base>` field.
+  function localized(obj, base) {
+    return obj[base + '_' + currentLang] || obj[base];
+  }
+
   function setupLangPicker() {
     var trigger = document.getElementById('lang-trigger');
     var menu = document.getElementById('lang-menu');
@@ -770,9 +776,10 @@
       var section = document.createElement('section');
       section.className = 'category';
 
-      if (cat.name) {
+      var catName = localized(cat, 'name');
+      if (catName) {
         var h2 = document.createElement('h2');
-        h2.textContent = cat.name;
+        h2.textContent = catName;
         section.appendChild(h2);
       }
 
@@ -804,22 +811,25 @@
     }
     if (item.color) a.style.setProperty('--tile-color', item.color);
 
+    var itemName = localized(item, 'name');
+    var itemDesc = localized(item, 'description');
+
     var icon = document.createElement('div');
     icon.className = 'tile-icon';
-    icon.textContent = item.icon || (item.name ? item.name.charAt(0).toUpperCase() : '?');
+    icon.textContent = item.icon || (itemName ? itemName.charAt(0).toUpperCase() : '?');
 
     var text = document.createElement('div');
     text.className = 'tile-text';
 
     var name = document.createElement('p');
     name.className = 'tile-name';
-    name.textContent = item.name || item.url || 'Untitled';
+    name.textContent = itemName || item.url || 'Untitled';
     text.appendChild(name);
 
-    if (item.description) {
+    if (itemDesc) {
       var desc = document.createElement('p');
       desc.className = 'tile-desc';
-      desc.textContent = item.description;
+      desc.textContent = itemDesc;
       text.appendChild(desc);
     }
 

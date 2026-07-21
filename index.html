@@ -59,32 +59,88 @@
     align-items: center;
     gap: 0.5rem;
   }
-  .lang-group {
-    display: flex;
-    border: 1px solid var(--card-border);
-    border-radius: 8px;
-    overflow: hidden;
+
+  /* Language picker */
+  .lang-picker {
+    position: relative;
   }
-  .lang-btn, .theme-btn {
+  .lang-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
     font: inherit;
     cursor: pointer;
-    border: none;
-    background: var(--card-bg);
-    color: var(--fg-muted);
-    padding: 0.4rem 0.6rem;
-    font-size: 0.78rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-  }
-  .lang-btn + .lang-btn { border-left: 1px solid var(--card-border); }
-  .lang-btn[aria-pressed="true"] {
-    background: var(--accent);
-    color: var(--bg);
-  }
-  .theme-btn {
     border: 1px solid var(--card-border);
     border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--fg);
+    padding: 0.4rem 0.6rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  .lang-trigger:hover { border-color: var(--accent); }
+  .lang-trigger .chevron {
+    color: var(--fg-muted);
+    font-size: 0.7rem;
+  }
+  .lang-menu {
+    position: absolute;
+    top: calc(100% + 0.4rem);
+    right: 0;
+    margin: 0;
+    padding: 0.35rem;
+    list-style: none;
+    width: 15rem;
+    max-height: 20rem;
+    overflow-y: auto;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px var(--shadow);
+    z-index: 20;
+  }
+  .lang-menu[hidden] { display: none; }
+  .lang-option {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    width: 100%;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--fg);
+    padding: 0.45rem 0.55rem;
+    font-size: 0.86rem;
+  }
+  .lang-option:hover,
+  .lang-option:focus-visible {
+    background: color-mix(in srgb, var(--accent) 18%, transparent);
+    outline: none;
+  }
+  .lang-option[aria-selected="true"] {
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .flag {
+    flex: none;
+    display: inline-flex;
+    width: 1.3rem;
+    height: 1.3rem;
+    line-height: 1.3rem;
+    font-size: 1.1rem;
+  }
+  .flag svg { width: 100%; height: 100%; border-radius: 2px; }
+
+  .theme-btn {
+    font: inherit;
+    cursor: pointer;
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--fg-muted);
     width: 2.1rem;
     height: 2.1rem;
     display: flex;
@@ -92,7 +148,8 @@
     justify-content: center;
     font-size: 1rem;
   }
-  .lang-btn:hover, .theme-btn:hover { border-color: var(--accent); }
+  .theme-btn:hover { border-color: var(--accent); }
+
   header {
     text-align: center;
     margin-bottom: 3rem;
@@ -193,7 +250,14 @@
 <body>
 <main>
   <div class="toolbar">
-    <div class="lang-group" id="lang-group" role="group"></div>
+    <div class="lang-picker">
+      <button class="lang-trigger" id="lang-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+        <span class="flag" id="lang-trigger-flag"></span>
+        <span id="lang-trigger-name"></span>
+        <span class="chevron">▾</span>
+      </button>
+      <ul class="lang-menu" id="lang-menu" role="listbox" hidden></ul>
+    </div>
     <button class="theme-btn" id="theme-toggle" type="button"></button>
   </div>
   <header>
@@ -207,8 +271,43 @@
 <script>
 (function () {
   var LINKS_FILE = 'links.toml';
-  var SUPPORTED_LANGS = ['gl', 'en', 'eo'];
-  var LANG_LABELS = { gl: 'GL', en: 'EN', eo: 'EO' };
+
+  // Custom SVG flags for languages without an ISO country flag emoji.
+  var FLAG_GALEGO = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#ffffff"/><polygon points="0,20 0,14 24,0 30,0" fill="#0090d6"/></svg>';
+  var FLAG_ESPERANTO = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#007a3d"/><rect width="13" height="11" fill="#ffffff"/><text x="6.6" y="9.7" font-size="8" text-anchor="middle" dominant-baseline="middle" fill="#007a3d">★</text></svg>';
+
+  // Ordered roughly by number of speakers, with Galego pinned first and
+  // Esperanto last. `rtl: true` flips document direction when selected.
+  var LANGUAGES = [
+    { code: 'gl', flag: FLAG_GALEGO, name: 'Galego' },
+    { code: 'en', flag: '🇬🇧', name: 'English' },
+    { code: 'zh', flag: '🇨🇳', name: '中文' },
+    { code: 'hi', flag: '🇮🇳', name: 'हिन्दी' },
+    { code: 'es', flag: '🇪🇸', name: 'Español' },
+    { code: 'ar', flag: '🇸🇦', name: 'العربية', rtl: true },
+    { code: 'fr', flag: '🇫🇷', name: 'Français' },
+    { code: 'bn', flag: '🇧🇩', name: 'বাংলা' },
+    { code: 'pt', flag: '🇵🇹', name: 'Português' },
+    { code: 'ru', flag: '🇷🇺', name: 'Русский' },
+    { code: 'ur', flag: '🇵🇰', name: 'اردو', rtl: true },
+    { code: 'id', flag: '🇮🇩', name: 'Bahasa Indonesia' },
+    { code: 'de', flag: '🇩🇪', name: 'Deutsch' },
+    { code: 'ja', flag: '🇯🇵', name: '日本語' },
+    { code: 'sw', flag: '🇹🇿', name: 'Kiswahili' },
+    { code: 'te', flag: '🇮🇳', name: 'తెలుగు' },
+    { code: 'tr', flag: '🇹🇷', name: 'Türkçe' },
+    { code: 'ta', flag: '🇮🇳', name: 'தமிழ்' },
+    { code: 'vi', flag: '🇻🇳', name: 'Tiếng Việt' },
+    { code: 'ko', flag: '🇰🇷', name: '한국어' },
+    { code: 'it', flag: '🇮🇹', name: 'Italiano' },
+    { code: 'fa', flag: '🇮🇷', name: 'فارسی', rtl: true },
+    { code: 'pa', flag: '🇮🇳', name: 'ਪੰਜਾਬੀ' },
+    { code: 'th', flag: '🇹🇭', name: 'ไทย' },
+    { code: 'eo', flag: FLAG_ESPERANTO, name: 'Esperanto' }
+  ];
+  var SUPPORTED_LANGS = LANGUAGES.map(function (l) { return l.code; });
+  var LANG_BY_CODE = {};
+  LANGUAGES.forEach(function (l) { LANG_BY_CODE[l.code] = l; });
 
   var STRINGS = {
     gl: {
@@ -234,16 +333,194 @@
       errorPrefix: 'Ne eblis ŝargi {file}',
       themeToLight: 'Ŝanĝi al luma reĝimo',
       themeToDark: 'Ŝanĝi al malluma reĝimo'
+    },
+    es: {
+      tagline: 'Un fundamento que impulsa hacia adelante lo que importa.',
+      footer: 'Edita {file} para cambiar estas fichas — no hace falta tocar ningún otro archivo.',
+      empty: 'Aún no hay enlaces — añade algunos a {file}.',
+      errorPrefix: 'No se pudo cargar {file}',
+      themeToLight: 'Cambiar a modo claro',
+      themeToDark: 'Cambiar a modo oscuro'
+    },
+    fr: {
+      tagline: "Une fondation qui fait avancer ce qui compte.",
+      footer: "Modifiez {file} pour changer ces tuiles — aucun autre fichier n'a besoin de changer.",
+      empty: 'Pas encore de liens — ajoutez-en dans {file}.',
+      errorPrefix: 'Impossible de charger {file}',
+      themeToLight: 'Passer en mode clair',
+      themeToDark: 'Passer en mode sombre'
+    },
+    pt: {
+      tagline: 'Uma base que leva adiante o que importa.',
+      footer: 'Edite {file} para alterar estes blocos — nenhum outro ficheiro precisa mudar.',
+      empty: 'Ainda sem links — adicione alguns a {file}.',
+      errorPrefix: 'Não foi possível carregar {file}',
+      themeToLight: 'Mudar para o modo claro',
+      themeToDark: 'Mudar para o modo escuro'
+    },
+    de: {
+      tagline: 'Ein Fundament, das Wichtiges weiterträgt.',
+      footer: 'Bearbeite {file}, um diese Kacheln zu ändern — keine andere Datei muss sich ändern.',
+      empty: 'Noch keine Links — füge welche zu {file} hinzu.',
+      errorPrefix: '{file} konnte nicht geladen werden',
+      themeToLight: 'Zum hellen Modus wechseln',
+      themeToDark: 'Zum dunklen Modus wechseln'
+    },
+    it: {
+      tagline: 'Una fondazione che porta avanti ciò che conta.',
+      footer: 'Modifica {file} per cambiare questi riquadri — nessun altro file deve cambiare.',
+      empty: 'Ancora nessun link — aggiungine in {file}.',
+      errorPrefix: 'Impossibile caricare {file}',
+      themeToLight: 'Passa alla modalità chiara',
+      themeToDark: 'Passa alla modalità scura'
+    },
+    ru: {
+      tagline: 'Основа, которая несёт вперёд то, что важно.',
+      footer: 'Отредактируйте {file}, чтобы изменить эти плитки — больше ничего менять не нужно.',
+      empty: 'Пока нет ссылок — добавьте их в {file}.',
+      errorPrefix: 'Не удалось загрузить {file}',
+      themeToLight: 'Переключиться на светлую тему',
+      themeToDark: 'Переключиться на тёмную тему'
+    },
+    zh: {
+      tagline: '承载重要之物，一路向前的根基。',
+      footer: '编辑 {file} 即可更改这些卡片——无需修改其他文件。',
+      empty: '还没有链接——请在 {file} 中添加。',
+      errorPrefix: '无法加载 {file}',
+      themeToLight: '切换到浅色模式',
+      themeToDark: '切换到深色模式'
+    },
+    ja: {
+      tagline: '大切なものを未来へ運ぶ土台。',
+      footer: '{file} を編集すればタイルを変更できます — 他のファイルを変更する必要はありません。',
+      empty: 'まだリンクがありません — {file} に追加してください。',
+      errorPrefix: '{file} を読み込めませんでした',
+      themeToLight: 'ライトモードに切り替える',
+      themeToDark: 'ダークモードに切り替える'
+    },
+    ko: {
+      tagline: '중요한 것을 앞으로 나아가게 하는 토대.',
+      footer: '{file} 을(를) 편집하면 타일이 바뀝니다 — 다른 파일은 바꿀 필요 없습니다.',
+      empty: '아직 링크가 없습니다 — {file} 에 추가하세요.',
+      errorPrefix: '{file} 을(를) 불러올 수 없습니다',
+      themeToLight: '라이트 모드로 전환',
+      themeToDark: '다크 모드로 전환'
+    },
+    ar: {
+      tagline: 'أساس يحمل ما يهم إلى الأمام.',
+      footer: 'عدّل {file} لتغيير هذه البطاقات — لا حاجة لتغيير أي ملف آخر.',
+      empty: 'لا توجد روابط بعد — أضف بعضها إلى {file}.',
+      errorPrefix: 'تعذّر تحميل {file}',
+      themeToLight: 'التبديل إلى الوضع الفاتح',
+      themeToDark: 'التبديل إلى الوضع الداكن'
+    },
+    hi: {
+      tagline: 'एक नींव जो ज़रूरी चीज़ों को आगे ले जाती है।',
+      footer: 'इन टाइलों को बदलने के लिए {file} संपादित करें — किसी और फ़ाइल को बदलने की ज़रूरत नहीं।',
+      empty: 'अभी कोई लिंक नहीं है — {file} में कुछ जोड़ें।',
+      errorPrefix: '{file} लोड नहीं हो सका',
+      themeToLight: 'लाइट मोड में बदलें',
+      themeToDark: 'डार्क मोड में बदलें'
+    },
+    bn: {
+      tagline: 'একটি ভিত্তি যা গুরুত্বপূর্ণ জিনিসকে সামনে এগিয়ে নিয়ে যায়।',
+      footer: 'এই টাইলগুলো পরিবর্তন করতে {file} সম্পাদনা করুন — অন্য কোনো ফাইল পরিবর্তনের প্রয়োজন নেই।',
+      empty: 'এখনো কোনো লিঙ্ক নেই — {file}-এ কিছু যোগ করুন।',
+      errorPrefix: '{file} লোড করা যায়নি',
+      themeToLight: 'লাইট মোডে যান',
+      themeToDark: 'ডার্ক মোডে যান'
+    },
+    ur: {
+      tagline: 'ایک بنیاد جو اہم چیزوں کو آگے لے کر جاتی ہے۔',
+      footer: 'ان ٹائلز کو تبدیل کرنے کے لیے {file} میں ترمیم کریں — کسی اور فائل کو بدلنے کی ضرورت نہیں۔',
+      empty: 'ابھی تک کوئی لنک نہیں — {file} میں کچھ شامل کریں۔',
+      errorPrefix: '{file} لوڈ نہیں ہو سکی',
+      themeToLight: 'لائٹ موڈ پر جائیں',
+      themeToDark: 'ڈارک موڈ پر جائیں'
+    },
+    fa: {
+      tagline: 'بنیادی که آنچه اهمیت دارد را به پیش می‌برد.',
+      footer: 'برای تغییر این کاشی‌ها {file} را ویرایش کنید — نیازی به تغییر فایل دیگری نیست.',
+      empty: 'هنوز پیوندی وجود ندارد — چند مورد به {file} اضافه کنید.',
+      errorPrefix: 'بارگذاری {file} ممکن نشد',
+      themeToLight: 'رفتن به حالت روشن',
+      themeToDark: 'رفتن به حالت تاریک'
+    },
+    tr: {
+      tagline: 'Önemli olanı ileriye taşıyan bir temel.',
+      footer: 'Bu kutucukları değiştirmek için {file} dosyasını düzenleyin — başka hiçbir dosyayı değiştirmenize gerek yok.',
+      empty: 'Henüz bağlantı yok — {file} dosyasına birkaç tane ekleyin.',
+      errorPrefix: '{file} yüklenemedi',
+      themeToLight: 'Aydınlık moda geç',
+      themeToDark: 'Karanlık moda geç'
+    },
+    vi: {
+      tagline: 'Một nền tảng mang những điều quan trọng tiến về phía trước.',
+      footer: 'Chỉnh sửa {file} để thay đổi các ô này — không cần thay đổi tệp nào khác.',
+      empty: 'Chưa có liên kết nào — hãy thêm vào {file}.',
+      errorPrefix: 'Không thể tải {file}',
+      themeToLight: 'Chuyển sang chế độ sáng',
+      themeToDark: 'Chuyển sang chế độ tối'
+    },
+    id: {
+      tagline: 'Fondasi yang membawa hal-hal penting maju ke depan.',
+      footer: 'Edit {file} untuk mengubah ubin ini — tidak ada file lain yang perlu diubah.',
+      empty: 'Belum ada tautan — tambahkan beberapa di {file}.',
+      errorPrefix: 'Tidak dapat memuat {file}',
+      themeToLight: 'Beralih ke mode terang',
+      themeToDark: 'Beralih ke mode gelap'
+    },
+    th: {
+      tagline: 'รากฐานที่นำสิ่งสำคัญไปข้างหน้า',
+      footer: 'แก้ไข {file} เพื่อเปลี่ยนไทล์เหล่านี้ — ไม่ต้องแก้ไฟล์อื่นเลย',
+      empty: 'ยังไม่มีลิงก์ — เพิ่มลงใน {file}',
+      errorPrefix: 'โหลด {file} ไม่สำเร็จ',
+      themeToLight: 'สลับเป็นโหมดสว่าง',
+      themeToDark: 'สลับเป็นโหมดมืด'
+    },
+    sw: {
+      tagline: 'Msingi unaobeba mbele mambo muhimu.',
+      footer: 'Hariri {file} kubadilisha vigae hivi — hakuna faili nyingine inayohitaji kubadilishwa.',
+      empty: 'Bado hakuna viungo — ongeza baadhi kwenye {file}.',
+      errorPrefix: 'Imeshindwa kupakia {file}',
+      themeToLight: 'Badilisha hali ya mwanga',
+      themeToDark: 'Badilisha hali ya giza'
+    },
+    te: {
+      tagline: 'ముఖ్యమైన వాటిని ముందుకు తీసుకెళ్లే పునాది.',
+      footer: 'ఈ టైల్స్‌ను మార్చడానికి {file}ను సవరించండి — వేరే ఫైల్ మార్చాల్సిన అవసరం లేదు.',
+      empty: 'ఇంకా లింక్‌లు లేవు — {file}కు కొన్ని జోడించండి.',
+      errorPrefix: '{file}ను లోడ్ చేయలేకపోయాము',
+      themeToLight: 'లైట్ మోడ్‌కు మారండి',
+      themeToDark: 'డార్క్ మోడ్‌కు మారండి'
+    },
+    ta: {
+      tagline: 'முக்கியமானதை முன்னோக்கி கொண்டு செல்லும் அடித்தளம்.',
+      footer: 'இந்த டைல்களை மாற்ற {file} ஐத் திருத்தவும் — வேறு எந்த கோப்பையும் மாற்ற தேவையில்லை.',
+      empty: 'இதுவரை இணைப்புகள் இல்லை — {file} இல் சிலவற்றைச் சேர்க்கவும்.',
+      errorPrefix: '{file} ஐ ஏற்ற முடியவில்லை',
+      themeToLight: 'லைட் பயன்முறைக்கு மாறவும்',
+      themeToDark: 'டார்க் பயன்முறைக்கு மாறவும்'
+    },
+    pa: {
+      tagline: 'ਇੱਕ ਬੁਨਿਆਦ ਜੋ ਜ਼ਰੂਰੀ ਚੀਜ਼ਾਂ ਨੂੰ ਅੱਗੇ ਲੈ ਜਾਂਦੀ ਹੈ।',
+      footer: 'ਇਹਨਾਂ ਟਾਈਲਾਂ ਨੂੰ ਬਦਲਣ ਲਈ {file} ਨੂੰ ਸੋਧੋ — ਕਿਸੇ ਹੋਰ ਫ਼ਾਈਲ ਨੂੰ ਬਦਲਣ ਦੀ ਲੋੜ ਨਹੀਂ।',
+      empty: 'ਹਾਲੇ ਕੋਈ ਲਿੰਕ ਨਹੀਂ — {file} ਵਿੱਚ ਕੁਝ ਸ਼ਾਮਲ ਕਰੋ।',
+      errorPrefix: '{file} ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੀ',
+      themeToLight: "ਲਾਈਟ ਮੋਡ 'ਤੇ ਜਾਓ",
+      themeToDark: "ਡਾਰਕ ਮੋਡ 'ਤੇ ਜਾਓ"
     }
   };
+  var RTL_LANGS = ['ar', 'ur', 'fa'];
 
   var currentLang = detectLang();
   var latestData = null;
   var latestError = null;
 
-  setupLangSwitcher();
+  setupLangPicker();
   setupThemeToggle();
   applyTheme(effectiveTheme());
+  applyDirection(currentLang);
   applyTexts();
 
   fetch(LINKS_FILE, { cache: 'no-store' })
@@ -282,26 +559,83 @@
     return str;
   }
 
-  function setupLangSwitcher() {
-    var group = document.getElementById('lang-group');
-    SUPPORTED_LANGS.forEach(function (code) {
+  function setupLangPicker() {
+    var trigger = document.getElementById('lang-trigger');
+    var menu = document.getElementById('lang-menu');
+    var triggerFlag = document.getElementById('lang-trigger-flag');
+    var triggerName = document.getElementById('lang-trigger-name');
+
+    LANGUAGES.forEach(function (lang) {
+      var li = document.createElement('li');
+      li.setAttribute('role', 'presentation');
+
       var btn = document.createElement('button');
-      btn.className = 'lang-btn';
       btn.type = 'button';
-      btn.textContent = LANG_LABELS[code];
-      btn.setAttribute('aria-pressed', String(code === currentLang));
+      btn.className = 'lang-option';
+      btn.setAttribute('role', 'option');
+      btn.setAttribute('aria-selected', String(lang.code === currentLang));
+      btn.innerHTML =
+        '<span class="flag">' + lang.flag + '</span><span>' + lang.name + '</span>';
       btn.addEventListener('click', function () {
-        currentLang = code;
-        localStorage.setItem('breren-lang', code);
-        document.documentElement.lang = code;
-        Array.prototype.forEach.call(group.children, function (b) {
-          b.setAttribute('aria-pressed', String(b.textContent === LANG_LABELS[code]));
-        });
-        applyTexts();
+        selectLang(lang.code);
+        closeMenu();
       });
-      group.appendChild(btn);
+
+      li.appendChild(btn);
+      menu.appendChild(li);
     });
-    document.documentElement.lang = currentLang;
+
+    updateTrigger();
+
+    trigger.addEventListener('click', function () {
+      var isOpen = !menu.hidden;
+      if (isOpen) closeMenu(); else openMenu();
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!menu.hidden && !e.target.closest('.lang-picker')) closeMenu();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !menu.hidden) {
+        closeMenu();
+        trigger.focus();
+      }
+    });
+
+    function openMenu() {
+      menu.hidden = false;
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+    function closeMenu() {
+      menu.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+    function updateTrigger() {
+      var lang = LANG_BY_CODE[currentLang];
+      triggerFlag.innerHTML = lang.flag;
+      triggerName.textContent = lang.name;
+      Array.prototype.forEach.call(menu.querySelectorAll('.lang-option'), function (btn, i) {
+        btn.setAttribute('aria-selected', String(LANGUAGES[i].code === currentLang));
+      });
+    }
+
+    // exposed for selectLang()
+    setupLangPicker._updateTrigger = updateTrigger;
+  }
+
+  function selectLang(code) {
+    currentLang = code;
+    localStorage.setItem('breren-lang', code);
+    document.documentElement.lang = code;
+    applyDirection(code);
+    setupLangPicker._updateTrigger();
+    applyTexts();
+  }
+
+  function applyDirection(code) {
+    var lang = LANG_BY_CODE[code];
+    document.documentElement.dir = lang && lang.rtl ? 'rtl' : 'ltr';
   }
 
   function applyTexts() {

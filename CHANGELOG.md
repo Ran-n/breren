@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Tile icons can now be an image path (svg/png/jpg/webp/gif) instead of
+  only an emoji glyph; the renderer swaps in an `<img>` when `icon`
+  looks like an image file.
+
 - Optional per-language tile/category translations, keyed by a new
   `id` field on categories/items and stored in `translations.toml`
   (`name_<code>` / `description_<code>`), falling back to the plain
@@ -39,6 +43,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Tyche's tile now uses its actual app logo (`icons/tyche.svg`) instead
+  of a placeholder dice emoji.
 - Trimmed `docs/brand-facts.md` and `README.md` to keep the repo
   self-contained and product-agnostic: dropped implementation-level
   details and other-project references, keeping only facts about Breren

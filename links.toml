@@ -1,0 +1,12 @@
+title = "Breren"
+tagline = "A foundation that carries what matters forward."
+
+[[categories]]
+name = "Get started"
+
+  [[categories.items]]
+  name = "Edit this file"
+  url = "https://github.com/Ran-n/breren/edit/main/links.toml"
+  description = "links.toml — add, remove, or reorder tiles here. Push and the page updates automatically."
+  icon = "✏️"
+  color = "#8a6d3b"

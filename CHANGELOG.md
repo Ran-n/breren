@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/07/21 17:00:38.150416 )
+[//]: # (+ Revised: 	2026/07/21 17:11:41.863567 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+- `index.html` + `links.toml` — a static, GitHub Pages-published link
+  dashboard (Heimdall-style tiles). Editing `links.toml` alone updates the
+  page; `.nojekyll` added so GitHub Pages serves it as-is.
 
 - Repository scaffold: LICENSE, CHANGELOG, CONTRIBUTING, README, CONTRIBUTORS.
 - `docs/naming.md` — name etymology and philosophy.

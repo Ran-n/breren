@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Breren</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9B%B0%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f3ede3;
+    --bg-alt: #e9e0d0;
+    --fg: #2c241b;
+    --fg-muted: #6b5f4e;
+    --card-bg: #fffaf2;
+    --card-border: #ded0b8;
+    --accent: #8a6d3b;
+    --shadow: rgba(60, 45, 20, 0.12);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1811;
+      --bg-alt: #241f17;
+      --fg: #ece3d2;
+      --fg-muted: #a99d86;
+      --card-bg: #2a251c;
+      --card-border: #3c3527;
+      --accent: #d8b877;
+      --shadow: rgba(0, 0, 0, 0.4);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #f3ede3; --bg-alt: #e9e0d0; --fg: #2c241b; --fg-muted: #6b5f4e;
+    --card-bg: #fffaf2; --card-border: #ded0b8; --accent: #8a6d3b; --shadow: rgba(60, 45, 20, 0.12);
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1811; --bg-alt: #241f17; --fg: #ece3d2; --fg-muted: #a99d86;
+    --card-bg: #2a251c; --card-border: #3c3527; --accent: #d8b877; --shadow: rgba(0, 0, 0, 0.4);
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; min-height: 100%;
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
+    color: var(--fg);
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 5rem;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .mark {
+    font-size: 2.2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+    filter: saturate(0.7);
+  }
+  h1 {
+    font-size: 2rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0 0 0.4rem;
+    font-weight: 700;
+  }
+  .tagline {
+    color: var(--fg-muted);
+    font-size: 1rem;
+    margin: 0;
+  }
+  .category {
+    margin-bottom: 2.5rem;
+  }
+  .category h2 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--fg-muted);
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  a.tile {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 1.1rem;
+    border-radius: 14px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 2px 8px var(--shadow);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+  }
+  a.tile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px var(--shadow);
+    border-color: var(--accent);
+  }
+  .tile-icon {
+    flex: none;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    background: color-mix(in srgb, var(--tile-color, var(--accent)) 22%, transparent);
+  }
+  .tile-text {
+    min-width: 0;
+  }
+  .tile-name {
+    font-weight: 600;
+    font-size: 0.98rem;
+    margin: 0 0 0.15rem;
+    overflow-wrap: break-word;
+  }
+  .tile-desc {
+    font-size: 0.82rem;
+    color: var(--fg-muted);
+    margin: 0;
+    line-height: 1.35;
+  }
+  .empty, .error {
+    text-align: center;
+    color: var(--fg-muted);
+    padding: 2rem 0;
+  }
+  footer {
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+  }
+  footer a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <span class="mark">⛰️</span>
+    <h1 id="page-title">Breren</h1>
+    <p class="tagline" id="page-tagline"></p>
+  </header>
+  <div id="content"></div>
+  <footer>
+    Edit <a href="links.toml">links.toml</a> to change these tiles — no other file needs to change.
+  </footer>
+</main>
+<script>
+(function () {
+  var root = document.documentElement;
+  var applyTheme = function () {
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    // No manual toggle on this page; data-theme is left for hosts that stamp it.
+  };
+  applyTheme();
+
+  fetch('links.toml', { cache: 'no-store' })
+    .then(function (r) {
+      if (!r.ok) throw new Error('links.toml responded with ' + r.status);
+      return r.text();
+    })
+    .then(function (text) { return parseTOML(text); })
+    .then(render)
+    .catch(function (err) {
+      document.getElementById('content').innerHTML =
+        '<p class="error">Could not load links.toml (' + escapeHtml(err.message) + ').</p>';
+    });
+
+  // Minimal TOML subset parser: top-level string/bool/number keys, plus
+  // [[array.of.tables]] headers nested the way TOML actually nests them
+  // (a new [[a.b]] entry attaches under the most recently created [[a]]).
+  // Good enough for this page's schema; not a general TOML implementation.
+  function parseTOML(text) {
+    var root = {};
+    var current = root;
+    var lines = text.split(/\r?\n/);
+
+    lines.forEach(function (raw) {
+      var line = raw.trim();
+      if (!line || line.charAt(0) === '#') return;
+
+      var arrayHeader = line.match(/^\[\[(.+)\]\]$/);
+      if (arrayHeader) {
+        current = descend(root, arrayHeader[1].split('.'), true);
+        return;
+      }
+
+      var tableHeader = line.match(/^\[(.+)\]$/);
+      if (tableHeader) {
+        current = descend(root, tableHeader[1].split('.'), false);
+        return;
+      }
+
+      var eq = line.indexOf('=');
+      if (eq === -1) return;
+      var key = line.slice(0, eq).trim();
+      current[key] = parseValue(line.slice(eq + 1));
+    });
+
+    return root;
+
+    function descend(container, path, isArrayLeaf) {
+      for (var i = 0; i < path.length - 1; i++) {
+        var key = path[i].trim();
+        if (!container[key]) container[key] = [];
+        var arr = container[key];
+        if (arr.length === 0) arr.push({});
+        container = arr[arr.length - 1];
+      }
+      var lastKey = path[path.length - 1].trim();
+      if (isArrayLeaf) {
+        if (!container[lastKey]) container[lastKey] = [];
+        var table = {};
+        container[lastKey].push(table);
+        return table;
+      }
+      if (!container[lastKey]) container[lastKey] = {};
+      return container[lastKey];
+    }
+
+    function parseValue(raw) {
+      var v = raw.trim();
+      if (v.charAt(0) === '"') {
+        var out = '';
+        for (var i = 1; i < v.length; i++) {
+          if (v.charAt(i) === '\\') { out += v.charAt(i + 1); i++; continue; }
+          if (v.charAt(i) === '"') break;
+          out += v.charAt(i);
+        }
+        return out;
+      }
+      var hashIdx = v.indexOf('#');
+      if (hashIdx !== -1) v = v.slice(0, hashIdx).trim();
+      if (v === 'true') return true;
+      if (v === 'false') return false;
+      if (v !== '' && !isNaN(Number(v))) return Number(v);
+      return v;
+    }
+  }
+
+  function render(data) {
+    if (data.title) document.getElementById('page-title').textContent = data.title;
+    if (data.tagline) document.getElementById('page-tagline').textContent = data.tagline;
+    document.title = data.title || 'Breren';
+
+    var container = document.getElementById('content');
+    var categories = Array.isArray(data.categories) ? data.categories : [];
+
+    if (categories.length === 0) {
+      container.innerHTML = '<p class="empty">No links yet — add some to links.json.</p>';
+      return;
+    }
+
+    categories.forEach(function (cat) {
+      var section = document.createElement('section');
+      section.className = 'category';
+
+      if (cat.name) {
+        var h2 = document.createElement('h2');
+        h2.textContent = cat.name;
+        section.appendChild(h2);
+      }
+
+      var grid = document.createElement('div');
+      grid.className = 'grid';
+
+      (cat.items || []).forEach(function (item) {
+        grid.appendChild(renderTile(item));
+      });
+
+      section.appendChild(grid);
+      container.appendChild(section);
+    });
+  }
+
+  function renderTile(item) {
+    var a = document.createElement('a');
+    a.className = 'tile';
+    a.href = item.url || '#';
+    if (item.url && /^https?:\/\//i.test(item.url)) {
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+    }
+    if (item.color) a.style.setProperty('--tile-color', item.color);
+
+    var icon = document.createElement('div');
+    icon.className = 'tile-icon';
+    icon.textContent = item.icon || (item.name ? item.name.charAt(0).toUpperCase() : '?');
+
+    var text = document.createElement('div');
+    text.className = 'tile-text';
+
+    var name = document.createElement('p');
+    name.className = 'tile-name';
+    name.textContent = item.name || item.url || 'Untitled';
+    text.appendChild(name);
+
+    if (item.description) {
+      var desc = document.createElement('p');
+      desc.className = 'tile-desc';
+      desc.textContent = item.description;
+      text.appendChild(desc);
+    }
+
+    a.appendChild(icon);
+    a.appendChild(text);
+    return a;
+  }
+
+  function escapeHtml(s) {
+    var div = document.createElement('div');
+    div.textContent = s;
+    return div.innerHTML;
+  }
+})();
+</script>
+</body>
+</html>

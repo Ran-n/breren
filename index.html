@@ -159,7 +159,11 @@
     width: 72px;
     height: 72px;
     margin: 0 auto 0.5rem;
+    cursor: pointer;
   }
+  .mark svg { display: block; width: 100%; height: 100%; }
+  .mark[aria-disabled="true"] { cursor: not-allowed; }
+  .mark:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   h1 {
     font-size: 2rem;
     letter-spacing: 0.08em;
@@ -267,7 +271,7 @@
     <button class="theme-btn" id="theme-toggle" type="button"></button>
   </div>
   <header>
-    <img class="mark" src="icons/breren-logo-animated.svg" alt="" width="72" height="72">
+    <div class="mark" id="logo-mark" role="button" tabindex="0" aria-label="Redraw logo" aria-disabled="false"></div>
     <h1 id="page-title">Breren</h1>
     <p class="tagline" id="page-tagline"></p>
   </header>
@@ -527,6 +531,7 @@
 
   setupLangPicker();
   setupThemeToggle();
+  setupLogoMark();
   applyTheme(effectiveTheme());
   applyDirection(currentLang);
   applyTexts();
@@ -704,6 +709,54 @@
       localStorage.setItem('breren-theme', next);
       applyTheme(next);
     });
+  }
+
+  // ---- logo mark ----------------------------------------------------
+
+  function setupLogoMark() {
+    var mark = document.getElementById('logo-mark');
+    var busy = false;
+
+    fetch('icons/breren-logo-animated.svg', { cache: 'no-store' })
+      .then(function (r) { return r.text(); })
+      .then(function (svgText) {
+        mark.innerHTML = svgText;
+        mark.addEventListener('click', replay);
+        mark.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            replay();
+          }
+        });
+      })
+      .catch(function () {}); // decorative; page works without it
+
+    function replay() {
+      if (busy) return;
+      var animated = mark.querySelectorAll('.rampart, .hut');
+      if (animated.length === 0) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      busy = true;
+      mark.setAttribute('aria-disabled', 'true');
+      var remaining = animated.length;
+
+      Array.prototype.forEach.call(animated, function (el) { el.style.animation = 'none'; });
+      void mark.offsetWidth; // force reflow so the animation restarts
+      Array.prototype.forEach.call(animated, function (el) {
+        el.style.animation = '';
+        el.addEventListener('animationend', onEnd);
+      });
+
+      function onEnd(e) {
+        e.currentTarget.removeEventListener('animationend', onEnd);
+        remaining--;
+        if (remaining === 0) {
+          busy = false;
+          mark.setAttribute('aria-disabled', 'false');
+        }
+      }
+    }
   }
 
   // ---- TOML parsing ----------------------------------------------------

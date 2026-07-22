@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/07/21 19:20:26.865453 )
+[//]: # (+ Revised: 	2026/07/22 12:07:55.724267 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -43,6 +43,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- The header mark now redraws its animation on click (inlined as SVG
+  instead of an `<img>` so the animation can be restarted); it ignores
+  further clicks until the redraw finishes.
 - Tyche's tile now uses its actual app logo (`icons/tyche.svg`) instead
   of a placeholder dice emoji.
 - Trimmed `docs/brand-facts.md` and `README.md` to keep the repo

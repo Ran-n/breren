@@ -247,13 +247,6 @@
     color: var(--fg-muted);
     padding: 2rem 0;
   }
-  footer {
-    text-align: center;
-    margin-top: 3rem;
-    font-size: 0.78rem;
-    color: var(--fg-muted);
-  }
-  footer a { color: inherit; }
 </style>
 </head>
 <body>
@@ -275,7 +268,6 @@
     <p class="tagline" id="page-tagline"></p>
   </header>
   <div id="content"></div>
-  <footer id="page-footer"></footer>
 </main>
 <script>
 (function () {
@@ -322,7 +314,6 @@
   var STRINGS = {
     gl: {
       tagline: 'Un alicerce que leva adiante o que importa.',
-      footer: 'Edita {file} para cambiar estas ligazóns — non hai que tocar ningún outro ficheiro.',
       empty: 'Aínda non hai ligazóns — engade algunhas a {file}.',
       errorPrefix: 'Non se puido cargar {file}',
       themeToLight: 'Cambiar a modo claro',
@@ -330,7 +321,6 @@
     },
     en: {
       tagline: 'A foundation that carries what matters forward.',
-      footer: 'Edit {file} to change these tiles — no other file needs to change.',
       empty: 'No links yet — add some to {file}.',
       errorPrefix: 'Could not load {file}',
       themeToLight: 'Switch to light mode',
@@ -338,7 +328,6 @@
     },
     eo: {
       tagline: 'Fundamento kiu portas antaŭen tion, kio gravas.',
-      footer: 'Redaktu {file} por ŝanĝi ĉi tiujn kahelojn — neniu alia dosiero devas ŝanĝiĝi.',
       empty: 'Ankoraŭ neniuj ligiloj — aldonu kelkajn al {file}.',
       errorPrefix: 'Ne eblis ŝargi {file}',
       themeToLight: 'Ŝanĝi al luma reĝimo',
@@ -346,7 +335,6 @@
     },
     es: {
       tagline: 'Un fundamento que impulsa hacia adelante lo que importa.',
-      footer: 'Edita {file} para cambiar estas fichas — no hace falta tocar ningún otro archivo.',
       empty: 'Aún no hay enlaces — añade algunos a {file}.',
       errorPrefix: 'No se pudo cargar {file}',
       themeToLight: 'Cambiar a modo claro',
@@ -354,7 +342,6 @@
     },
     fr: {
       tagline: "Une fondation qui fait avancer ce qui compte.",
-      footer: "Modifiez {file} pour changer ces tuiles — aucun autre fichier n'a besoin de changer.",
       empty: 'Pas encore de liens — ajoutez-en dans {file}.',
       errorPrefix: 'Impossible de charger {file}',
       themeToLight: 'Passer en mode clair',
@@ -362,7 +349,6 @@
     },
     pt: {
       tagline: 'Uma base que leva adiante o que importa.',
-      footer: 'Edite {file} para alterar estes blocos — nenhum outro ficheiro precisa mudar.',
       empty: 'Ainda sem links — adicione alguns a {file}.',
       errorPrefix: 'Não foi possível carregar {file}',
       themeToLight: 'Mudar para o modo claro',
@@ -370,7 +356,6 @@
     },
     de: {
       tagline: 'Ein Fundament, das Wichtiges weiterträgt.',
-      footer: 'Bearbeite {file}, um diese Kacheln zu ändern — keine andere Datei muss sich ändern.',
       empty: 'Noch keine Links — füge welche zu {file} hinzu.',
       errorPrefix: '{file} konnte nicht geladen werden',
       themeToLight: 'Zum hellen Modus wechseln',
@@ -378,7 +363,6 @@
     },
     it: {
       tagline: 'Una fondazione che porta avanti ciò che conta.',
-      footer: 'Modifica {file} per cambiare questi riquadri — nessun altro file deve cambiare.',
       empty: 'Ancora nessun link — aggiungine in {file}.',
       errorPrefix: 'Impossibile caricare {file}',
       themeToLight: 'Passa alla modalità chiara',
@@ -386,7 +370,6 @@
     },
     ru: {
       tagline: 'Основа, которая несёт вперёд то, что важно.',
-      footer: 'Отредактируйте {file}, чтобы изменить эти плитки — больше ничего менять не нужно.',
       empty: 'Пока нет ссылок — добавьте их в {file}.',
       errorPrefix: 'Не удалось загрузить {file}',
       themeToLight: 'Переключиться на светлую тему',
@@ -394,7 +377,6 @@
     },
     zh: {
       tagline: '承载重要之物，一路向前的根基。',
-      footer: '编辑 {file} 即可更改这些卡片——无需修改其他文件。',
       empty: '还没有链接——请在 {file} 中添加。',
       errorPrefix: '无法加载 {file}',
       themeToLight: '切换到浅色模式',
@@ -402,7 +384,6 @@
     },
     ja: {
       tagline: '大切なものを未来へ運ぶ土台。',
-      footer: '{file} を編集すればタイルを変更できます — 他のファイルを変更する必要はありません。',
       empty: 'まだリンクがありません — {file} に追加してください。',
       errorPrefix: '{file} を読み込めませんでした',
       themeToLight: 'ライトモードに切り替える',
@@ -410,7 +391,6 @@
     },
     ko: {
       tagline: '중요한 것을 앞으로 나아가게 하는 토대.',
-      footer: '{file} 을(를) 편집하면 타일이 바뀝니다 — 다른 파일은 바꿀 필요 없습니다.',
       empty: '아직 링크가 없습니다 — {file} 에 추가하세요.',
       errorPrefix: '{file} 을(를) 불러올 수 없습니다',
       themeToLight: '라이트 모드로 전환',
@@ -418,7 +398,6 @@
     },
     ar: {
       tagline: 'أساس يحمل ما يهم إلى الأمام.',
-      footer: 'عدّل {file} لتغيير هذه البطاقات — لا حاجة لتغيير أي ملف آخر.',
       empty: 'لا توجد روابط بعد — أضف بعضها إلى {file}.',
       errorPrefix: 'تعذّر تحميل {file}',
       themeToLight: 'التبديل إلى الوضع الفاتح',
@@ -426,7 +405,6 @@
     },
     hi: {
       tagline: 'एक नींव जो ज़रूरी चीज़ों को आगे ले जाती है।',
-      footer: 'इन टाइलों को बदलने के लिए {file} संपादित करें — किसी और फ़ाइल को बदलने की ज़रूरत नहीं।',
       empty: 'अभी कोई लिंक नहीं है — {file} में कुछ जोड़ें।',
       errorPrefix: '{file} लोड नहीं हो सका',
       themeToLight: 'लाइट मोड में बदलें',
@@ -434,7 +412,6 @@
     },
     bn: {
       tagline: 'একটি ভিত্তি যা গুরুত্বপূর্ণ জিনিসকে সামনে এগিয়ে নিয়ে যায়।',
-      footer: 'এই টাইলগুলো পরিবর্তন করতে {file} সম্পাদনা করুন — অন্য কোনো ফাইল পরিবর্তনের প্রয়োজন নেই।',
       empty: 'এখনো কোনো লিঙ্ক নেই — {file}-এ কিছু যোগ করুন।',
       errorPrefix: '{file} লোড করা যায়নি',
       themeToLight: 'লাইট মোডে যান',
@@ -442,7 +419,6 @@
     },
     ur: {
       tagline: 'ایک بنیاد جو اہم چیزوں کو آگے لے کر جاتی ہے۔',
-      footer: 'ان ٹائلز کو تبدیل کرنے کے لیے {file} میں ترمیم کریں — کسی اور فائل کو بدلنے کی ضرورت نہیں۔',
       empty: 'ابھی تک کوئی لنک نہیں — {file} میں کچھ شامل کریں۔',
       errorPrefix: '{file} لوڈ نہیں ہو سکی',
       themeToLight: 'لائٹ موڈ پر جائیں',
@@ -450,7 +426,6 @@
     },
     fa: {
       tagline: 'بنیادی که آنچه اهمیت دارد را به پیش می‌برد.',
-      footer: 'برای تغییر این کاشی‌ها {file} را ویرایش کنید — نیازی به تغییر فایل دیگری نیست.',
       empty: 'هنوز پیوندی وجود ندارد — چند مورد به {file} اضافه کنید.',
       errorPrefix: 'بارگذاری {file} ممکن نشد',
       themeToLight: 'رفتن به حالت روشن',
@@ -458,7 +433,6 @@
     },
     tr: {
       tagline: 'Önemli olanı ileriye taşıyan bir temel.',
-      footer: 'Bu kutucukları değiştirmek için {file} dosyasını düzenleyin — başka hiçbir dosyayı değiştirmenize gerek yok.',
       empty: 'Henüz bağlantı yok — {file} dosyasına birkaç tane ekleyin.',
       errorPrefix: '{file} yüklenemedi',
       themeToLight: 'Aydınlık moda geç',
@@ -466,7 +440,6 @@
     },
     vi: {
       tagline: 'Một nền tảng mang những điều quan trọng tiến về phía trước.',
-      footer: 'Chỉnh sửa {file} để thay đổi các ô này — không cần thay đổi tệp nào khác.',
       empty: 'Chưa có liên kết nào — hãy thêm vào {file}.',
       errorPrefix: 'Không thể tải {file}',
       themeToLight: 'Chuyển sang chế độ sáng',
@@ -474,7 +447,6 @@
     },
     id: {
       tagline: 'Fondasi yang membawa hal-hal penting maju ke depan.',
-      footer: 'Edit {file} untuk mengubah ubin ini — tidak ada file lain yang perlu diubah.',
       empty: 'Belum ada tautan — tambahkan beberapa di {file}.',
       errorPrefix: 'Tidak dapat memuat {file}',
       themeToLight: 'Beralih ke mode terang',
@@ -482,7 +454,6 @@
     },
     th: {
       tagline: 'รากฐานที่นำสิ่งสำคัญไปข้างหน้า',
-      footer: 'แก้ไข {file} เพื่อเปลี่ยนไทล์เหล่านี้ — ไม่ต้องแก้ไฟล์อื่นเลย',
       empty: 'ยังไม่มีลิงก์ — เพิ่มลงใน {file}',
       errorPrefix: 'โหลด {file} ไม่สำเร็จ',
       themeToLight: 'สลับเป็นโหมดสว่าง',
@@ -490,7 +461,6 @@
     },
     sw: {
       tagline: 'Msingi unaobeba mbele mambo muhimu.',
-      footer: 'Hariri {file} kubadilisha vigae hivi — hakuna faili nyingine inayohitaji kubadilishwa.',
       empty: 'Bado hakuna viungo — ongeza baadhi kwenye {file}.',
       errorPrefix: 'Imeshindwa kupakia {file}',
       themeToLight: 'Badilisha hali ya mwanga',
@@ -498,7 +468,6 @@
     },
     te: {
       tagline: 'ముఖ్యమైన వాటిని ముందుకు తీసుకెళ్లే పునాది.',
-      footer: 'ఈ టైల్స్‌ను మార్చడానికి {file}ను సవరించండి — వేరే ఫైల్ మార్చాల్సిన అవసరం లేదు.',
       empty: 'ఇంకా లింక్‌లు లేవు — {file}కు కొన్ని జోడించండి.',
       errorPrefix: '{file}ను లోడ్ చేయలేకపోయాము',
       themeToLight: 'లైట్ మోడ్‌కు మారండి',
@@ -506,7 +475,6 @@
     },
     ta: {
       tagline: 'முக்கியமானதை முன்னோக்கி கொண்டு செல்லும் அடித்தளம்.',
-      footer: 'இந்த டைல்களை மாற்ற {file} ஐத் திருத்தவும் — வேறு எந்த கோப்பையும் மாற்ற தேவையில்லை.',
       empty: 'இதுவரை இணைப்புகள் இல்லை — {file} இல் சிலவற்றைச் சேர்க்கவும்.',
       errorPrefix: '{file} ஐ ஏற்ற முடியவில்லை',
       themeToLight: 'லைட் பயன்முறைக்கு மாறவும்',
@@ -514,7 +482,6 @@
     },
     pa: {
       tagline: 'ਇੱਕ ਬੁਨਿਆਦ ਜੋ ਜ਼ਰੂਰੀ ਚੀਜ਼ਾਂ ਨੂੰ ਅੱਗੇ ਲੈ ਜਾਂਦੀ ਹੈ।',
-      footer: 'ਇਹਨਾਂ ਟਾਈਲਾਂ ਨੂੰ ਬਦਲਣ ਲਈ {file} ਨੂੰ ਸੋਧੋ — ਕਿਸੇ ਹੋਰ ਫ਼ਾਈਲ ਨੂੰ ਬਦਲਣ ਦੀ ਲੋੜ ਨਹੀਂ।',
       empty: 'ਹਾਲੇ ਕੋਈ ਲਿੰਕ ਨਹੀਂ — {file} ਵਿੱਚ ਕੁਝ ਸ਼ਾਮਲ ਕਰੋ।',
       errorPrefix: '{file} ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੀ',
       themeToLight: "ਲਾਈਟ ਮੋਡ 'ਤੇ ਜਾਓ",
@@ -673,8 +640,6 @@
 
   function applyTexts() {
     document.getElementById('page-tagline').textContent = t('tagline');
-    document.getElementById('page-footer').innerHTML =
-      t('footer', { file: '<a href="' + LINKS_FILE + '">' + LINKS_FILE + '</a>' });
     updateThemeButtonLabel();
     if (latestData) render(latestData);
     else if (latestError) renderError(latestError);

@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/07/22 12:07:55.724267 )
+[//]: # (+ Revised: 	2026/07/22 12:53:35.646788 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+- `icons/breren-logo-spin.svg` — standalone spinning variant of the
+  breren mark for use as a loading indicator: the three ramparts
+  rotate in place (alternating direction, doubling speed inward), the
+  outer huts orbit the fixed center hut, plus a soft drop shadow,
+  light-catching gradients, and a scale/fade entrance.
 
 - Tile icons can now be an image path (svg/png/jpg/webp/gif) instead of
   only an emoji glyph; the renderer swaps in an `<img>` when `icon`
@@ -52,3 +58,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   self-contained and product-agnostic: dropped implementation-level
   details and other-project references, keeping only facts about Breren
   itself.
+
+### Removed
+
+- The page footer ("Edit links.toml to change these tiles — no other
+  file needs to change") — dropped its markup, styling, and all 25
+  per-language strings.

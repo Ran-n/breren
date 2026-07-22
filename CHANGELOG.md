@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/07/22 12:53:35.646788 )
+[//]: # (+ Revised: 	2026/07/22 13:08:40.388643 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -58,6 +58,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   self-contained and product-agnostic: dropped implementation-level
   details and other-project references, keeping only facts about Breren
   itself.
+
+### Fixed
+
+- Language picker flags now render as inline SVGs instead of Unicode
+  regional-indicator emoji, which several platforms/fonts (notably
+  Windows) fail to compose into flag glyphs.
 
 ### Removed
 

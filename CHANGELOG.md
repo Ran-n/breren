@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/07/22 13:08:40.388643 )
+[//]: # (+ Revised: 	2026/07/30 14:11:19.629424 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -14,6 +14,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+- An "About Breren" info button in the toolbar opens a modal with the
+  name's origin story (the *bher-*/*brigā* etymology) and a link to the
+  full write-up in `docs/naming.md`; translated across all 25 supported
+  languages.
+- `icons/breren.ico` — multi-resolution favicon, wired up as an
+  `alternate icon` alongside the existing SVG icon for browsers that
+  don't support SVG favicons.
+- `icons/breren-keepassxc.ico`, `icons/breren-keepassxc.png` — KeePassXC
+  entry icon variants of the mark.
+- `icons/breren-square.svg`, `icons/breren-square-simple.svg` — square
+  crop variants of the mark for use where a square aspect is required.
 
 - `icons/breren-logo-spin.svg` — standalone spinning variant of the
   breren mark for use as a loading indicator: the three ramparts

@@ -36,13 +36,20 @@
     if (stored) return stored;
     return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
   }
-  document.getElementById('pbl-frame').addEventListener('load', function () {
-    this.contentWindow.postMessage({
+  var frame = document.getElementById('pbl-frame');
+  function sendPreset() {
+    frame.contentWindow.postMessage({
       type: 'rn-preset',
       lang: detectLang(),
       theme: effectiveTheme()
     }, 'https://ran-n.github.io');
-  });
+  }
+  frame.addEventListener('load', sendPreset);
+  // Returning via the browser's back button restores this page (and its
+  // iframe) from the bfcache instead of firing 'load' again, so a lang/theme
+  // change made on breren.com in between would otherwise never reach the
+  // iframe. 'pageshow' fires on both a fresh load and a bfcache restore.
+  window.addEventListener('pageshow', sendPreset);
 </script>
 </body>
 </html>

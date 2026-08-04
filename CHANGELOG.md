@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/08/04 11:31:06.017616 )
+[//]: # (+ Revised: 	2026/08/04 13:50:26.088168 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- A footer with a link to the PayBack License (PBL) 2.0 on GitHub,
+  shown at the bottom of the page.
 - Vitralis tile — persistent screen overlay for drawing annotations over
   a live desktop; linked to `breren.com/vitralis`, with translations
   across all 25 supported languages.

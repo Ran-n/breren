@@ -312,6 +312,20 @@
     color: var(--fg-muted);
     padding: 2rem 0;
   }
+  footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--card-border);
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--fg-muted);
+  }
+  footer a {
+    color: var(--fg-muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  footer a:hover { color: var(--accent); }
 </style>
 </head>
 <body>
@@ -334,6 +348,9 @@
     <p class="tagline" id="page-tagline"></p>
   </header>
   <div id="content"></div>
+  <footer>
+    <a id="license-link" href="https://github.com/Ran-n/breren/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">PayBack License (PBL) 2.0</a>
+  </footer>
 </main>
 <div class="about-overlay" id="about-overlay" hidden>
   <div class="about-dialog" role="dialog" aria-modal="true" aria-labelledby="about-title">

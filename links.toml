@@ -11,3 +11,11 @@ name = "Get started"
   description = "Cross-platform random number selector — draws N numbers from a pool of 1…M, with or without replacement."
   icon = "icons/tyche.svg"
   color = "#8f3f71"
+
+  [[categories.items]]
+  id = "vitralis"
+  name = "Vitralis"
+  url = "https://ran-n.github.io/vitralis/"
+  description = "Persistent screen overlay for drawing annotations over your live desktop — click-through, always-on-top, and saved across sessions."
+  icon = "icons/vitralis.png"
+  color = "#1a5fa8"

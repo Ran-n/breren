@@ -13,11 +13,34 @@
 <body>
 <iframe id="pbl-frame" src="https://ran-n.github.io/doc/" title="PayBack License" allowfullscreen></iframe>
 <script>
+  // breren.com only writes breren-lang/breren-theme once the visitor
+  // explicitly picks something - on a first-ever visit neither is set,
+  // so a raw localStorage read sends null/null and the hand-off silently
+  // does nothing. Mirror breren.com's own fallback logic (same supported
+  // languages, same browser-language/prefers-color-scheme detection) so
+  // the very first visit hands off breren's actual displayed lang/theme,
+  // not just whatever's been explicitly saved.
+  var SUPPORTED_LANGS = ['gl', 'en', 'zh', 'hi', 'es', 'ar', 'fr', 'bn', 'pt', 'ru', 'ur', 'id', 'de', 'ja', 'sw', 'te', 'tr', 'ta', 'vi', 'ko', 'it', 'fa', 'pa', 'th', 'eo'];
+  function detectLang() {
+    var stored = localStorage.getItem('breren-lang');
+    if (stored && SUPPORTED_LANGS.indexOf(stored) !== -1) return stored;
+    var candidates = navigator.languages || [navigator.language || 'gl'];
+    for (var i = 0; i < candidates.length; i++) {
+      var code = (candidates[i] || '').slice(0, 2).toLowerCase();
+      if (SUPPORTED_LANGS.indexOf(code) !== -1) return code;
+    }
+    return 'gl';
+  }
+  function effectiveTheme() {
+    var stored = localStorage.getItem('breren-theme');
+    if (stored) return stored;
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
   document.getElementById('pbl-frame').addEventListener('load', function () {
     this.contentWindow.postMessage({
       type: 'rn-preset',
-      lang: localStorage.getItem('breren-lang'),
-      theme: localStorage.getItem('breren-theme')
+      lang: detectLang(),
+      theme: effectiveTheme()
     }, 'https://ran-n.github.io');
   });
 </script>

@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `about/index.html` — a "Palette" card between the mark and philosophy
+  sections, with swatches for the Gruvbox background, card, accent, and
+  ink colors, translated across all 25 supported languages.
 - `about/index.html` — dedicated "About Breren" page at
   `breren.com/about`: the *bher-*/*brigā* naming story, a card on the
   castro mark's *brigā* symbolism, and a short philosophy statement,

@@ -85,7 +85,6 @@
       themeToDark: 'Cambiar a modo escuro',
       aboutTitle: 'Sobre Breren',
       aboutOrigin: 'Breren combina dúas raíces antigas: o protoindoeuropeo *bher-* — levar, portar, transmitir cara adiante — e o protoceltra *brigā* — unha fortaleza, unha altura desde a que se ve máis lonxe. Xuntas: unha base forte que leva o que importa cara ao futuro.',
-      aboutMore: 'Le a historia completa do nome',
       backToHome: '← Volver a Breren'
     },
     en: {
@@ -94,7 +93,6 @@
       themeToDark: 'Switch to dark mode',
       aboutTitle: 'About Breren',
       aboutOrigin: 'Breren blends two ancient roots: Proto-Indo-European *bher-* — to carry, to bear, to bring forward — and Proto-Celtic *brigā* — a stronghold, a height from which you can see further. Together: a strong foundation that carries what matters into the future.',
-      aboutMore: 'Read the full naming story',
       backToHome: '← Back to Breren'
     },
     eo: {
@@ -103,7 +101,6 @@
       themeToDark: 'Ŝanĝi al malluma reĝimo',
       aboutTitle: 'Pri Breren',
       aboutOrigin: 'Breren kombinas du antikvajn radikojn: la praindeŭropan *bher-* — porti, teni, antaŭenporti — kaj la prakeltan *brigā* — fortikaĵo, alto de kie oni vidas pli malproksimen. Kune: forta fundamento kiu portas antaŭen tion, kio gravas.',
-      aboutMore: 'Legu la kompletan historion de la nomo',
       backToHome: '← Reen al Breren'
     },
     es: {
@@ -112,7 +109,6 @@
       themeToDark: 'Cambiar a modo oscuro',
       aboutTitle: 'Sobre Breren',
       aboutOrigin: 'Breren combina dos raíces antiguas: el protoindoeuropeo *bher-* — llevar, portar, transmitir hacia adelante — y el protoceltal *brigā* — una fortaleza, una altura desde la que se ve más lejos. Juntas: una base fuerte que lleva hacia adelante lo que importa.',
-      aboutMore: 'Lee la historia completa del nombre',
       backToHome: '← Volver a Breren'
     },
     fr: {
@@ -121,7 +117,6 @@
       themeToDark: 'Passer en mode sombre',
       aboutTitle: 'À propos de Breren',
       aboutOrigin: "Breren associe deux racines anciennes : le proto-indo-européen *bher-* — porter, transmettre, faire avancer — et le proto-celtique *brigā* — une forteresse, une hauteur d'où l'on voit plus loin. Ensemble : une fondation solide qui fait avancer ce qui compte.",
-      aboutMore: "Lire l'histoire complète du nom",
       backToHome: '← Retour à Breren'
     },
     pt: {
@@ -130,7 +125,6 @@
       themeToDark: 'Mudar para o modo escuro',
       aboutTitle: 'Sobre a Breren',
       aboutOrigin: 'A Breren combina duas raízes antigas: o proto-indo-europeu *bher-* — carregar, levar, transmitir adiante — e o proto-celta *brigā* — uma fortaleza, uma altura de onde se vê mais longe. Juntas: uma base forte que leva adiante o que importa.',
-      aboutMore: 'Leia a história completa do nome',
       backToHome: '← Voltar à Breren'
     },
     de: {
@@ -139,7 +133,6 @@
       themeToDark: 'Zum dunklen Modus wechseln',
       aboutTitle: 'Über Breren',
       aboutOrigin: 'Breren verbindet zwei alte Wurzeln: das urindogermanische *bher-* — tragen, bringen, weitertragen — und das urkeltische *brigā* — eine Festung, eine Anhöhe, von der aus man weiter sieht. Zusammen: ein starkes Fundament, das Wichtiges in die Zukunft trägt.',
-      aboutMore: 'Die ganze Geschichte des Namens lesen',
       backToHome: '← Zurück zu Breren'
     },
     it: {
@@ -148,7 +141,6 @@
       themeToDark: 'Passa alla modalità scura',
       aboutTitle: 'Informazioni su Breren',
       aboutOrigin: "Breren unisce due antiche radici: il proto-indoeuropeo *bher-* — portare, recare, trasmettere in avanti — e il proto-celtico *brigā* — una fortezza, un'altura da cui si vede più lontano. Insieme: una base solida che porta avanti ciò che conta.",
-      aboutMore: 'Leggi la storia completa del nome',
       backToHome: '← Torna a Breren'
     },
     ru: {
@@ -157,7 +149,6 @@
       themeToDark: 'Переключиться на тёмную тему',
       aboutTitle: 'О Breren',
       aboutOrigin: 'Breren соединяет два древних корня: праиндоевропейский *bher-* — нести, приносить, передавать вперёд — и пракельтский *brigā* — крепость, возвышенность, с которой видно дальше. Вместе: прочная основа, несущая важное в будущее.',
-      aboutMore: 'Прочитать полную историю названия',
       backToHome: '← Назад к Breren'
     },
     zh: {
@@ -166,7 +157,6 @@
       themeToDark: '切换到深色模式',
       aboutTitle: '关于 Breren',
       aboutOrigin: 'Breren 融合了两个古老的词根:原始印欧语 *bher-*——承载、携带、向前传递——以及原始凯尔特语 *brigā*——堡垒,能看得更远的高地。合而为一:承载重要之物、迈向未来的坚实根基。',
-      aboutMore: '阅读完整的命名故事',
       backToHome: '← 返回 Breren'
     },
     ja: {
@@ -175,7 +165,6 @@
       themeToDark: 'ダークモードに切り替える',
       aboutTitle: 'Breren について',
       aboutOrigin: 'Brerenは二つの古い語根を組み合わせています。印欧祖語の*bher-*(運ぶ、携える、前へ伝える)と、ケルト祖語の*brigā*(砦、より遠くを見渡せる高台)です。合わせると、大切なものを未来へ運ぶ強固な土台となります。',
-      aboutMore: '名前の由来を詳しく読む',
       backToHome: '← Breren に戻る'
     },
     ko: {
@@ -184,7 +173,6 @@
       themeToDark: '다크 모드로 전환',
       aboutTitle: 'Breren 소개',
       aboutOrigin: 'Breren은 두 가지 고대 어근을 결합합니다. 인도유럽조어 *bher-*(나르다, 짊어지다, 앞으로 전하다)와 켈트조어 *brigā*(요새, 더 멀리 볼 수 있는 높은 곳)입니다. 함께: 중요한 것을 미래로 나르는 튼튼한 토대입니다.',
-      aboutMore: '이름의 전체 이야기 읽기',
       backToHome: '← Breren으로 돌아가기'
     },
     ar: {
@@ -193,7 +181,6 @@
       themeToDark: 'التبديل إلى الوضع الداكن',
       aboutTitle: 'عن Breren',
       aboutOrigin: 'يجمع اسم Breren بين جذرين قديمين: الجذر الهندي الأوروبي البدائي *bher-* — يحمل، يسند، ينقل إلى الأمام — والجذر السلتي البدائي *brigā* — حصن، مرتفع يُرى منه أبعد. معًا: أساس قوي يحمل ما يهم نحو المستقبل.',
-      aboutMore: 'اقرأ القصة الكاملة للاسم',
       backToHome: '← العودة إلى Breren'
     },
     hi: {
@@ -202,7 +189,6 @@
       themeToDark: 'डार्क मोड में बदलें',
       aboutTitle: 'Breren के बारे में',
       aboutOrigin: 'Breren दो प्राचीन मूलों को जोड़ता है: प्रोटो-इंडो-यूरोपीय *bher-* — ले जाना, वहन करना, आगे पहुँचाना — और प्रोटो-सेल्टिक *brigā* — एक किला, एक ऊँचाई जहाँ से आगे तक देखा जा सके। साथ में: एक मज़बूत नींव जो ज़रूरी चीज़ों को भविष्य की ओर ले जाती है।',
-      aboutMore: 'नाम की पूरी कहानी पढ़ें',
       backToHome: '← Breren पर वापस जाएँ'
     },
     bn: {
@@ -211,7 +197,6 @@
       themeToDark: 'ডার্ক মোডে যান',
       aboutTitle: 'Breren সম্পর্কে',
       aboutOrigin: 'Breren দুটি প্রাচীন মূল একত্রিত করে: প্রোটো-ইন্দো-ইউরোপীয় *bher-* — বহন করা, ধরে রাখা, সামনে এগিয়ে নেওয়া — এবং প্রোটো-কেল্টিক *brigā* — একটি দুর্গ, এমন উচ্চতা যেখান থেকে আরও দূর দেখা যায়। একসাথে: একটি শক্তিশালী ভিত্তি যা গুরুত্বপূর্ণ জিনিসকে ভবিষ্যতের দিকে বহন করে।',
-      aboutMore: 'নামের সম্পূর্ণ গল্প পড়ুন',
       backToHome: '← Breren-এ ফিরে যান'
     },
     ur: {
@@ -220,7 +205,6 @@
       themeToDark: 'ڈارک موڈ پر جائیں',
       aboutTitle: 'Breren کے بارے میں',
       aboutOrigin: 'Breren دو قدیم جڑوں کو ملاتا ہے: پروٹو-انڈو-یورپی *bher-* — اٹھانا، لے جانا، آگے پہنچانا — اور پروٹو-سیلٹک *brigā* — ایک قلعہ، ایک بلندی جہاں سے مزید دور دیکھا جا سکے۔ ملا کر: ایک مضبوط بنیاد جو اہم چیزوں کو مستقبل کی طرف لے جاتی ہے۔',
-      aboutMore: 'نام کی مکمل کہانی پڑھیں',
       backToHome: '← Breren پر واپس جائیں'
     },
     fa: {
@@ -229,7 +213,6 @@
       themeToDark: 'رفتن به حالت تاریک',
       aboutTitle: 'درباره Breren',
       aboutOrigin: 'Breren دو ریشه باستانی را ترکیب می‌کند: ریشه پروتوهندواروپایی *bher-* — حمل کردن، بردن، به‌پیش‌بردن — و ریشه پروتوکلتیک *brigā* — دژی، بلندایی که از آن دورتر می‌توان دید. با هم: بنیادی استوار که آنچه اهمیت دارد را به آینده می‌برد.',
-      aboutMore: 'داستان کامل نام را بخوانید',
       backToHome: '← بازگشت به Breren'
     },
     tr: {
@@ -238,7 +221,6 @@
       themeToDark: 'Karanlık moda geç',
       aboutTitle: 'Breren Hakkında',
       aboutOrigin: 'Breren iki eski kökü birleştirir: Proto-Hint-Avrupa kökü *bher-* — taşımak, sürdürmek, ileriye götürmek — ve Proto-Kelt kökü *brigā* — bir kale, daha uzağı görebileceğiniz bir yükseklik. Birlikte: önemli olanı geleceğe taşıyan güçlü bir temel.',
-      aboutMore: 'İsmin tam hikâyesini oku',
       backToHome: '← Breren’a dön'
     },
     vi: {
@@ -247,7 +229,6 @@
       themeToDark: 'Chuyển sang chế độ tối',
       aboutTitle: 'Về Breren',
       aboutOrigin: 'Breren kết hợp hai gốc từ cổ xưa: gốc Tiền Ấn-Âu *bher-* — mang, gánh vác, đưa về phía trước — và gốc Tiền Celt *brigā* — một pháo đài, một nơi cao để nhìn xa hơn. Kết hợp lại: một nền tảng vững chắc mang những điều quan trọng tiến về phía trước.',
-      aboutMore: 'Đọc câu chuyện đầy đủ về cái tên',
       backToHome: '← Quay lại Breren'
     },
     id: {
@@ -256,7 +237,6 @@
       themeToDark: 'Beralih ke mode gelap',
       aboutTitle: 'Tentang Breren',
       aboutOrigin: 'Breren memadukan dua akar kuno: Proto-Indo-Eropa *bher-* — membawa, memikul, membawa maju — dan Proto-Celtic *brigā* — sebuah benteng, ketinggian tempat memandang lebih jauh. Bersama-sama: fondasi kuat yang membawa hal-hal penting menuju masa depan.',
-      aboutMore: 'Baca kisah lengkap nama ini',
       backToHome: '← Kembali ke Breren'
     },
     th: {
@@ -265,7 +245,6 @@
       themeToDark: 'สลับเป็นโหมดมืด',
       aboutTitle: 'เกี่ยวกับ Breren',
       aboutOrigin: 'Breren ผสานรากศัพท์โบราณสองราก คือ Proto-Indo-European *bher-* ที่แปลว่าแบก นำพา ส่งต่อไปข้างหน้า และ Proto-Celtic *brigā* ที่แปลว่าป้อมปราการ ที่สูงซึ่งมองเห็นได้ไกลกว่า รวมกันแล้วคือรากฐานที่มั่นคงซึ่งนำสิ่งสำคัญไปสู่อนาคต',
-      aboutMore: 'อ่านเรื่องราวเต็มของชื่อนี้',
       backToHome: '← กลับไปที่ Breren'
     },
     sw: {
@@ -274,7 +253,6 @@
       themeToDark: 'Badilisha hali ya giza',
       aboutTitle: 'Kuhusu Breren',
       aboutOrigin: 'Breren huchanganya mizizi miwili ya kale: mzizi wa Proto-Indo-European *bher-* — kubeba, kuchukua, kupeleka mbele — na mzizi wa Proto-Celtic *brigā* — ngome, kilele ambacho unaweza kuona mbali zaidi. Kwa pamoja: msingi imara unaobeba mambo muhimu kuelekea siku zijazo.',
-      aboutMore: 'Soma hadithi kamili ya jina',
       backToHome: '← Rudi Breren'
     },
     te: {
@@ -283,7 +261,6 @@
       themeToDark: 'డార్క్ మోడ్‌కు మారండి',
       aboutTitle: 'Breren గురించి',
       aboutOrigin: 'Breren రెండు ప్రాచీన మూలాలను మిళితం చేస్తుంది: ప్రోటో-ఇండో-యూరోపియన్ *bher-* — మోయడం, భరించడం, ముందుకు తీసుకెళ్లడం — మరియు ప్రోటో-సెల్టిక్ *brigā* — కోట, మరింత దూరం చూడగలిగే ఎత్తైన ప్రదేశం. కలిపి: ముఖ్యమైన వాటిని భవిష్యత్తు వైపు మోసుకెళ్లే బలమైన పునాది.',
-      aboutMore: 'పేరు వెనుక పూర్తి కథను చదవండి',
       backToHome: '← Breren‌కు తిరిగి వెళ్లండి'
     },
     ta: {
@@ -292,7 +269,6 @@
       themeToDark: 'டார்க் பயன்முறைக்கு மாறவும்',
       aboutTitle: 'Breren பற்றி',
       aboutOrigin: 'Breren இரண்டு பண்டைய வேர்களை இணைக்கிறது: புரோட்டோ-இந்தோ-ஐரோப்பிய *bher-* — சுமப்பது, தாங்குவது, முன்னோக்கி கொண்டு செல்வது — மற்றும் புரோட்டோ-கெல்டிக் *brigā* — ஒரு கோட்டை, தொலைவை பார்க்கக்கூடிய உயரம். ஒன்றாக: முக்கியமானதை எதிர்காலத்திற்கு கொண்டு செல்லும் வலுவான அடித்தளம்.',
-      aboutMore: 'பெயரின் முழு கதையைப் படியுங்கள்',
       backToHome: '← Breren‌க்குத் திரும்பு'
     },
     pa: {
@@ -301,7 +277,6 @@
       themeToDark: "ਡਾਰਕ ਮੋਡ 'ਤੇ ਜਾਓ",
       aboutTitle: 'Breren ਬਾਰੇ',
       aboutOrigin: 'Breren ਦੋ ਪ੍ਰਾਚੀਨ ਜੜ੍ਹਾਂ ਨੂੰ ਜੋੜਦਾ ਹੈ: ਪ੍ਰੋਟੋ-ਇੰਡੋ-ਯੂਰਪੀਅਨ *bher-* — ਚੁੱਕਣਾ, ਲਿਜਾਣਾ, ਅੱਗੇ ਪਹੁੰਚਾਉਣਾ — ਅਤੇ ਪ੍ਰੋਟੋ-ਸੈਲਟਿਕ *brigā* — ਇੱਕ ਕਿਲ੍ਹਾ, ਇੱਕ ਉਚਾਈ ਜਿੱਥੋਂ ਹੋਰ ਦੂਰ ਤੱਕ ਦੇਖਿਆ ਜਾ ਸਕੇ। ਇਕੱਠੇ: ਇੱਕ ਮਜ਼ਬੂਤ ਬੁਨਿਆਦ ਜੋ ਜ਼ਰੂਰੀ ਚੀਜ਼ਾਂ ਨੂੰ ਭਵਿੱਖ ਵੱਲ ਲੈ ਜਾਂਦੀ ਹੈ।',
-      aboutMore: 'ਨਾਮ ਦੀ ਪੂਰੀ ਕਹਾਣੀ ਪੜ੍ਹੋ',
       backToHome: '← ਵਾਪਸ Breren ਵੱਲ'
     }
   };

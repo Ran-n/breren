@@ -52,13 +52,35 @@
     padding: 0.3rem 0.7rem;
     margin: 0 0 1rem;
   }
-  .more-link {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
+  .section-head {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 1.5rem 0 0.9rem;
+    color: var(--fg);
   }
-  .more-link:hover { text-decoration: underline; }
+  .pair {
+    margin: 0 0 1.1rem;
+  }
+  .pair:last-child { margin-bottom: 0; }
+  .pair h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0 0 0.3rem;
+    color: var(--fg);
+  }
+  .pair p { margin: 0; line-height: 1.6; }
+  .divider {
+    border: none;
+    border-top: 1px solid var(--card-border);
+    margin: 1.5rem 0;
+  }
+  .aside {
+    font-style: italic;
+    color: var(--fg-muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0;
+  }
   .mark-lockup {
     display: block;
     width: 96px;
@@ -114,7 +136,23 @@
     <h2 id="name-head"></h2>
     <p id="name-body"></p>
     <p class="pronunciation">BRER-en — /ˈbrɛr.ən/</p>
-    <p><a class="more-link" id="more-link" href="https://github.com/Ran-n/breren/blob/main/docs/naming.md" target="_blank" rel="noopener noreferrer"></a></p>
+
+    <h3 class="section-head" id="etymology-head"></h3>
+    <div class="pair">
+      <h4 id="bher-head"></h4>
+      <p id="bher-body"></p>
+    </div>
+    <div class="pair">
+      <h4 id="briga-head"></h4>
+      <p id="briga-body"></p>
+    </div>
+    <div class="pair">
+      <h4 id="combining-head"></h4>
+      <p id="combining-body"></p>
+    </div>
+
+    <hr class="divider">
+    <p class="aside" id="why-not-aside"></p>
   </section>
 
   <section class="card">
@@ -137,6 +175,9 @@
   <section class="card">
     <h2 id="philosophy-head"></h2>
     <p id="philosophy-body"></p>
+    <hr class="divider">
+    <h4 id="oral-digital-head"></h4>
+    <p id="oral-digital-body"></p>
   </section>
 
   <footer>
@@ -153,6 +194,16 @@
       nameHead: 'O nome',
       markHead: 'A marca',
       markBody: 'O castro — un forte trazado en aneis concéntricos, coas cabanas reunidas dentro das súas murallas — fai visible *brigā*: un asentamento construído en alto, forte dabondo para perdurar e aberto dabondo para reunir o que importa dentro del.',
+      etymologyHead: 'Etimoloxía',
+      bherHead: '*bher-* — levar',
+      bherBody: 'Unha raíz protoindoeuropea detrás do inglés bear, burden e birth, do latín ferre e do grego pherein. A idea central non é o movemento en si: algo valioso existe, e alguén ten a responsabilidade de levalo adiante. O software fai exactamente iso — unha ferramenta dixital leva memorias, preferencias, coñecemento e fluxos de traballo. Unha aplicación non é só código; é un recipiente que permite que algo humano sobreviva máis alá do momento.',
+      brigaHead: '*brigā* — o alicerce',
+      brigaBody: 'Unha raíz protoceltra para unha altura, unha fortaleza, un asentamento fortificado — a raíz detrás de nomes antigos coma Brigantium, asociado á antiga A Coruña. Non é só "un outeiro": é un lugar desde o que se ve máis lonxe.',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- parte de *brigā*: forza, alicerce, elevación. -REN é unha terminación moderna que suxire continuidade, movemento, devir. Xuntas lense coma "o alicerce forte que leva adiante".',
+      oralDigitalHead: 'Da tradición oral á tradición dixital',
+      oralDigitalBody: 'No mundo antigo, o coñecemento vivía nas persoas: alguén lembraba historias, historia, oficio e cultura, e a mente humana era o sistema de almacenamento. No mundo dixital, o coñecemento vive nos sistemas: o software lembra o que vemos, creamos, precisamos e valoramos. A aplicación convértese nunha extensión da memoria.',
+      whyNotAside: 'Nomes coma Lugus, Nabia, Avalon ou Briga xa levan asociacións históricas fortes — contan unha historia que xa existe. Breren está feito para soar coma un deses nomes sen selo, para que a compañía poida escribir a súa propia historia, tal e como fixeron Google, Kodak ou Spotify: o significado medra a partir do traballo.',
       philosophyHead: 'Filosofía',
       philosophyBody: 'As comunidades antigas mantiñan viva a sabedoría a través da memoria e do relato. O software carga agora esa mesma tarefa: o que se constrúe debe lembrar, para que a xente non teña que comezar de novo.',
       paletteHead: 'A paleta',
@@ -166,6 +217,16 @@
       nameHead: 'The name',
       markHead: 'The mark',
       markBody: 'The castro — a hillfort traced in concentric rings, with huts gathered inside its walls — makes *brigā* visible: a settlement built on high ground, strong enough to endure and open enough to gather what matters within it.',
+      etymologyHead: 'Etymology',
+      bherHead: '*bher-* — to carry',
+      bherBody: 'A Proto-Indo-European root behind English bear, burden and birth, Latin ferre, and Greek pherein. Its core idea isn\'t motion for its own sake: something valuable exists, and someone has the responsibility to carry it onward. Software does exactly this — a digital tool carries memories, preferences, knowledge and workflows. An application isn\'t only code; it\'s a vessel that lets something human survive beyond the moment.',
+      brigaHead: '*brigā* — the foundation',
+      brigaBody: 'A Proto-Celtic root for a height, a stronghold, a fortified settlement — the root behind ancient names like Brigantium, associated with A Coruña. Not merely \'a hill\': a place from which you can see further.',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- draws on *brigā*: strength, foundation, elevation. -REN is a modern ending suggesting continuity, movement, becoming. Together they read as \'the strong foundation that carries forward.\'',
+      oralDigitalHead: 'From oral tradition to digital tradition',
+      oralDigitalBody: 'In the ancient world, knowledge lived in people: a person remembered stories, history, skill and culture, and the human mind was the storage system. In the digital world, knowledge lives in systems: software remembers what we watch, create, need and value. The application becomes an extension of memory.',
+      whyNotAside: 'Names like Lugus, Nabia, Avalon or Briga already carry strong historical associations — they tell a story that already exists. Breren is built to sound like one of them without being one, so the company can write its own story instead, the way Google, Kodak or Spotify did: the meaning grows from the work.',
       philosophyHead: 'Philosophy',
       philosophyBody: "Ancient communities kept knowledge alive through memory and retelling. Software carries that same task now: what gets built should remember, so people don't have to start over.",
       paletteHead: 'The palette',
@@ -179,6 +240,16 @@
       nameHead: 'La nomo',
       markHead: 'La signo',
       markBody: 'La kastro — fortikaĵo desegnita per koncentraj ringoj, kun kabanoj kolektitaj interne de ĝiaj muroj — igas *brigā*n videbla: loĝejo konstruita sur alteco, sufiĉe forta por daŭri kaj sufiĉe malfermita por kolekti interne tion, kio gravas.',
+      etymologyHead: 'Etimologio',
+      bherHead: '*bher-* — porti',
+      bherBody: 'Praindeŭropa radiko malantaŭ la angla bear, burden kaj birth, la latina ferre, kaj la greka pherein. Ĝia kerna ideo ne estas movado por si mem: io valora ekzistas, kaj iu havas la respondecon porti ĝin plu. Programaro faras ĝuste tion — cifereca ilo portas memorojn, preferojn, scion kaj laborfluojn. Aplikaĵo ne estas nur kodo; ĝi estas ujo, kiu lasas ion homan postvivi la momenton.',
+      brigaHead: '*brigā* — la fundamento',
+      brigaBody: 'Prakelta radiko por alto, fortikaĵo, fortikigita loĝejo — la radiko malantaŭ antikvaj nomoj kiel Brigantium, asociita kun la antikva A Coruña. Ne simple "monteto": loko de kie oni vidas pli malproksimen.',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- ĉerpas el *brigā*: forto, fundamento, alteco. -REN estas moderna finaĵo sugestanta kontinuecon, moviĝon, iĝon. Kune ili legiĝas kiel "la forta fundamento kiu portas antaŭen".',
+      oralDigitalHead: 'De buŝa tradicio al cifereca tradicio',
+      oralDigitalBody: 'En la antikva mondo, scio vivis en homoj: iu memoris rakontojn, historion, lertecon kaj kulturon, kaj la homa menso estis la stokada sistemo. En la cifereca mondo, scio vivas en sistemoj: programaro memoras kion ni spektas, kreas, bezonas kaj valoras. La aplikaĵo iĝas etendo de memoro.',
+      whyNotAside: 'Nomoj kiel Lugus, Nabia, Avalon aŭ Briga jam portas fortajn historiajn asociojn — ili rakontas historion jam ekzistantan. Breren estas konstruita por soni kiel unu el ili sen esti tia, por ke la kompanio povu skribi sian propran historion, kiel faris Google, Kodak aŭ Spotify: la signifo kreskas el la laboro.',
       philosophyHead: 'Filozofio',
       philosophyBody: 'Antikvaj komunumoj konservis scion vivanta per memoro kaj rerakontado. Programaro nun portas la saman taskon: tio, kio estas konstruita, devas memori, por ke homoj ne devu rekomenci.',
       paletteHead: 'La paletro',
@@ -192,6 +263,16 @@
       nameHead: 'El nombre',
       markHead: 'La marca',
       markBody: 'El castro — un fuerte trazado en anillos concéntricos, con las cabañas reunidas dentro de sus murallas — hace visible *brigā*: un asentamiento construido en alto, lo bastante fuerte para perdurar y lo bastante abierto para reunir lo que importa en su interior.',
+      etymologyHead: 'Etimología',
+      bherHead: '*bher-* — llevar',
+      bherBody: 'Una raíz protoindoeuropea detrás del inglés bear, burden y birth, del latín ferre y del griego pherein. Su idea central no es el movimiento por sí mismo: algo valioso existe, y alguien tiene la responsabilidad de llevarlo hacia adelante. El software hace exactamente eso — una herramienta digital lleva recuerdos, preferencias, conocimiento y flujos de trabajo. Una aplicación no es solo código; es un recipiente que permite que algo humano sobreviva más allá del momento.',
+      brigaHead: '*brigā* — el fundamento',
+      brigaBody: 'Una raíz protoceltal para una altura, una fortaleza, un asentamiento fortificado — la raíz detrás de nombres antiguos como Brigantium, asociado a la antigua A Coruña. No es solo "una colina": es un lugar desde el que se ve más lejos.',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- parte de *brigā*: fuerza, fundamento, elevación. -REN es una terminación moderna que sugiere continuidad, movimiento, devenir. Juntas se leen como "el fundamento fuerte que impulsa hacia adelante".',
+      oralDigitalHead: 'De la tradición oral a la tradición digital',
+      oralDigitalBody: 'En el mundo antiguo, el conocimiento vivía en las personas: alguien recordaba historias, historia, oficio y cultura, y la mente humana era el sistema de almacenamiento. En el mundo digital, el conocimiento vive en los sistemas: el software recuerda lo que vemos, creamos, necesitamos y valoramos. La aplicación se convierte en una extensión de la memoria.',
+      whyNotAside: 'Nombres como Lugus, Nabia, Avalon o Briga ya llevan asociaciones históricas fuertes — cuentan una historia que ya existe. Breren está construido para sonar como uno de ellos sin serlo, para que la compañía pueda escribir su propia historia, como hicieron Google, Kodak o Spotify: el significado crece a partir del trabajo.',
       philosophyHead: 'Filosofía',
       philosophyBody: 'Las comunidades antiguas mantenían viva la sabiduría a través de la memoria y el relato. El software carga ahora esa misma tarea: lo que se construye debe recordar, para que las personas no tengan que empezar de nuevo.',
       paletteHead: 'La paleta',
@@ -205,6 +286,16 @@
       nameHead: 'Le nom',
       markHead: 'La marque',
       markBody: "Le castro — une forteresse tracée en anneaux concentriques, avec des huttes rassemblées derrière ses murailles — rend *brigā* visible : une implantation bâtie en hauteur, assez forte pour durer et assez ouverte pour rassembler ce qui compte en son sein.",
+      etymologyHead: 'Étymologie',
+      bherHead: '*bher-* — porter',
+      bherBody: 'Une racine proto-indo-européenne à l\'origine de l\'anglais bear, burden et birth, du latin ferre et du grec pherein. Son idée centrale n\'est pas le mouvement pour lui-même : quelque chose de précieux existe, et quelqu\'un a la responsabilité de le porter plus loin. Le logiciel fait exactement cela — un outil numérique porte des souvenirs, des préférences, des connaissances et des habitudes de travail. Une application n\'est pas seulement du code ; c\'est un vase qui permet à quelque chose d\'humain de survivre au-delà de l\'instant.',
+      brigaHead: '*brigā* — la fondation',
+      brigaBody: 'Une racine proto-celtique désignant une hauteur, une forteresse, une implantation fortifiée — la racine derrière des noms anciens comme Brigantium, associé à l\'ancienne A Coruña. Pas simplement « une colline » : un lieu d\'où l\'on voit plus loin.',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- s\'inspire de *brigā* : force, fondation, élévation. -REN est une terminaison moderne suggérant la continuité, le mouvement, le devenir. Ensemble, elles se lisent comme « la fondation solide qui fait avancer ».',
+      oralDigitalHead: 'De la tradition orale à la tradition numérique',
+      oralDigitalBody: 'Dans le monde ancien, le savoir vivait dans les personnes : quelqu\'un se souvenait des récits, de l\'histoire, du savoir-faire et de la culture, et l\'esprit humain était le système de stockage. Dans le monde numérique, le savoir vit dans les systèmes : le logiciel se souvient de ce que nous regardons, créons, cherchons et valorisons. L\'application devient une extension de la mémoire.',
+      whyNotAside: 'Des noms comme Lugus, Nabia, Avalon ou Briga portent déjà de fortes associations historiques — ils racontent une histoire qui existe déjà. Breren est conçu pour sonner comme l\'un d\'eux sans l\'être, afin que l\'entreprise puisse écrire sa propre histoire, comme l\'ont fait Google, Kodak ou Spotify : le sens naît du travail.',
       philosophyHead: 'Philosophie',
       philosophyBody: "Les communautés anciennes gardaient le savoir vivant par la mémoire et le récit. Le logiciel porte aujourd'hui cette même tâche : ce qui est construit doit se souvenir, pour que les gens n'aient pas à tout recommencer.",
       paletteHead: 'La palette',
@@ -218,6 +309,16 @@
       nameHead: 'O nome',
       markHead: 'A marca',
       markBody: 'O castro — uma fortaleza traçada em anéis concêntricos, com cabanas reunidas dentro das suas muralhas — torna *brigā* visível: um povoado construído em altura, forte o bastante para perdurar e aberto o bastante para reunir o que importa no seu interior.',
+      etymologyHead: 'Etimologia',
+      bherHead: '*bher-* — levar',
+      bherBody: 'Uma raiz proto-indo-europeia por trás do inglês bear, burden e birth, do latim ferre e do grego pherein. A sua ideia central não é o movimento por si só: algo valioso existe, e alguém tem a responsabilidade de o levar adiante. O software faz exatamente isso — uma ferramenta digital carrega memórias, preferências, conhecimento e fluxos de trabalho. Uma aplicação não é apenas código; é um recipiente que permite que algo humano sobreviva além do momento.',
+      brigaHead: '*brigā* — a base',
+      brigaBody: 'Uma raiz proto-celta para uma altura, uma fortaleza, um povoado fortificado — a raiz por trás de nomes antigos como Brigantium, associado à antiga A Coruña. Não é apenas "uma colina": é um lugar de onde se vê mais longe.',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- parte de *brigā*: força, base, elevação. -REN é uma terminação moderna que sugere continuidade, movimento, devir. Juntas lêem-se como "a base forte que leva adiante".',
+      oralDigitalHead: 'Da tradição oral à tradição digital',
+      oralDigitalBody: 'No mundo antigo, o conhecimento vivia nas pessoas: alguém lembrava histórias, história, ofício e cultura, e a mente humana era o sistema de armazenamento. No mundo digital, o conhecimento vive nos sistemas: o software lembra o que vemos, criamos, precisamos e valorizamos. A aplicação torna-se uma extensão da memória.',
+      whyNotAside: 'Nomes como Lugus, Nabia, Avalon ou Briga já carregam fortes associações históricas — contam uma história que já existe. A Breren foi construída para soar como um deles sem o ser, para que a empresa possa escrever a sua própria história, como fizeram a Google, a Kodak ou o Spotify: o significado cresce a partir do trabalho.',
       philosophyHead: 'Filosofia',
       philosophyBody: 'As comunidades antigas mantinham o conhecimento vivo através da memória e da narrativa. O software carrega agora essa mesma tarefa: o que é construído deve lembrar, para que as pessoas não precisem recomeçar.',
       paletteHead: 'A paleta',
@@ -231,6 +332,16 @@
       nameHead: 'Der Name',
       markHead: 'Das Zeichen',
       markBody: 'Der Castro — eine in konzentrischen Ringen angelegte Wallburg mit Hütten innerhalb ihrer Mauern — macht *brigā* sichtbar: eine Siedlung auf einer Anhöhe, stark genug, um zu bestehen, und offen genug, um zu sammeln, was darin zählt.',
+      etymologyHead: 'Etymologie',
+      bherHead: '*bher-* — tragen',
+      bherBody: 'Eine urindogermanische Wurzel hinter dem englischen bear, burden und birth, dem lateinischen ferre und dem griechischen pherein. Ihr Kerngedanke ist nicht Bewegung um ihrer selbst willen: Etwas Wertvolles existiert, und jemand trägt die Verantwortung, es weiterzutragen. Genau das tut Software — ein digitales Werkzeug trägt Erinnerungen, Vorlieben, Wissen und Arbeitsabläufe. Eine Anwendung ist nicht nur Code; sie ist ein Gefäß, das etwas Menschliches den Moment überdauern lässt.',
+      brigaHead: '*brigā* — das Fundament',
+      brigaBody: 'Eine urkeltische Wurzel für eine Anhöhe, eine Festung, eine befestigte Siedlung — die Wurzel hinter alten Namen wie Brigantium, verbunden mit dem antiken A Coruña. Nicht nur „ein Hügel": ein Ort, von dem aus man weiter sieht.',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- schöpft aus *brigā*: Stärke, Fundament, Erhöhung. -REN ist eine moderne Endung, die Kontinuität, Bewegung, Werden andeutet. Zusammen lesen sie sich als „das starke Fundament, das weiterträgt".',
+      oralDigitalHead: 'Von der mündlichen zur digitalen Überlieferung',
+      oralDigitalBody: 'In der alten Welt lebte Wissen in Menschen: Jemand erinnerte sich an Geschichten, Historie, Handwerk und Kultur, und der menschliche Geist war das Speichersystem. In der digitalen Welt lebt Wissen in Systemen: Software erinnert sich, was wir sehen, schaffen, brauchen und schätzen. Die Anwendung wird zu einer Erweiterung des Gedächtnisses.',
+      whyNotAside: 'Namen wie Lugus, Nabia, Avalon oder Briga tragen bereits starke historische Assoziationen — sie erzählen eine Geschichte, die schon existiert. Breren ist so gebaut, dass es wie einer dieser Namen klingt, ohne einer zu sein, damit das Unternehmen seine eigene Geschichte schreiben kann, so wie es Google, Kodak oder Spotify getan haben: Die Bedeutung wächst aus der Arbeit.',
       philosophyHead: 'Philosophie',
       philosophyBody: 'Alte Gemeinschaften hielten Wissen durch Erinnerung und Weitererzählen lebendig. Software trägt heute dieselbe Aufgabe: Was gebaut wird, soll sich erinnern, damit Menschen nicht von vorn beginnen müssen.',
       paletteHead: 'Die Palette',
@@ -244,6 +355,16 @@
       nameHead: 'Il nome',
       markHead: 'Il marchio',
       markBody: "Il castro — una fortezza tracciata in anelli concentrici, con capanne raccolte entro le sue mura — rende visibile *brigā*: un insediamento costruito in altura, abbastanza forte da durare e abbastanza aperto da raccogliere ciò che conta al suo interno.",
+      etymologyHead: 'Etimologia',
+      bherHead: '*bher-* — portare',
+      bherBody: 'Una radice proto-indoeuropea dietro l\'inglese bear, burden e birth, il latino ferre e il greco pherein. La sua idea centrale non è il movimento fine a se stesso: qualcosa di prezioso esiste, e qualcuno ha la responsabilità di portarlo avanti. Il software fa esattamente questo — uno strumento digitale porta ricordi, preferenze, conoscenza e flussi di lavoro. Un\'applicazione non è solo codice; è un recipiente che permette a qualcosa di umano di sopravvivere oltre l\'istante.',
+      brigaHead: '*brigā* — la fondazione',
+      brigaBody: 'Una radice proto-celtica per un\'altura, una fortezza, un insediamento fortificato — la radice dietro nomi antichi come Brigantium, associato all\'antica A Coruña. Non semplicemente \'una collina\': un luogo da cui si vede più lontano.',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- attinge a *brigā*: forza, fondazione, elevazione. -REN è una desinenza moderna che suggerisce continuità, movimento, divenire. Insieme si leggono come \'la solida fondazione che porta avanti\'.',
+      oralDigitalHead: 'Dalla tradizione orale alla tradizione digitale',
+      oralDigitalBody: 'Nel mondo antico, la conoscenza viveva nelle persone: qualcuno ricordava storie, storia, mestiere e cultura, e la mente umana era il sistema di archiviazione. Nel mondo digitale, la conoscenza vive nei sistemi: il software ricorda ciò che guardiamo, creiamo, ci serve e apprezziamo. L\'applicazione diventa un\'estensione della memoria.',
+      whyNotAside: 'Nomi come Lugus, Nabia, Avalon o Briga portano già forti associazioni storiche — raccontano una storia che esiste già. Breren è costruito per suonare come uno di loro senza esserlo, così l\'azienda può scrivere la propria storia, come hanno fatto Google, Kodak o Spotify: il significato cresce dal lavoro.',
       philosophyHead: 'Filosofia',
       philosophyBody: 'Le comunità antiche mantenevano viva la conoscenza attraverso la memoria e il racconto. Il software porta oggi lo stesso compito: ciò che si costruisce deve ricordare, perché le persone non debbano ricominciare da capo.',
       paletteHead: 'La palette',
@@ -257,6 +378,16 @@
       nameHead: 'Название',
       markHead: 'Знак',
       markBody: 'Кастро — крепость, очерченная концентрическими кольцами, с хижинами, собранными внутри её стен, — делает *brigā* видимой: поселение, построенное на возвышенности, достаточно прочное, чтобы выстоять, и достаточно открытое, чтобы вместить в себе то, что важно.',
+      etymologyHead: 'Этимология',
+      bherHead: '*bher-* — нести',
+      bherBody: 'Праиндоевропейский корень, лежащий в основе английских bear, burden и birth, латинского ferre и греческого pherein. Его суть не в движении ради движения: существует нечто ценное, и кто-то несёт ответственность нести это дальше. Именно это делает программное обеспечение — цифровой инструмент несёт воспоминания, предпочтения, знания и рабочие процессы. Приложение — не просто код; это сосуд, позволяющий чему-то человеческому пережить момент.',
+      brigaHead: '*brigā* — основа',
+      brigaBody: 'Пракельтский корень со значением возвышенности, крепости, укреплённого поселения — корень, лежащий в основе древних названий вроде Brigantium, связанного с древней А-Коруньей. Не просто «холм»: место, с которого видно дальше.',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- опирается на *brigā*: сила, основа, возвышение. -REN — современное окончание, намекающее на непрерывность, движение, становление. Вместе они читаются как «прочная основа, несущая вперёд».',
+      oralDigitalHead: 'От устной традиции к цифровой',
+      oralDigitalBody: 'В древнем мире знание жило в людях: человек помнил истории, историю, ремесло и культуру, и человеческий разум был хранилищем. В цифровом мире знание живёт в системах: программное обеспечение помнит, что мы смотрим, создаём, нуждаемся и ценим. Приложение становится продолжением памяти.',
+      whyNotAside: 'Такие имена, как Lugus, Nabia, Avalon или Briga, уже несут сильные исторические ассоциации — они рассказывают уже существующую историю. Breren создано так, чтобы звучать как одно из них, не являясь им, чтобы компания могла написать свою собственную историю, как это сделали Google, Kodak или Spotify: смысл вырастает из самой работы.',
       philosophyHead: 'Философия',
       philosophyBody: 'Древние общины сохраняли знание живым через память и пересказ. Сегодня программное обеспечение несёт ту же задачу: то, что создаётся, должно помнить, чтобы людям не приходилось начинать заново.',
       paletteHead: 'Палитра',
@@ -270,6 +401,16 @@
       nameHead: '名字',
       markHead: '标志',
       markBody: '卡斯特罗(castro)——一座以同心环勾勒、内部聚居着房舍的山堡——让 *brigā* 变得可见:一处建于高地的聚落,坚固到足以长存,又开放到足以将重要之物汇聚其中。',
+      etymologyHead: '词源',
+      bherHead: '*bher-*——承载',
+      bherBody: '这是一个原始印欧语词根,是英语 bear、burden、birth,拉丁语 ferre,以及希腊语 pherein 的共同来源。它的核心并非单纯的移动:某种有价值的东西存在着,而某人有责任将它继续传递下去。软件正是如此——一款数字工具承载着记忆、偏好、知识与工作流程。一个应用程序不仅仅是代码;它是一个容器,让某种属于人的东西得以在当下之外延续。',
+      brigaHead: '*brigā*——根基',
+      brigaBody: '这是一个原始凯尔特语词根,意为高地、堡垒、设防的聚落——正是它孕育了诸如 Brigantium(与古代 A 科鲁尼亚相关)之类的古老地名。它不仅仅是"一座山丘",而是一处能望得更远的地方。',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- 取自 *brigā*:力量、根基、高度。-REN 是一个现代词尾,暗示着延续、运动与生成。合在一起,便读作"承载向前的坚实根基"。',
+      oralDigitalHead: '从口述传统到数字传统',
+      oralDigitalBody: '在古代世界,知识存活于人之中:一个人记得故事、历史、技艺与文化,人的心智便是存储系统。在数字世界,知识存活于系统之中:软件记得我们观看、创造、需要与珍视的东西。应用程序由此成为记忆的延伸。',
+      whyNotAside: '像 Lugus、Nabia、Avalon 或 Briga 这样的名字早已带有强烈的历史联想——它们讲述的是一个已然存在的故事。Breren 被设计成听起来像其中之一,却并非真的如此,这样公司才能书写属于自己的故事,正如 Google、柯达(Kodak)或 Spotify 所做的那样:意义从实际的作为中生长出来。',
       philosophyHead: '理念',
       philosophyBody: '古代社群靠记忆与口述让知识长存。如今软件承担着同样的任务:被创造出来的东西应当记得,这样人们就不必从头再来。',
       paletteHead: '配色',
@@ -283,6 +424,16 @@
       nameHead: '名前',
       markHead: '紋章',
       markBody: 'カストロ——同心円状の環で描かれ、城壁の内側に住居が集まる丘の砦——は *brigā* を目に見える形にしたものです。高台に築かれ、存続できるほど強く、大切なものを内に集められるほど開かれた集落です。',
+      etymologyHead: '語源',
+      bherHead: '*bher-*——運ぶ',
+      bherBody: '英語の bear、burden、birth、ラテン語の ferre、ギリシャ語の pherein の背後にある印欧祖語の語根です。その核心にあるのは、単なる移動ではありません——価値あるものが存在し、誰かがそれを運び続ける責任を負う、という考えです。ソフトウェアはまさにそれを行います——デジタルツールは記憶、好み、知識、ワークフローを運びます。アプリケーションは単なるコードではなく、人間的な何かをその瞬間を超えて生き続けさせる器なのです。',
+      brigaHead: '*brigā*——土台',
+      brigaBody: '高台、砦、防備を固めた集落を意味するケルト祖語の語根で、古代 A コルーニャに関連する Brigantium のような古い地名の由来です。単なる「丘」ではなく、そこからより遠くを見渡せる場所を意味します。',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- は *brigā* に由来し、強さ、土台、高さを表します。-REN は継続、動き、生成を示唆する現代的な語尾です。合わせると「前へと運ぶ強固な土台」と読めます。',
+      oralDigitalHead: '口承の伝統からデジタルの伝統へ',
+      oralDigitalBody: '古代の世界では、知識は人の中に生きていました——人は物語、歴史、技能、文化を記憶し、人間の心が記憶装置そのものでした。デジタルの世界では、知識はシステムの中に生きています——ソフトウェアは私たちが見るもの、作るもの、必要とするもの、大切にするものを記憶します。アプリケーションは記憶の延長となるのです。',
+      whyNotAside: 'Lugus、Nabia、Avalon、Briga のような名前は、すでに強い歴史的連想を帯びています——それらはすでに存在する物語を語っています。Breren はそのような名前の一つのように響くよう作られていますが、実際にはそうではありません。それによって、Google、Kodak、Spotify がそうしてきたように、この会社は自らの物語を書くことができるのです——意味は仕事そのものから育っていきます。',
       philosophyHead: '理念',
       philosophyBody: '古代の共同体は記憶と語り継ぎによって知識を生かし続けました。ソフトウェアは今、その同じ役割を担っています——作られたものは記憶するべきです。人々がゼロからやり直さずに済むように。',
       paletteHead: 'カラーパレット',
@@ -296,6 +447,16 @@
       nameHead: '이름',
       markHead: '상징',
       markBody: '카스트로(castro) — 동심원 모양으로 그려진 성채로, 성벽 안에 오두막들이 모여 있는 — 는 *brigā*를 눈에 보이게 만듭니다: 높은 곳에 세워져 지속될 만큼 튼튼하고, 중요한 것을 안에 모을 만큼 열려 있는 정착지입니다.',
+      etymologyHead: '어원',
+      bherHead: '*bher-* — 나르다',
+      bherBody: '영어 bear, burden, birth, 라틴어 ferre, 그리스어 pherein의 뿌리가 된 인도유럽조어 어근입니다. 그 핵심은 단순한 이동이 아닙니다 — 가치 있는 무언가가 존재하고, 누군가가 그것을 계속 나를 책임을 진다는 것입니다. 소프트웨어가 하는 일이 바로 그것입니다 — 디지털 도구는 기억, 선호, 지식, 작업 흐름을 나릅니다. 애플리케이션은 단순한 코드가 아니라, 인간적인 무언가가 그 순간을 넘어 살아남게 하는 그릇입니다.',
+      brigaHead: '*brigā* — 토대',
+      brigaBody: '높은 곳, 요새, 방어된 정착지를 뜻하는 켈트조어 어근으로, 고대 A 코루냐와 연관된 Brigantium 같은 옛 지명의 뿌리입니다. 단순한 "언덕"이 아니라 더 멀리 볼 수 있는 곳을 뜻합니다.',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE-는 *brigā*에서 왔습니다: 힘, 토대, 높이. -REN은 지속, 움직임, 되어감을 암시하는 현대적 어미입니다. 함께 읽으면 "앞으로 나아가게 하는 튼튼한 토대"가 됩니다.',
+      oralDigitalHead: '구전 전통에서 디지털 전통으로',
+      oralDigitalBody: '고대 세계에서 지식은 사람 안에 살아 있었습니다: 누군가가 이야기, 역사, 기술, 문화를 기억했고, 인간의 정신이 저장 시스템이었습니다. 디지털 세계에서 지식은 시스템 안에 살아 있습니다: 소프트웨어는 우리가 보고, 만들고, 필요로 하고, 소중히 여기는 것을 기억합니다. 애플리케이션은 기억의 확장이 됩니다.',
+      whyNotAside: 'Lugus, Nabia, Avalon, Briga 같은 이름들은 이미 강한 역사적 연상을 지니고 있습니다 — 그것들은 이미 존재하는 이야기를 들려줍니다. Breren은 그런 이름처럼 들리도록 만들어졌지만 실제로 그런 이름은 아닙니다. 그래서 Google, Kodak, Spotify가 그랬듯 회사가 스스로의 이야기를 써 내려갈 수 있습니다: 의미는 일 자체에서 자라납니다.',
       philosophyHead: '철학',
       philosophyBody: '고대 공동체는 기억과 구전을 통해 지식을 살아 있게 했습니다. 오늘날 소프트웨어가 그 같은 역할을 맡습니다: 만들어진 것은 기억해야 합니다, 사람들이 처음부터 다시 시작하지 않도록.',
       paletteHead: '팔레트',
@@ -309,6 +470,16 @@
       nameHead: 'الاسم',
       markHead: 'الشعار',
       markBody: 'الكاسترو — حصن مرسوم في حلقات متحدة المركز، تتجمع الأكواخ داخل أسواره — يجعل *brigā* مرئية: مستوطنة بُنيت على مرتفع، قوية بما يكفي لتدوم، ومنفتحة بما يكفي لتجمع ما يهم بداخلها.',
+      etymologyHead: 'أصل الكلمة',
+      bherHead: '*bher-* — يحمل',
+      bherBody: 'جذر هندي أوروبي بدائي يقف وراء الإنجليزية bear وburden وbirth، واللاتينية ferre، واليونانية pherein. فكرته الجوهرية ليست الحركة لذاتها: شيء ثمين موجود، وعلى أحد مسؤولية حمله إلى الأمام. هذا بالضبط ما تفعله البرمجيات — أداة رقمية تحمل الذكريات والتفضيلات والمعرفة وسير العمل. التطبيق ليس مجرد شيفرة؛ إنه وعاء يتيح لشيء إنساني أن يبقى بعد اللحظة.',
+      brigaHead: '*brigā* — الأساس',
+      brigaBody: 'جذر سلتي بدائي يعني مرتفعًا أو حصنًا أو مستوطنة محصّنة — الجذر وراء أسماء قديمة مثل Brigantium، المرتبطة بمدينة A Coruña القديمة. ليست مجرد "تلة": بل مكان يُرى منه أبعد.',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'يستمد BRE- من *brigā*: القوة والأساس والارتفاع. أما -REN فهو لاحقة حديثة توحي بالاستمرارية والحركة والصيرورة. معًا تُقرآن كـ"الأساس القوي الذي يحمل إلى الأمام".',
+      oralDigitalHead: 'من التقليد الشفهي إلى التقليد الرقمي',
+      oralDigitalBody: 'في العالم القديم، كانت المعرفة تعيش في الناس: كان الشخص يتذكر القصص والتاريخ والحرفة والثقافة، وكان العقل البشري هو نظام التخزين. في العالم الرقمي، تعيش المعرفة في الأنظمة: تتذكر البرمجيات ما نشاهده ونصنعه ونحتاجه ونقدّره. يصبح التطبيق امتدادًا للذاكرة.',
+      whyNotAside: 'أسماء مثل Lugus وNabia وAvalon أو Briga تحمل بالفعل ارتباطات تاريخية قوية — فهي تروي قصة موجودة سلفًا. صُمم اسم Breren ليبدو كأحد هذه الأسماء دون أن يكون كذلك، لتتمكن الشركة من كتابة قصتها الخاصة بدلًا من ذلك، كما فعلت Google وKodak وSpotify: المعنى ينمو من العمل نفسه.',
       philosophyHead: 'الفلسفة',
       philosophyBody: 'حافظت المجتمعات القديمة على المعرفة حية عبر الذاكرة وإعادة السرد. تحمل البرمجيات اليوم المهمة ذاتها: ما يُبنى يجب أن يتذكر، حتى لا يضطر الناس إلى البدء من جديد.',
       paletteHead: 'لوحة الألوان',
@@ -322,6 +493,16 @@
       nameHead: 'नाम',
       markHead: 'चिह्न',
       markBody: 'कास्ट्रो — संकेंद्रित छल्लों में बना एक किला, जिसकी दीवारों के भीतर झोपड़ियाँ इकट्ठा हैं — *brigā* को दृश्य रूप देता है: ऊँचाई पर बना एक बसाव, इतना मज़बूत कि टिका रहे और इतना खुला कि जो महत्वपूर्ण है उसे अपने भीतर समेट सके।',
+      etymologyHead: 'व्युत्पत्ति',
+      bherHead: '*bher-* — ले जाना',
+      bherBody: 'एक प्रोटो-इंडो-यूरोपीय मूल जो अंग्रेज़ी के bear, burden और birth, लातिन के ferre, और यूनानी के pherein के पीछे है। इसका मूल विचार केवल गति नहीं है: कुछ मूल्यवान अस्तित्व में है, और किसी की ज़िम्मेदारी है उसे आगे ले जाना। सॉफ़्टवेयर ठीक यही करता है — एक डिजिटल उपकरण यादें, प्राथमिकताएँ, ज्ञान और कार्यप्रवाह ले जाता है। एक ऐप केवल कोड नहीं है; यह एक पात्र है जो किसी मानवीय चीज़ को उस पल से आगे जीवित रहने देता है।',
+      brigaHead: '*brigā* — नींव',
+      brigaBody: 'एक प्रोटो-सेल्टिक मूल जिसका अर्थ है ऊँचाई, किला, सुरक्षित बस्ती — यह Brigantium जैसे प्राचीन नामों के पीछे की जड़ है, जो प्राचीन A Coruña से जुड़ा है। केवल "एक पहाड़ी" नहीं: वह स्थान जहाँ से और दूर तक देखा जा सके।',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- *brigā* से लिया गया है: शक्ति, नींव, ऊँचाई। -REN एक आधुनिक अंत है जो निरंतरता, गति, बनते जाने का संकेत देता है। साथ में इन्हें "आगे ले जाने वाली मज़बूत नींव" के रूप में पढ़ा जा सकता है।',
+      oralDigitalHead: 'मौखिक परंपरा से डिजिटल परंपरा तक',
+      oralDigitalBody: 'प्राचीन दुनिया में, ज्ञान लोगों में जीवित रहता था: कोई व्यक्ति कहानियाँ, इतिहास, कौशल और संस्कृति याद रखता था, और मानव मन ही भंडारण प्रणाली था। डिजिटल दुनिया में, ज्ञान प्रणालियों में रहता है: सॉफ़्टवेयर याद रखता है कि हम क्या देखते हैं, बनाते हैं, चाहते हैं और महत्व देते हैं। ऐप स्मृति का विस्तार बन जाता है।',
+      whyNotAside: 'Lugus, Nabia, Avalon या Briga जैसे नाम पहले से ही मज़बूत ऐतिहासिक जुड़ाव रखते हैं — वे एक ऐसी कहानी बताते हैं जो पहले से मौजूद है। Breren को इनमें से किसी एक जैसा लगने के लिए बनाया गया है, बिना वैसा हुए, ताकि कंपनी अपनी खुद की कहानी लिख सके, जैसा Google, Kodak या Spotify ने किया: अर्थ काम से ही उभरता है।',
       philosophyHead: 'दर्शन',
       philosophyBody: 'प्राचीन समुदाय स्मृति और पुनः-कथन के ज़रिए ज्ञान को जीवित रखते थे। सॉफ़्टवेयर अब वही काम करता है: जो बनाया जाए उसे याद रखना चाहिए, ताकि लोगों को फिर से शुरुआत न करनी पड़े।',
       paletteHead: 'रंग पैलेट',
@@ -335,6 +516,16 @@
       nameHead: 'নাম',
       markHead: 'প্রতীক',
       markBody: 'কাস্ত্রো — কেন্দ্রীভূত বলয়ে আঁকা একটি দুর্গ, যার প্রাচীরের ভেতরে কুঁড়েঘরগুলো জড়ো হয়ে আছে — *brigā*-কে দৃশ্যমান করে তোলে: উঁচু জমিতে গড়া একটি বসতি, টিকে থাকার মতো শক্তিশালী এবং গুরুত্বপূর্ণ যা কিছু তার ভেতরে জড়ো করার মতো উন্মুক্ত।',
+      etymologyHead: 'ব্যুৎপত্তি',
+      bherHead: '*bher-* — বহন করা',
+      bherBody: 'একটি প্রোটো-ইন্দো-ইউরোপীয় মূল, যা ইংরেজি bear, burden ও birth, ল্যাটিন ferre এবং গ্রিক pherein-এর পেছনে রয়েছে। এর মূল ভাব শুধু গতি নয়: মূল্যবান কিছু বিদ্যমান, এবং কারো দায়িত্ব তা সামনে বহন করে নেওয়া। সফটওয়্যার ঠিক এটাই করে — একটি ডিজিটাল হাতিয়ার স্মৃতি, পছন্দ, জ্ঞান ও কর্মপ্রবাহ বহন করে। একটি অ্যাপ কেবল কোড নয়; এটি এমন এক পাত্র যা মানবিক কিছুকে মুহূর্তের পরেও টিকে থাকতে দেয়।',
+      brigaHead: '*brigā* — ভিত্তি',
+      brigaBody: 'উচ্চতা, দুর্গ, সুরক্ষিত বসতির অর্থে একটি প্রোটো-কেল্টিক মূল — Brigantium-এর মতো প্রাচীন নামের পেছনের মূল, যা প্রাচীন A Coruña-র সাথে যুক্ত। শুধু "একটি পাহাড়" নয়: এমন একটি জায়গা যেখান থেকে আরও দূর দেখা যায়।',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- এসেছে *brigā* থেকে: শক্তি, ভিত্তি, উচ্চতা। -REN একটি আধুনিক প্রত্যয় যা ধারাবাহিকতা, গতি, রূপান্তরের ইঙ্গিত দেয়। একসাথে এগুলো পড়া যায় "সামনে এগিয়ে নেওয়া শক্তিশালী ভিত্তি" হিসেবে।',
+      oralDigitalHead: 'মৌখিক ঐতিহ্য থেকে ডিজিটাল ঐতিহ্যে',
+      oralDigitalBody: 'প্রাচীন বিশ্বে জ্ঞান বাস করত মানুষের মধ্যে: কেউ গল্প, ইতিহাস, দক্ষতা ও সংস্কৃতি মনে রাখত, আর মানুষের মন ছিল সংরক্ষণ ব্যবস্থা। ডিজিটাল বিশ্বে জ্ঞান বাস করে সিস্টেমে: সফটওয়্যার মনে রাখে আমরা কী দেখি, তৈরি করি, প্রয়োজন করি ও মূল্য দিই। অ্যাপটি স্মৃতির সম্প্রসারণ হয়ে ওঠে।',
+      whyNotAside: 'Lugus, Nabia, Avalon বা Briga-র মতো নামগুলো ইতিমধ্যেই শক্তিশালী ঐতিহাসিক সংযোগ বহন করে — তারা এমন একটি গল্প বলে যা আগে থেকেই আছে। Breren তৈরি করা হয়েছে এমনভাবে যাতে এটি তাদের একটির মতো শোনায়, কিন্তু আসলে তা নয়, যাতে কোম্পানিটি নিজের গল্প লিখতে পারে, যেমনটা করেছে Google, Kodak বা Spotify: অর্থ জন্ম নেয় কাজ থেকেই।',
       philosophyHead: 'দর্শন',
       philosophyBody: 'প্রাচীন সম্প্রদায়গুলো স্মৃতি ও পুনর্কথনের মাধ্যমে জ্ঞানকে জীবন্ত রাখত। সফটওয়্যার এখন সেই একই কাজ বহন করে: যা তৈরি হয় তার মনে রাখা উচিত, যাতে মানুষকে আবার শুরু থেকে শুরু করতে না হয়।',
       paletteHead: 'রঙ প্যালেট',
@@ -348,6 +539,16 @@
       nameHead: 'نام',
       markHead: 'نشان',
       markBody: 'کاسترو — ایک قلعہ جو ہم مرکز حلقوں میں بنا ہے، جس کی دیواروں کے اندر جھونپڑیاں جمع ہیں — *brigā* کو نظر آنے کے قابل بناتا ہے: بلندی پر بنی ایک بستی، اتنی مضبوط کہ قائم رہے اور اتنی کھلی کہ اہم چیزوں کو اپنے اندر سمیٹ سکے۔',
+      etymologyHead: 'اشتقاقیات',
+      bherHead: '*bher-* — لے جانا',
+      bherBody: 'ایک پروٹو-انڈو-یورپی جڑ جو انگریزی کے bear، burden اور birth، لاطینی کے ferre، اور یونانی کے pherein کے پیچھے ہے۔ اس کا بنیادی خیال محض حرکت نہیں: کوئی قیمتی چیز موجود ہے، اور کسی کی ذمہ داری ہے اسے آگے لے جانا۔ سافٹ ویئر بالکل یہی کرتا ہے — ایک ڈیجیٹل ٹول یادیں، ترجیحات، علم اور ورک فلو لے جاتا ہے۔ ایک ایپ محض کوڈ نہیں؛ یہ ایک برتن ہے جو کسی انسانی چیز کو اُس لمحے سے آگے زندہ رہنے دیتا ہے۔',
+      brigaHead: '*brigā* — بنیاد',
+      brigaBody: 'بلندی، قلعہ، محفوظ بستی کے معنی میں ایک پروٹو-سیلٹک جڑ — Brigantium جیسے قدیم ناموں کے پیچھے کی جڑ، جو قدیم A Coruña سے منسلک ہے۔ محض "ایک ٹیلہ" نہیں: ایک ایسی جگہ جہاں سے مزید دور دیکھا جا سکے۔',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- کا ماخذ *brigā* ہے: طاقت، بنیاد، بلندی۔ -REN ایک جدید لاحقہ ہے جو تسلسل، حرکت، بننے کی طرف اشارہ کرتا ہے۔ ملا کر انہیں "آگے لے جانے والی مضبوط بنیاد" پڑھا جا سکتا ہے۔',
+      oralDigitalHead: 'زبانی روایت سے ڈیجیٹل روایت تک',
+      oralDigitalBody: 'قدیم دنیا میں، علم لوگوں میں زندہ رہتا تھا: کوئی شخص کہانیاں، تاریخ، ہنر اور ثقافت یاد رکھتا تھا، اور انسانی ذہن ہی ذخیرہ کرنے کا نظام تھا۔ ڈیجیٹل دنیا میں، علم نظاموں میں زندہ رہتا ہے: سافٹ ویئر یاد رکھتا ہے کہ ہم کیا دیکھتے، بناتے، چاہتے اور قدر کرتے ہیں۔ ایپ یادداشت کی توسیع بن جاتی ہے۔',
+      whyNotAside: 'Lugus، Nabia، Avalon یا Briga جیسے نام پہلے ہی مضبوط تاریخی وابستگیاں رکھتے ہیں — وہ ایک ایسی کہانی سناتے ہیں جو پہلے سے موجود ہے۔ Breren کو ایسا بنایا گیا ہے کہ وہ ان میں سے کسی ایک جیسا لگے بغیر ویسا ہوئے، تاکہ کمپنی اپنی کہانی خود لکھ سکے، جیسا کہ Google، Kodak یا Spotify نے کیا: معنی کام سے ہی جنم لیتا ہے۔',
       philosophyHead: 'فلسفہ',
       philosophyBody: 'قدیم برادریاں یادداشت اور دوبارہ بیان کے ذریعے علم کو زندہ رکھتی تھیں۔ سافٹ ویئر اب وہی کام سرانجام دیتا ہے: جو کچھ بنایا جائے اسے یاد رکھنا چاہیے، تاکہ لوگوں کو دوبارہ شروع نہ کرنا پڑے۔',
       paletteHead: 'رنگ پیلیٹ',
@@ -361,6 +562,16 @@
       nameHead: 'نام',
       markHead: 'نشان',
       markBody: 'کاسترو — دژی ترسیم‌شده در حلقه‌های هم‌مرکز، با کلبه‌هایی که درون دیوارهایش گرد آمده‌اند — *brigā* را قابل‌مشاهده می‌کند: سکونتگاهی ساخته‌شده بر بلندا، به اندازه‌ای استوار که دوام بیاورد و به اندازه‌ای باز که آنچه اهمیت دارد را در خود گرد آورد.',
+      etymologyHead: 'ریشه‌شناسی',
+      bherHead: '*bher-* — بردن',
+      bherBody: 'ریشه‌ای پروتوهندواروپایی که پشت واژه‌های انگلیسی bear، burden و birth، لاتین ferre، و یونانی pherein قرار دارد. ایده اصلی آن صرفاً حرکت نیست: چیزی ارزشمند وجود دارد و کسی مسئولیت دارد آن را به پیش ببرد. نرم‌افزار دقیقاً همین کار را می‌کند — ابزاری دیجیتال خاطرات، ترجیحات، دانش و روندهای کاری را حمل می‌کند. یک برنامه صرفاً کد نیست؛ ظرفی است که اجازه می‌دهد چیزی انسانی از آن لحظه فراتر باقی بماند.',
+      brigaHead: '*brigā* — بنیاد',
+      brigaBody: 'ریشه‌ای پروتوکلتیک به معنای بلندا، دژ، سکونتگاه مستحکم — ریشه‌ای پشت نام‌های باستانی مانند Brigantium، مرتبط با A Coruña باستانی. نه صرفاً «یک تپه»: مکانی که از آن دورتر می‌توان دید.',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- برگرفته از *brigā* است: قدرت، بنیاد، بلندا. -REN پسوندی مدرن است که تداوم، حرکت و شدن را القا می‌کند. با هم به معنای «بنیاد استواری که به پیش می‌برد» خوانده می‌شوند.',
+      oralDigitalHead: 'از سنت شفاهی تا سنت دیجیتال',
+      oralDigitalBody: 'در دنیای باستان، دانش در وجود انسان‌ها زندگی می‌کرد: کسی داستان‌ها، تاریخ، مهارت و فرهنگ را به یاد می‌سپرد، و ذهن انسان همان سامانه ذخیره‌سازی بود. در دنیای دیجیتال، دانش در سامانه‌ها زندگی می‌کند: نرم‌افزار آنچه را می‌بینیم، می‌سازیم، نیاز داریم و ارزش می‌گذاریم به خاطر می‌سپارد. برنامه به بسطی از حافظه تبدیل می‌شود.',
+      whyNotAside: 'نام‌هایی مانند Lugus، Nabia، Avalon یا Briga از پیش پیوندهای تاریخی قدرتمندی دارند — آن‌ها داستانی را روایت می‌کنند که از پیش وجود دارد. Breren طوری ساخته شده که مانند یکی از آن‌ها به نظر برسد بی‌آنکه واقعاً چنین باشد، تا شرکت بتواند داستان خودش را بنویسد، همان‌طور که Google، Kodak یا Spotify این کار را کردند: معنا از دل کار می‌روید.',
       philosophyHead: 'فلسفه',
       philosophyBody: 'جوامع باستانی دانش را از طریق حافظه و بازگویی زنده نگه می‌داشتند. نرم‌افزار امروز همان وظیفه را بر عهده دارد: آنچه ساخته می‌شود باید به یاد بیاورد، تا مردم مجبور نباشند از نو آغاز کنند.',
       paletteHead: 'پالت رنگ',
@@ -374,6 +585,16 @@
       nameHead: 'İsim',
       markHead: 'Simge',
       markBody: "Castro — iç içe halkalar hâlinde çizilmiş, surlarının içinde kulübelerin toplandığı bir kale — *brigā*'yı görünür kılar: yükseklikte kurulmuş, dayanacak kadar güçlü ve içindeki önemli şeyleri toplayacak kadar açık bir yerleşim.",
+      etymologyHead: 'Köken bilgisi',
+      bherHead: '*bher-* — taşımak',
+      bherBody: 'İngilizce bear, burden ve birth, Latince ferre ve Yunanca pherein\'in ardındaki Proto-Hint-Avrupa kökü. Temel fikri kendi başına hareket değildir: değerli bir şey vardır ve birinin onu ileriye taşıma sorumluluğu vardır. Yazılım tam olarak bunu yapar — dijital bir araç anıları, tercihleri, bilgiyi ve iş akışlarını taşır. Bir uygulama yalnızca kod değildir; insani bir şeyin o andan öteye hayatta kalmasını sağlayan bir kaptır.',
+      brigaHead: '*brigā* — temel',
+      brigaBody: 'Bir yükseklik, kale, tahkim edilmiş yerleşim anlamına gelen Proto-Kelt kökü — antik A Coruña ile ilişkilendirilen Brigantium gibi eski isimlerin arkasındaki kök. Sadece \'bir tepe\' değil: daha uzağı görebileceğiniz bir yer.',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE-, *brigā*\'dan gelir: güç, temel, yükseklik. -REN, süreklilik, hareket, oluş çağrıştıran modern bir ek. Birlikte \'ileriye taşıyan güçlü temel\' olarak okunurlar.',
+      oralDigitalHead: 'Sözlü gelenekten dijital geleneğe',
+      oralDigitalBody: 'Antik dünyada bilgi insanlarda yaşardı: biri hikâyeleri, tarihi, zanaatı ve kültürü hatırlardı ve insan zihni depolama sistemiydi. Dijital dünyada bilgi sistemlerde yaşar: yazılım izlediklerimizi, yarattıklarımızı, ihtiyaç duyduklarımızı ve değer verdiklerimizi hatırlar. Uygulama, belleğin bir uzantısı hâline gelir.',
+      whyNotAside: 'Lugus, Nabia, Avalon ya da Briga gibi isimler zaten güçlü tarihsel çağrışımlar taşır — zaten var olan bir hikâyeyi anlatırlar. Breren, Google, Kodak ya da Spotify\'ın yaptığı gibi şirketin kendi hikâyesini yazabilmesi için, onlardan biri gibi ama biri olmadan ses çıkaracak şekilde tasarlandı: anlam, işin kendisinden büyür.',
       philosophyHead: 'Felsefe',
       philosophyBody: 'Eski topluluklar bilgiyi hafıza ve yeniden anlatım yoluyla canlı tutardı. Yazılım artık aynı görevi taşıyor: inşa edilen şey hatırlamalı, böylece insanların baştan başlamasına gerek kalmaz.',
       paletteHead: 'Palet',
@@ -387,6 +608,16 @@
       nameHead: 'Tên gọi',
       markHead: 'Biểu tượng',
       markBody: 'Castro — một pháo đài được vẽ thành các vòng đồng tâm, với những túp lều tụ họp bên trong tường thành — làm cho *brigā* trở nên hữu hình: một khu định cư xây trên cao, đủ vững chắc để tồn tại và đủ rộng mở để quy tụ những điều quan trọng bên trong nó.',
+      etymologyHead: 'Từ nguyên',
+      bherHead: '*bher-* — mang',
+      bherBody: 'Một gốc từ Tiền Ấn-Âu đứng sau tiếng Anh bear, burden và birth, tiếng Latin ferre, và tiếng Hy Lạp pherein. Ý tưởng cốt lõi của nó không phải là sự chuyển động vì bản thân nó: một điều gì đó quý giá tồn tại, và ai đó có trách nhiệm mang nó tiếp tục về phía trước. Phần mềm làm chính xác điều đó — một công cụ số mang theo ký ức, sở thích, kiến thức và quy trình làm việc. Một ứng dụng không chỉ là mã nguồn; nó là một vật chứa cho phép điều gì đó thuộc về con người tồn tại vượt khỏi khoảnh khắc.',
+      brigaHead: '*brigā* — nền tảng',
+      brigaBody: 'Một gốc từ Tiền Celt mang nghĩa độ cao, pháo đài, khu định cư kiên cố — gốc từ đứng sau các địa danh cổ như Brigantium, gắn với A Coruña cổ đại. Không chỉ đơn thuần là "một ngọn đồi": mà là nơi có thể nhìn xa hơn.',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- bắt nguồn từ *brigā*: sức mạnh, nền tảng, độ cao. -REN là một hậu tố hiện đại gợi ý sự tiếp nối, chuyển động, sự trở thành. Kết hợp lại, chúng đọc như "nền tảng vững chắc mang tới tương lai".',
+      oralDigitalHead: 'Từ truyền thống truyền miệng đến truyền thống số',
+      oralDigitalBody: 'Trong thế giới cổ đại, tri thức sống trong con người: một người ghi nhớ những câu chuyện, lịch sử, kỹ năng và văn hóa, và tâm trí con người chính là hệ thống lưu trữ. Trong thế giới số, tri thức sống trong các hệ thống: phần mềm ghi nhớ những gì chúng ta xem, tạo ra, cần và trân trọng. Ứng dụng trở thành phần mở rộng của ký ức.',
+      whyNotAside: 'Những cái tên như Lugus, Nabia, Avalon hay Briga đã mang những liên tưởng lịch sử mạnh mẽ — chúng kể một câu chuyện đã tồn tại sẵn. Breren được xây dựng để nghe giống một trong số đó mà không thực sự là như vậy, để công ty có thể viết nên câu chuyện của riêng mình, như cách Google, Kodak hay Spotify đã làm: ý nghĩa lớn lên từ chính công việc.',
       philosophyHead: 'Triết lý',
       philosophyBody: 'Các cộng đồng cổ xưa giữ cho tri thức sống động qua ký ức và lời kể. Phần mềm ngày nay mang cùng nhiệm vụ đó: những gì được xây dựng nên phải ghi nhớ, để con người không phải bắt đầu lại từ đầu.',
       paletteHead: 'Bảng màu',
@@ -400,6 +631,16 @@
       nameHead: 'Nama',
       markHead: 'Lambang',
       markBody: 'Castro — benteng yang digambar dalam cincin konsentris, dengan gubuk-gubuk berkumpul di dalam temboknya — membuat *brigā* menjadi nyata: sebuah permukiman yang dibangun di dataran tinggi, cukup kuat untuk bertahan dan cukup terbuka untuk mengumpulkan hal-hal penting di dalamnya.',
+      etymologyHead: 'Etimologi',
+      bherHead: '*bher-* — membawa',
+      bherBody: 'Akar Proto-Indo-Eropa di balik bahasa Inggris bear, burden, dan birth, bahasa Latin ferre, dan bahasa Yunani pherein. Gagasan intinya bukan sekadar gerakan: sesuatu yang berharga ada, dan seseorang memiliki tanggung jawab untuk membawanya maju. Perangkat lunak melakukan persis itu — alat digital membawa kenangan, preferensi, pengetahuan, dan alur kerja. Sebuah aplikasi bukan hanya kode; ia adalah wadah yang memungkinkan sesuatu yang manusiawi bertahan melampaui momennya.',
+      brigaHead: '*brigā* — fondasi',
+      brigaBody: 'Akar Proto-Celtic untuk ketinggian, benteng, permukiman berbenteng — akar di balik nama-nama kuno seperti Brigantium, yang terkait dengan A Coruña kuno. Bukan sekadar "bukit": tempat untuk memandang lebih jauh.',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- berasal dari *brigā*: kekuatan, fondasi, ketinggian. -REN adalah akhiran modern yang menyiratkan kesinambungan, gerakan, dan menjadi. Bersama-sama, keduanya terbaca sebagai "fondasi kuat yang membawa maju".',
+      oralDigitalHead: 'Dari tradisi lisan ke tradisi digital',
+      oralDigitalBody: 'Di dunia kuno, pengetahuan hidup dalam diri manusia: seseorang mengingat cerita, sejarah, keterampilan, dan budaya, dan pikiran manusia adalah sistem penyimpanannya. Di dunia digital, pengetahuan hidup dalam sistem: perangkat lunak mengingat apa yang kita tonton, ciptakan, butuhkan, dan hargai. Aplikasi menjadi perpanjangan dari ingatan.',
+      whyNotAside: 'Nama-nama seperti Lugus, Nabia, Avalon, atau Briga sudah membawa asosiasi historis yang kuat — mereka menceritakan kisah yang sudah ada. Breren dibangun untuk terdengar seperti salah satunya tanpa benar-benar menjadi itu, sehingga perusahaan bisa menulis kisahnya sendiri, seperti yang dilakukan Google, Kodak, atau Spotify: makna tumbuh dari karya itu sendiri.',
       philosophyHead: 'Filosofi',
       philosophyBody: 'Komunitas kuno menjaga pengetahuan tetap hidup melalui ingatan dan penceritaan kembali. Perangkat lunak kini membawa tugas yang sama: apa yang dibangun harus mengingat, agar orang tidak perlu memulai dari awal lagi.',
       paletteHead: 'Palet warna',
@@ -413,6 +654,16 @@
       nameHead: 'ชื่อ',
       markHead: 'สัญลักษณ์',
       markBody: 'คาสโตร — ป้อมปราการที่ลากเป็นวงแหวนซ้อนกัน มีกระท่อมรวมกันอยู่ภายในกำแพง — ทำให้ *brigā* มองเห็นได้: ถิ่นฐานที่สร้างบนที่สูง แข็งแกร่งพอจะยืนยงและเปิดกว้างพอจะรวบรวมสิ่งสำคัญไว้ภายใน',
+      etymologyHead: 'รากศัพท์',
+      bherHead: '*bher-* — แบก',
+      bherBody: 'รากศัพท์ Proto-Indo-European ที่อยู่เบื้องหลังคำภาษาอังกฤษ bear, burden และ birth, ภาษาละติน ferre และภาษากรีก pherein แนวคิดหลักของมันไม่ใช่การเคลื่อนไหวเพื่อตัวมันเอง แต่คือ สิ่งมีค่าบางอย่างมีอยู่ และมีใครสักคนมีหน้าที่นำพามันต่อไปข้างหน้า ซอฟต์แวร์ทำสิ่งนี้เป๊ะ ๆ — เครื่องมือดิจิทัลแบกความทรงจำ ความชอบ ความรู้ และขั้นตอนการทำงาน แอปพลิเคชันไม่ใช่แค่โค้ด แต่เป็นภาชนะที่ทำให้สิ่งที่เป็นมนุษย์อยู่รอดเกินกว่าช่วงเวลานั้น',
+      brigaHead: '*brigā* — รากฐาน',
+      brigaBody: 'รากศัพท์ Proto-Celtic ที่หมายถึงที่สูง ป้อมปราการ ถิ่นฐานที่มีการป้องกัน — รากศัพท์เบื้องหลังชื่อโบราณอย่าง Brigantium ซึ่งเชื่อมโยงกับ A Coruña โบราณ ไม่ใช่แค่ "เนินเขา" แต่เป็นสถานที่ที่มองเห็นได้ไกลกว่า',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- นำมาจาก *brigā*: พลัง รากฐาน ความสูง ส่วน -REN เป็นคำลงท้ายสมัยใหม่ที่สื่อถึงความต่อเนื่อง การเคลื่อนไหว การกลายเป็น เมื่อรวมกันจะอ่านได้ว่า "รากฐานที่มั่นคงซึ่งนำพาไปข้างหน้า"',
+      oralDigitalHead: 'จากประเพณีมุขปาฐะสู่ประเพณีดิจิทัล',
+      oralDigitalBody: 'ในโลกโบราณ ความรู้อาศัยอยู่ในตัวผู้คน คนคนหนึ่งจดจำเรื่องเล่า ประวัติศาสตร์ ฝีมือ และวัฒนธรรม จิตใจมนุษย์คือระบบจัดเก็บข้อมูล ในโลกดิจิทัล ความรู้อาศัยอยู่ในระบบ ซอฟต์แวร์จดจำสิ่งที่เราดู สร้าง ต้องการ และให้คุณค่า แอปพลิเคชันจึงกลายเป็นส่วนขยายของความทรงจำ',
+      whyNotAside: 'ชื่ออย่าง Lugus, Nabia, Avalon หรือ Briga ล้วนมีความเชื่อมโยงทางประวัติศาสตร์ที่แข็งแรงอยู่แล้ว พวกมันเล่าเรื่องราวที่มีอยู่แล้ว Breren ถูกสร้างขึ้นให้ฟังดูเหมือนหนึ่งในชื่อเหล่านั้นโดยไม่ได้เป็นชื่อนั้นจริง ๆ เพื่อให้บริษัทสามารถเขียนเรื่องราวของตัวเองได้ เช่นเดียวกับที่ Google, Kodak หรือ Spotify เคยทำ ความหมายเติบโตขึ้นจากงานที่ทำ',
       philosophyHead: 'ปรัชญา',
       philosophyBody: 'ชุมชนโบราณรักษาความรู้ให้มีชีวิตผ่านความทรงจำและการเล่าขาน วันนี้ซอฟต์แวร์แบกรับหน้าที่เดียวกันนั้น สิ่งที่ถูกสร้างขึ้นควรจดจำไว้ เพื่อที่ผู้คนจะไม่ต้องเริ่มต้นใหม่',
       paletteHead: 'ชุดสี',
@@ -426,6 +677,16 @@
       nameHead: 'Jina',
       markHead: 'Alama',
       markBody: 'Castro — ngome iliyochorwa kwa miduara inayozunguka kituo kimoja, yenye vibanda vilivyokusanyika ndani ya kuta zake — inafanya *brigā* ionekane: makazi yaliyojengwa juu ya kilele, imara vya kutosha kudumu na wazi vya kutosha kukusanya yaliyo muhimu ndani yake.',
+      etymologyHead: 'Asili ya neno',
+      bherHead: '*bher-* — kubeba',
+      bherBody: 'Mzizi wa Proto-Indo-European ulio nyuma ya maneno ya Kiingereza bear, burden na birth, Kilatini ferre, na Kigiriki pherein. Wazo lake kuu si mwendo wenyewe: kitu chenye thamani kipo, na mtu ana jukumu la kukibeba mbele. Programu hufanya hivyo hasa — chombo cha kidijitali hubeba kumbukumbu, mapendeleo, maarifa na mtiririko wa kazi. Programu si msimbo tu; ni chombo kinachoruhusu jambo la kibinadamu kuendelea kuishi zaidi ya wakati huo.',
+      brigaHead: '*brigā* — msingi',
+      brigaBody: 'Mzizi wa Proto-Celtic wenye maana ya kilele, ngome, makazi yaliyoimarishwa — mzizi ulio nyuma ya majina ya kale kama Brigantium, yanayohusiana na A Coruña ya kale. Si tu "kilima": ni mahali ambapo unaweza kuona mbali zaidi.',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- hutokana na *brigā*: nguvu, msingi, kimo. -REN ni kiambishi cha kisasa kinachoashiria mwendelezo, mwendo, kuwa. Pamoja husomeka kama "msingi imara unaopeleka mbele".',
+      oralDigitalHead: 'Kutoka mapokeo ya mdomo hadi mapokeo ya kidijitali',
+      oralDigitalBody: 'Katika dunia ya kale, maarifa yaliishi ndani ya watu: mtu alikumbuka hadithi, historia, ustadi na utamaduni, na akili ya binadamu ndiyo iliyokuwa mfumo wa kuhifadhi. Katika dunia ya kidijitali, maarifa huishi ndani ya mifumo: programu hukumbuka tunachotazama, kuunda, kuhitaji na kuthamini. Programu inakuwa upanuzi wa kumbukumbu.',
+      whyNotAside: 'Majina kama Lugus, Nabia, Avalon au Briga tayari yana miunganiko mikubwa ya kihistoria — yanasimulia hadithi iliyokwishakuwepo. Breren limeundwa lisikike kama mojawapo yao bila kuwa hivyo, ili kampuni iweze kuandika hadithi yake yenyewe, kama walivyofanya Google, Kodak au Spotify: maana hukua kutoka kwenye kazi yenyewe.',
       philosophyHead: 'Falsafa',
       philosophyBody: 'Jamii za kale zilihifadhi maarifa hai kupitia kumbukumbu na usimuliaji. Programu sasa inabeba jukumu hilo hilo: kile kinachojengwa kinapaswa kukumbuka, ili watu wasilazimike kuanza upya.',
       paletteHead: 'Mchoro wa rangi',
@@ -439,6 +700,16 @@
       nameHead: 'పేరు',
       markHead: 'చిహ్నం',
       markBody: 'కాస్ట్రో — కేంద్రీకృత వలయాలలో గీయబడిన కోట, దాని గోడల లోపల గుడిసెలు సమావేశమై ఉంటాయి — *brigā*ను కనిపించేలా చేస్తుంది: ఎత్తైన ప్రదేశంలో నిర్మించిన ఒక నివాసం, నిలదొక్కుకునేంత బలంగా మరియు ముఖ్యమైనవాటిని తనలో సమకూర్చుకునేంత తెరిచి ఉంటుంది.',
+      etymologyHead: 'పదవ్యుత్పత్తి',
+      bherHead: '*bher-* — మోయడం',
+      bherBody: 'ఆంగ్లంలోని bear, burden మరియు birth, లాటిన్ ferre, గ్రీక్ pherein వెనుక ఉన్న ప్రోటో-ఇండో-యూరోపియన్ మూలం. దీని ప్రధాన భావన కేవలం కదలిక కాదు: విలువైనది ఏదో ఉంది, మరియు దానిని ముందుకు మోసుకెళ్లే బాధ్యత ఎవరికైనా ఉంది. సాఫ్ట్‌వేర్ సరిగ్గా అదే చేస్తుంది — డిజిటల్ సాధనం జ్ఞాపకాలు, ప్రాధాన్యతలు, జ్ఞానం మరియు కార్యప్రవాహాలను మోస్తుంది. యాప్ కేవలం కోడ్ కాదు; అది మానవీయమైనది ఆ క్షణాన్ని దాటి మనుగడ సాగించేలా చేసే పాత్ర.',
+      brigaHead: '*brigā* — పునాది',
+      brigaBody: 'ఎత్తు, కోట, రక్షిత నివాసం అనే అర్థంలో ప్రోటో-సెల్టిక్ మూలం — పురాతన A Coruña తో ముడిపడిన Brigantium వంటి పురాతన పేర్ల వెనుక ఉన్న మూలం. కేవలం "కొండ" కాదు: మరింత దూరం చూడగలిగే ప్రదేశం.',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- *brigā* నుండి వచ్చింది: శక్తి, పునాది, ఎత్తు. -REN అనేది కొనసాగింపు, కదలిక, మారుతూ ఉండటం సూచించే ఆధునిక ప్రత్యయం. కలిపి చదివితే "ముందుకు తీసుకెళ్లే బలమైన పునాది"గా అర్థమవుతుంది.',
+      oralDigitalHead: 'మౌఖిక సంప్రదాయం నుండి డిజిటల్ సంప్రదాయానికి',
+      oralDigitalBody: 'పురాతన ప్రపంచంలో, జ్ఞానం ప్రజల్లో జీవించింది: ఒక వ్యక్తి కథలు, చరిత్ర, నైపుణ్యం మరియు సంస్కృతిని గుర్తుంచుకునేవాడు, మానవ మనస్సే నిల్వ వ్యవస్థగా ఉండేది. డిజిటల్ ప్రపంచంలో, జ్ఞానం వ్యవస్థల్లో జీవిస్తుంది: మనం చూసేది, సృష్టించేది, అవసరమైనది మరియు విలువైనదాన్ని సాఫ్ట్‌వేర్ గుర్తుంచుకుంటుంది. యాప్ జ్ఞాపకశక్తికి పొడిగింపుగా మారుతుంది.',
+      whyNotAside: 'Lugus, Nabia, Avalon లేదా Briga వంటి పేర్లు ఇప్పటికే బలమైన చారిత్రక అనుబంధాలను కలిగి ఉన్నాయి — అవి ఇప్పటికే ఉన్న కథను చెబుతాయి. Breren వాటిలో ఒకదానిలా వినిపించేలా రూపొందించబడింది కానీ నిజంగా అది కాదు, తద్వారా Google, Kodak లేదా Spotify చేసినట్లుగా కంపెనీ తన స్వంత కథను రాసుకోగలదు: అర్థం పనినుండే పెరుగుతుంది.',
       philosophyHead: 'తత్వం',
       philosophyBody: 'పురాతన సమాజాలు జ్ఞాపకం మరియు తిరిగి చెప్పడం ద్వారా జ్ఞానాన్ని సజీవంగా ఉంచేవి. సాఫ్ట్‌వేర్ ఇప్పుడు అదే పనిని మోస్తుంది: నిర్మించినది గుర్తుంచుకోవాలి, తద్వారా ప్రజలు మళ్లీ మొదటి నుండి ప్రారంభించాల్సిన అవసరం లేకుండా.',
       paletteHead: 'వర్ణ పలిత',
@@ -452,6 +723,16 @@
       nameHead: 'பெயர்',
       markHead: 'சின்னம்',
       markBody: 'காஸ்ட்ரோ — செறிவான வளையங்களில் வரையப்பட்ட ஒரு கோட்டை, அதன் சுவர்களுக்குள் குடிசைகள் ஒன்றுகூடியிருக்கும் — *brigā*வை காணக்கூடியதாக ஆக்குகிறது: உயரமான இடத்தில் கட்டப்பட்ட ஒரு குடியேற்றம், நீடிக்கும் அளவுக்கு வலிமையானது மற்றும் முக்கியமானவற்றை தனக்குள் சேகரிக்கும் அளவுக்கு திறந்தது.',
+      etymologyHead: 'சொல் வரலாறு',
+      bherHead: '*bher-* — சுமப்பது',
+      bherBody: 'ஆங்கிலத்தில் bear, burden, birth, லத்தீனில் ferre, கிரேக்கத்தில் pherein ஆகியவற்றுக்குப் பின்னால் உள்ள புரோட்டோ-இந்தோ-ஐரோப்பிய வேர். இதன் மையக் கருத்து வெறும் இயக்கம் அல்ல: மதிப்புமிக்க ஏதோ ஒன்று உள்ளது, அதை முன்னோக்கி சுமக்கும் பொறுப்பு ஒருவருக்கு உண்டு. மென்பொருள் சரியாக அதையே செய்கிறது — ஒரு டிஜிட்டல் கருவி நினைவுகள், விருப்பங்கள், அறிவு மற்றும் பணிப்பாய்வுகளை சுமக்கிறது. ஒரு பயன்பாடு வெறும் குறியீடு அல்ல; அது மனிதத்தன்மை கொண்ட ஏதோ ஒன்று அந்த தருணத்தைக் கடந்து உயிர்வாழ அனுமதிக்கும் ஒரு பாத்திரம்.',
+      brigaHead: '*brigā* — அடித்தளம்',
+      brigaBody: 'உயரம், கோட்டை, பாதுகாக்கப்பட்ட குடியேற்றம் என்ற பொருளில் ஒரு புரோட்டோ-கெல்டிக் வேர் — பண்டைய A Coruña உடன் தொடர்புடைய Brigantium போன்ற பண்டைய பெயர்களுக்குப் பின்னால் உள்ள வேர். வெறும் "மலை" அல்ல: மேலும் தொலைவைப் பார்க்கக்கூடிய ஒரு இடம்.',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- *brigā*விலிருந்து பெறப்பட்டது: வலிமை, அடித்தளம், உயரம். -REN என்பது தொடர்ச்சி, இயக்கம், மாறிக்கொண்டிருத்தலைக் குறிக்கும் நவீன விகுதி. ஒன்றாக அவை "முன்னோக்கி கொண்டு செல்லும் வலுவான அடித்தளம்" என வாசிக்கப்படுகின்றன.',
+      oralDigitalHead: 'வாய்மொழி மரபிலிருந்து டிஜிட்டல் மரபிற்கு',
+      oralDigitalBody: 'பண்டைய உலகில், அறிவு மனிதர்களில் வாழ்ந்தது: ஒருவர் கதைகள், வரலாறு, திறமை மற்றும் கலாச்சாரத்தை நினைவில் வைத்திருந்தார், மனித மனமே சேமிப்பு அமைப்பாக இருந்தது. டிஜிட்டல் உலகில், அறிவு அமைப்புகளில் வாழ்கிறது: நாம் பார்ப்பது, உருவாக்குவது, தேவைப்படுவது மற்றும் மதிப்பதை மென்பொருள் நினைவில் வைத்திருக்கிறது. பயன்பாடு நினைவகத்தின் நீட்டிப்பாக மாறுகிறது.',
+      whyNotAside: 'Lugus, Nabia, Avalon அல்லது Briga போன்ற பெயர்கள் ஏற்கனவே வலுவான வரலாற்றுத் தொடர்புகளைக் கொண்டுள்ளன — அவை ஏற்கனவே இருக்கும் ஒரு கதையைச் சொல்கின்றன. Breren அவற்றில் ஒன்றைப் போல ஒலிக்குமாறு, ஆனால் உண்மையில் அதுவாக இல்லாமல் வடிவமைக்கப்பட்டுள்ளது, இதனால் Google, Kodak அல்லது Spotify செய்ததைப் போல நிறுவனம் தனது சொந்தக் கதையை எழுத முடியும்: அர்த்தம் வேலையிலிருந்தே வளர்கிறது.',
       philosophyHead: 'தத்துவம்',
       philosophyBody: 'பண்டைய சமூகங்கள் நினைவு மற்றும் மறுசொல்லல் மூலம் அறிவை உயிருடன் வைத்திருந்தன. மென்பொருள் இப்போது அதே பணியை சுமக்கிறது: கட்டப்படுவது நினைவில் கொள்ள வேண்டும், மக்கள் மீண்டும் தொடங்க வேண்டியதில்லாதவாறு.',
       paletteHead: 'வண்ணத் தட்டு',
@@ -465,6 +746,16 @@
       nameHead: 'ਨਾਮ',
       markHead: 'ਨਿਸ਼ਾਨ',
       markBody: "ਕਾਸਤਰੋ — ਕੇਂਦਰਿਤ ਰਿੰਗਾਂ ਵਿੱਚ ਬਣਿਆ ਇੱਕ ਕਿਲ੍ਹਾ, ਜਿਸ ਦੀਆਂ ਦੀਵਾਰਾਂ ਅੰਦਰ ਝੌਂਪੜੀਆਂ ਇਕੱਠੀਆਂ ਹੁੰਦੀਆਂ ਹਨ — *brigā* ਨੂੰ ਦਿਖਾਈ ਦੇਣ ਯੋਗ ਬਣਾਉਂਦਾ ਹੈ: ਉਚਾਈ 'ਤੇ ਬਣੀ ਇੱਕ ਬਸਤੀ, ਟਿਕੇ ਰਹਿਣ ਜੋਗੀ ਮਜ਼ਬੂਤ ਅਤੇ ਜ਼ਰੂਰੀ ਚੀਜ਼ਾਂ ਨੂੰ ਆਪਣੇ ਅੰਦਰ ਇਕੱਠਾ ਕਰਨ ਜੋਗੀ ਖੁੱਲ੍ਹੀ।",
+      etymologyHead: 'ਵਿਉਤਪਤੀ',
+      bherHead: '*bher-* — ਚੁੱਕਣਾ',
+      bherBody: 'ਇੱਕ ਪ੍ਰੋਟੋ-ਇੰਡੋ-ਯੂਰਪੀਅਨ ਜੜ੍ਹ ਜੋ ਅੰਗਰੇਜ਼ੀ ਦੇ bear, burden ਅਤੇ birth, ਲਾਤੀਨੀ ਦੇ ferre, ਅਤੇ ਯੂਨਾਨੀ ਦੇ pherein ਪਿੱਛੇ ਹੈ। ਇਸਦਾ ਮੂਲ ਵਿਚਾਰ ਸਿਰਫ਼ ਹਿਲਜੁਲ ਨਹੀਂ: ਕੁਝ ਕੀਮਤੀ ਮੌਜੂਦ ਹੈ, ਅਤੇ ਕਿਸੇ ਦੀ ਜ਼ਿੰਮੇਵਾਰੀ ਹੈ ਇਸਨੂੰ ਅੱਗੇ ਲਿਜਾਣਾ। ਸਾਫਟਵੇਅਰ ਬਿਲਕੁਲ ਇਹੀ ਕਰਦਾ ਹੈ — ਇੱਕ ਡਿਜੀਟਲ ਸੰਦ ਯਾਦਾਂ, ਪਸੰਦਾਂ, ਗਿਆਨ ਅਤੇ ਕੰਮ-ਪ੍ਰਵਾਹ ਲੈ ਕੇ ਜਾਂਦਾ ਹੈ। ਇੱਕ ਐਪ ਸਿਰਫ਼ ਕੋਡ ਨਹੀਂ; ਇਹ ਇੱਕ ਭਾਂਡਾ ਹੈ ਜੋ ਕਿਸੇ ਮਨੁੱਖੀ ਚੀਜ਼ ਨੂੰ ਉਸ ਪਲ ਤੋਂ ਅੱਗੇ ਜਿਊਂਦਾ ਰਹਿਣ ਦਿੰਦਾ ਹੈ।',
+      brigaHead: '*brigā* — ਬੁਨਿਆਦ',
+      brigaBody: 'ਉਚਾਈ, ਕਿਲ੍ਹਾ, ਸੁਰੱਖਿਅਤ ਬਸਤੀ ਦੇ ਅਰਥ ਵਿੱਚ ਇੱਕ ਪ੍ਰੋਟੋ-ਸੈਲਟਿਕ ਜੜ੍ਹ — Brigantium ਵਰਗੇ ਪ੍ਰਾਚੀਨ ਨਾਵਾਂ ਪਿੱਛੇ ਦੀ ਜੜ੍ਹ, ਜੋ ਪ੍ਰਾਚੀਨ A Coruña ਨਾਲ ਜੁੜੀ ਹੈ। ਸਿਰਫ਼ \'ਇੱਕ ਪਹਾੜੀ\' ਨਹੀਂ: ਇੱਕ ਅਜਿਹੀ ਥਾਂ ਜਿੱਥੋਂ ਹੋਰ ਦੂਰ ਤੱਕ ਦੇਖਿਆ ਜਾ ਸਕੇ।',
+      combiningHead: 'BRE- + -REN',
+      combiningBody: 'BRE- *brigā* ਤੋਂ ਲਿਆ ਗਿਆ ਹੈ: ਤਾਕਤ, ਬੁਨਿਆਦ, ਉਚਾਈ। -REN ਇੱਕ ਆਧੁਨਿਕ ਅੰਤ ਹੈ ਜੋ ਨਿਰੰਤਰਤਾ, ਹਿਲਜੁਲ, ਬਣਨ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰਦਾ ਹੈ। ਇਕੱਠੇ ਇਹਨਾਂ ਨੂੰ "ਅੱਗੇ ਲਿਜਾਣ ਵਾਲੀ ਮਜ਼ਬੂਤ ਬੁਨਿਆਦ" ਵਜੋਂ ਪੜ੍ਹਿਆ ਜਾ ਸਕਦਾ ਹੈ।',
+      oralDigitalHead: 'ਮੌਖਿਕ ਪਰੰਪਰਾ ਤੋਂ ਡਿਜੀਟਲ ਪਰੰਪਰਾ ਤੱਕ',
+      oralDigitalBody: 'ਪ੍ਰਾਚੀਨ ਸੰਸਾਰ ਵਿੱਚ, ਗਿਆਨ ਲੋਕਾਂ ਵਿੱਚ ਜਿਊਂਦਾ ਰਹਿੰਦਾ ਸੀ: ਕੋਈ ਵਿਅਕਤੀ ਕਹਾਣੀਆਂ, ਇਤਿਹਾਸ, ਹੁਨਰ ਅਤੇ ਸੱਭਿਆਚਾਰ ਯਾਦ ਰੱਖਦਾ ਸੀ, ਅਤੇ ਮਨੁੱਖੀ ਮਨ ਹੀ ਸਟੋਰੇਜ ਪ੍ਰਣਾਲੀ ਸੀ। ਡਿਜੀਟਲ ਸੰਸਾਰ ਵਿੱਚ, ਗਿਆਨ ਪ੍ਰਣਾਲੀਆਂ ਵਿੱਚ ਰਹਿੰਦਾ ਹੈ: ਸਾਫਟਵੇਅਰ ਯਾਦ ਰੱਖਦਾ ਹੈ ਕਿ ਅਸੀਂ ਕੀ ਦੇਖਦੇ, ਬਣਾਉਂਦੇ, ਲੋੜੀਂਦੇ ਅਤੇ ਮਹੱਤਵ ਦਿੰਦੇ ਹਾਂ। ਐਪ ਯਾਦਾਸ਼ਤ ਦਾ ਵਿਸਥਾਰ ਬਣ ਜਾਂਦੀ ਹੈ।',
+      whyNotAside: 'Lugus, Nabia, Avalon ਜਾਂ Briga ਵਰਗੇ ਨਾਮ ਪਹਿਲਾਂ ਹੀ ਮਜ਼ਬੂਤ ਇਤਿਹਾਸਕ ਸੰਬੰਧ ਰੱਖਦੇ ਹਨ — ਉਹ ਇੱਕ ਅਜਿਹੀ ਕਹਾਣੀ ਦੱਸਦੇ ਹਨ ਜੋ ਪਹਿਲਾਂ ਤੋਂ ਮੌਜੂਦ ਹੈ। Breren ਨੂੰ ਇਹਨਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਇੱਕ ਵਰਗਾ ਲੱਗਣ ਲਈ ਬਣਾਇਆ ਗਿਆ ਹੈ, ਬਿਨਾਂ ਉਹ ਹੋਏ, ਤਾਂ ਜੋ ਕੰਪਨੀ ਆਪਣੀ ਖੁਦ ਦੀ ਕਹਾਣੀ ਲਿਖ ਸਕੇ, ਜਿਵੇਂ Google, Kodak ਜਾਂ Spotify ਨੇ ਕੀਤਾ: ਅਰਥ ਕੰਮ ਤੋਂ ਹੀ ਉੱਭਰਦਾ ਹੈ।',
       philosophyHead: 'ਦਰਸ਼ਨ',
       philosophyBody: 'ਪ੍ਰਾਚੀਨ ਭਾਈਚਾਰੇ ਯਾਦ ਅਤੇ ਮੁੜ-ਕਥਨ ਰਾਹੀਂ ਗਿਆਨ ਨੂੰ ਜ਼ਿੰਦਾ ਰੱਖਦੇ ਸਨ। ਸਾਫਟਵੇਅਰ ਹੁਣ ਉਹੀ ਕੰਮ ਚੁੱਕਦਾ ਹੈ: ਜੋ ਬਣਾਇਆ ਜਾਂਦਾ ਹੈ ਉਸਨੂੰ ਯਾਦ ਰੱਖਣਾ ਚਾਹੀਦਾ ਹੈ, ਤਾਂ ਜੋ ਲੋਕਾਂ ਨੂੰ ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਨਾ ਕਰਨਾ ਪਵੇ।',
       paletteHead: 'ਰੰਗ ਪੈਲੇਟ',
@@ -505,7 +796,14 @@
     document.getElementById('home-link-2').textContent = t('backToHome');
     document.getElementById('name-head').textContent = t('nameHead');
     document.getElementById('name-body').textContent = t('aboutOrigin');
-    document.getElementById('more-link').textContent = t('aboutMore');
+    document.getElementById('etymology-head').textContent = t('etymologyHead');
+    document.getElementById('bher-head').textContent = t('bherHead');
+    document.getElementById('bher-body').textContent = t('bherBody');
+    document.getElementById('briga-head').textContent = t('brigaHead');
+    document.getElementById('briga-body').textContent = t('brigaBody');
+    document.getElementById('combining-head').textContent = t('combiningHead');
+    document.getElementById('combining-body').textContent = t('combiningBody');
+    document.getElementById('why-not-aside').textContent = t('whyNotAside');
     document.getElementById('mark-head').textContent = t('markHead');
     document.getElementById('mark-body').textContent = t('markBody');
     document.getElementById('palette-head').textContent = t('paletteHead');
@@ -516,6 +814,8 @@
     document.getElementById('swatch-ink').textContent = t('swatchInk');
     document.getElementById('philosophy-head').textContent = t('philosophyHead');
     document.getElementById('philosophy-body').textContent = t('philosophyBody');
+    document.getElementById('oral-digital-head').textContent = t('oralDigitalHead');
+    document.getElementById('oral-digital-body').textContent = t('oralDigitalBody');
   }
 
   BrerenCommon.applyIncomingPreset();

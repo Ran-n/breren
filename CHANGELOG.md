@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `about/index.html` — the full *bher-*/*brigā* naming story integrated
+  directly into the "The name" card (etymology pairs for each root, the
+  BRE-/-REN combination, and an aside on why an existing Celtic name
+  like Lugus or Briga wasn't used) and an oral-to-digital contrast added
+  to the philosophy card, translated across all 25 supported languages.
+  Replaces the external link to `docs/naming.md` on GitHub.
 - `about/index.html` — a "Palette" card between the mark and philosophy
   sections, with swatches for the Gruvbox background, card, accent, and
   ink colors, translated across all 25 supported languages.

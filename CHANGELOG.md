@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/08/04 14:02:07.739523 )
+[//]: # (+ Revised: 	2026/08/04 20:30:35.567628 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `licenses/index.html` — redirects `breren.com/licenses` to
+  `breren.com/licenses/pbl` (meta-refresh + JS, with a plain link
+  fallback), so the bare `/licenses` path resolves instead of 404ing.
 - A footer with a link to the PayBack License (PBL) 2.0, shown at the
   bottom of the page.
 - `licenses/pbl/index.html` — full-viewport iframe wrapper so

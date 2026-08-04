@@ -703,6 +703,28 @@
   };
   var RTL_LANGS = ['ar', 'ur', 'fa'];
 
+  // A page linking back here (e.g. vitralis's "Breren" link) can hand off
+  // its current language/theme via ?lang=&theme= query params - a plain
+  // top-level navigation can't carry a postMessage, since the page that
+  // would send it has already unloaded by the time this one loads. Applied
+  // unconditionally (not just first-seed) and then stripped from the URL.
+  (function applyIncomingPreset() {
+    var params = new URLSearchParams(window.location.search);
+    var lang = (params.get('lang') || '').toLowerCase();
+    var theme = (params.get('theme') || '').toLowerCase();
+    var hasLang = lang && SUPPORTED_LANGS.indexOf(lang) !== -1;
+    var hasTheme = theme === 'light' || theme === 'dark';
+    if (hasLang) localStorage.setItem('breren-lang', lang);
+    if (hasTheme) localStorage.setItem('breren-theme', theme);
+    if (params.has('lang') || params.has('theme')) {
+      params.delete('lang');
+      params.delete('theme');
+      var qs = params.toString();
+      var newUrl = window.location.pathname + (qs ? '?' + qs : '') + window.location.hash;
+      window.history.replaceState(null, '', newUrl);
+    }
+  })();
+
   var currentLang = detectLang();
   var latestData = null;
   var latestError = null;

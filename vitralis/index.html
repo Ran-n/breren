@@ -10,16 +10,15 @@
 </style>
 </head>
 <body>
-<iframe id="vitralis-frame" title="Vitralis" allowfullscreen></iframe>
+<iframe id="vitralis-frame" src="https://ran-n.github.io/vitralis/" title="Vitralis" allowfullscreen></iframe>
 <script>
-  var params = new URLSearchParams();
-  var lang = localStorage.getItem('breren-lang');
-  var theme = localStorage.getItem('breren-theme');
-  if (lang) params.set('lang', lang);
-  if (theme) params.set('theme', theme);
-  var qs = params.toString();
-  document.getElementById('vitralis-frame').src =
-    'https://ran-n.github.io/vitralis/' + (qs ? '?' + qs : '');
+  document.getElementById('vitralis-frame').addEventListener('load', function () {
+    this.contentWindow.postMessage({
+      type: 'vitralis-preset',
+      lang: localStorage.getItem('breren-lang'),
+      theme: localStorage.getItem('breren-theme')
+    }, 'https://ran-n.github.io');
+  });
 </script>
 </body>
 </html>

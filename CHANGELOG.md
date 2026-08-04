@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/08/04 11:26:54.400748 )
+[//]: # (+ Revised: 	2026/08/04 11:31:06.017616 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -20,10 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   across all 25 supported languages.
 - `vitralis/index.html` — full-viewport iframe wrapper so
   `breren.com/vitralis` loads the Vitralis site while keeping the
-  `breren.com` URL, without needing a reverse proxy; it also passes the
-  visitor's current `breren-lang`/`breren-theme` to the iframe as
-  `?lang=`/`?theme=` so Vitralis opens matching breren's language and
-  light/dark mode.
+  `breren.com` URL, without needing a reverse proxy; it also
+  `postMessage`s the visitor's current `breren-lang`/`breren-theme` to
+  the iframe once it loads, so Vitralis opens matching breren's
+  language and light/dark mode.
 - An "About Breren" info button in the toolbar opens a modal with the
   name's origin story (the *bher-*/*brigā* etymology) and a link to the
   full write-up in `docs/naming.md`; translated across all 25 supported

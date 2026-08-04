@@ -15,7 +15,7 @@ name = "Get started"
   [[categories.items]]
   id = "vitralis"
   name = "Vitralis"
-  url = "https://ran-n.github.io/vitralis/"
+  url = "https://breren.com/vitralis"
   description = "Persistent screen overlay for drawing annotations over your live desktop — click-through, always-on-top, and saved across sessions."
   icon = "icons/vitralis.png"
   color = "#1a5fa8"

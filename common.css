@@ -1,0 +1,193 @@
+/*
+ * Shared look for every full page on breren.com (index.html, about/index.html,
+ * ...): the Gruvbox palette, page shell, and toolbar (language picker + theme
+ * toggle). Page-specific content (tile grid, about cards, ...) stays in each
+ * page's own <style> block.
+ */
+
+/* Gruvbox palette: https://github.com/morhetz/gruvbox */
+:root {
+  color-scheme: light dark;
+}
+:root, :root[data-theme="light"] {
+  --bg: #fbf1c7;        /* gruvbox light bg0 */
+  --bg-alt: #f2e5bc;    /* gruvbox light bg0_s */
+  --fg: #3c3836;        /* gruvbox light fg1 */
+  --fg-muted: #7c6f64;  /* gruvbox light fg4 */
+  --card-bg: #ebdbb2;   /* gruvbox light bg1 */
+  --card-border: #d5c4a1; /* gruvbox light bg2 */
+  --accent: #d65d0e;    /* gruvbox light orange */
+  --shadow: rgba(60, 45, 20, 0.15);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #282828;        /* gruvbox dark bg0 */
+    --bg-alt: #1d2021;    /* gruvbox dark bg0_h */
+    --fg: #ebdbb2;        /* gruvbox dark fg1 */
+    --fg-muted: #a89984;  /* gruvbox dark fg4 */
+    --card-bg: #3c3836;   /* gruvbox dark bg1 */
+    --card-border: #504945; /* gruvbox dark bg2 */
+    --accent: #fe8019;    /* gruvbox dark bright orange */
+    --shadow: rgba(0, 0, 0, 0.45);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #282828; --bg-alt: #1d2021; --fg: #ebdbb2; --fg-muted: #a89984;
+  --card-bg: #3c3836; --card-border: #504945; --accent: #fe8019;
+  --shadow: rgba(0, 0, 0, 0.45);
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0; min-height: 100%;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
+  color: var(--fg);
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 5rem;
+  position: relative;
+}
+.toolbar {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Language picker */
+.lang-picker {
+  position: relative;
+}
+.lang-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  background: var(--card-bg);
+  color: var(--fg);
+  padding: 0.4rem 0.6rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.lang-trigger:hover { border-color: var(--accent); }
+.lang-trigger .chevron {
+  color: var(--fg-muted);
+  font-size: 0.7rem;
+}
+.lang-menu {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  margin: 0;
+  padding: 0.35rem;
+  list-style: none;
+  width: 15rem;
+  max-height: 20rem;
+  overflow-y: auto;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px var(--shadow);
+  z-index: 20;
+}
+.lang-menu[hidden] { display: none; }
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--fg);
+  padding: 0.45rem 0.55rem;
+  font-size: 0.86rem;
+}
+.lang-option:hover,
+.lang-option:focus-visible {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  outline: none;
+}
+.lang-option[aria-selected="true"] {
+  font-weight: 700;
+  color: var(--accent);
+}
+.flag {
+  flex: none;
+  display: inline-flex;
+  width: 1.3rem;
+  height: 1.3rem;
+  line-height: 1.3rem;
+  font-size: 1.1rem;
+}
+.flag svg { width: 100%; height: 100%; border-radius: 2px; }
+
+.theme-btn {
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  background: var(--card-bg);
+  color: var(--fg-muted);
+  width: 2.1rem;
+  height: 2.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+.theme-btn:hover { border-color: var(--accent); }
+
+header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.mark {
+  display: block;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 0.5rem;
+  cursor: pointer;
+}
+.mark svg { display: block; width: 100%; height: 100%; }
+.mark:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+h1 {
+  font-size: 2rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 0.4rem;
+  font-weight: 700;
+}
+.tagline {
+  color: var(--fg-muted);
+  font-size: 1rem;
+  margin: 0;
+}
+footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--card-border);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--fg-muted);
+}
+footer a {
+  color: var(--fg-muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+footer a:hover { color: var(--accent); }
+footer .footer-sep {
+  margin: 0 0.5rem;
+}

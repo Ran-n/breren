@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/08/04 20:30:35.567628 )
+[//]: # (+ Revised: 	2026/08/04 20:48:13.450461 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -15,6 +15,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `about/index.html` — dedicated "About Breren" page at
+  `breren.com/about`: the *bher-*/*brigā* naming story, a card on the
+  castro mark's *brigā* symbolism, and a short philosophy statement,
+  translated across all 25 supported languages. Linked from a
+  plain-text "About Breren" line in the home page's footer.
+- `common.css`, `common.js` — palette, page shell, and the language
+  picker/theme toggle toolbar factored out of `index.html` so `about/`
+  can share the same look and behavior instead of duplicating it.
 - `licenses/index.html` — redirects `breren.com/licenses` to
   `breren.com/licenses/pbl` (meta-refresh + JS, with a plain link
   fallback), so the bare `/licenses` path resolves instead of 404ing.
@@ -35,10 +43,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `postMessage`s the visitor's current `breren-lang`/`breren-theme` to
   the iframe once it loads, so Vitralis opens matching breren's
   language and light/dark mode.
-- An "About Breren" info button in the toolbar opens a modal with the
-  name's origin story (the *bher-*/*brigā* etymology) and a link to the
-  full write-up in `docs/naming.md`; translated across all 25 supported
-  languages.
 - `icons/breren.ico` — multi-resolution favicon, wired up as an
   `alternate icon` alongside the existing SVG icon for browsers that
   don't support SVG favicons.

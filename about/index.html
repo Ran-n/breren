@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="gl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About Breren</title>
+<link rel="icon" type="image/svg+xml" href="../icons/breren-logo.svg">
+<link rel="alternate icon" href="../icons/breren.ico">
+<link rel="stylesheet" href="../common.css">
+<style>
+  .home-link {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--fg-muted);
+    text-decoration: none;
+  }
+  .home-link:hover { color: var(--accent); }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    box-shadow: 0 2px 8px var(--shadow);
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .card h2 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--fg-muted);
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .card p {
+    color: var(--fg);
+    line-height: 1.6;
+    margin: 0 0 1rem;
+  }
+  .card p:last-child { margin-bottom: 0; }
+  .pronunciation {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+    background: var(--bg-alt);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 0.3rem 0.7rem;
+    margin: 0 0 1rem;
+  }
+  .more-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .more-link:hover { text-decoration: underline; }
+  .mark-lockup {
+    display: block;
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 1.25rem;
+  }
+  .mark-lockup svg { display: block; width: 100%; height: 100%; }
+</style>
+</head>
+<body>
+<main>
+  <a class="home-link" id="home-link" href="../"></a>
+  <div class="toolbar">
+    <div class="lang-picker">
+      <button class="lang-trigger" id="lang-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+        <span class="flag" id="lang-trigger-flag"></span>
+        <span id="lang-trigger-name"></span>
+        <span class="chevron">▾</span>
+      </button>
+      <ul class="lang-menu" id="lang-menu" role="listbox" hidden></ul>
+    </div>
+    <button class="theme-btn" id="theme-toggle" type="button"></button>
+  </div>
+  <header>
+    <div class="mark" id="logo-mark" role="button" tabindex="0" aria-label="Redraw logo" aria-disabled="false"></div>
+    <h1 id="page-title">Breren</h1>
+    <p class="tagline" id="page-tagline"></p>
+  </header>
+
+  <section class="card">
+    <h2 id="name-head"></h2>
+    <p id="name-body"></p>
+    <p class="pronunciation">BRER-en — /ˈbrɛr.ən/</p>
+    <p><a class="more-link" id="more-link" href="https://github.com/Ran-n/breren/blob/main/docs/naming.md" target="_blank" rel="noopener noreferrer"></a></p>
+  </section>
+
+  <section class="card">
+    <h2 id="mark-head"></h2>
+    <div class="mark-lockup" id="mark-lockup"></div>
+    <p id="mark-body"></p>
+  </section>
+
+  <section class="card">
+    <h2 id="philosophy-head"></h2>
+    <p id="philosophy-body"></p>
+  </section>
+
+  <footer>
+    <a id="home-link-2" href="../"></a>
+    <span class="footer-sep">·</span>
+    <a id="license-link" href="/licenses/pbl">PayBack License (PBL) 2.0</a>
+  </footer>
+</main>
+<script src="../common.js"></script>
+<script>
+(function () {
+  var STRINGS = {
+    gl: {
+      nameHead: 'O nome',
+      markHead: 'A marca',
+      markBody: 'O castro — un forte trazado en aneis concéntricos, coas cabanas reunidas dentro das súas murallas — fai visible *brigā*: un asentamento construído en alto, forte dabondo para perdurar e aberto dabondo para reunir o que importa dentro del.',
+      philosophyHead: 'Filosofía',
+      philosophyBody: 'As comunidades antigas mantiñan viva a sabedoría a través da memoria e do relato. O software carga agora esa mesma tarefa: o que se constrúe debe lembrar, para que a xente non teña que comezar de novo.'
+    },
+    en: {
+      nameHead: 'The name',
+      markHead: 'The mark',
+      markBody: 'The castro — a hillfort traced in concentric rings, with huts gathered inside its walls — makes *brigā* visible: a settlement built on high ground, strong enough to endure and open enough to gather what matters within it.',
+      philosophyHead: 'Philosophy',
+      philosophyBody: "Ancient communities kept knowledge alive through memory and retelling. Software carries that same task now: what gets built should remember, so people don't have to start over."
+    },
+    eo: {
+      nameHead: 'La nomo',
+      markHead: 'La signo',
+      markBody: 'La kastro — fortikaĵo desegnita per koncentraj ringoj, kun kabanoj kolektitaj interne de ĝiaj muroj — igas *brigā*n videbla: loĝejo konstruita sur alteco, sufiĉe forta por daŭri kaj sufiĉe malfermita por kolekti interne tion, kio gravas.',
+      philosophyHead: 'Filozofio',
+      philosophyBody: 'Antikvaj komunumoj konservis scion vivanta per memoro kaj rerakontado. Programaro nun portas la saman taskon: tio, kio estas konstruita, devas memori, por ke homoj ne devu rekomenci.'
+    },
+    es: {
+      nameHead: 'El nombre',
+      markHead: 'La marca',
+      markBody: 'El castro — un fuerte trazado en anillos concéntricos, con las cabañas reunidas dentro de sus murallas — hace visible *brigā*: un asentamiento construido en alto, lo bastante fuerte para perdurar y lo bastante abierto para reunir lo que importa en su interior.',
+      philosophyHead: 'Filosofía',
+      philosophyBody: 'Las comunidades antiguas mantenían viva la sabiduría a través de la memoria y el relato. El software carga ahora esa misma tarea: lo que se construye debe recordar, para que las personas no tengan que empezar de nuevo.'
+    },
+    fr: {
+      nameHead: 'Le nom',
+      markHead: 'La marque',
+      markBody: "Le castro — une forteresse tracée en anneaux concentriques, avec des huttes rassemblées derrière ses murailles — rend *brigā* visible : une implantation bâtie en hauteur, assez forte pour durer et assez ouverte pour rassembler ce qui compte en son sein.",
+      philosophyHead: 'Philosophie',
+      philosophyBody: "Les communautés anciennes gardaient le savoir vivant par la mémoire et le récit. Le logiciel porte aujourd'hui cette même tâche : ce qui est construit doit se souvenir, pour que les gens n'aient pas à tout recommencer."
+    },
+    pt: {
+      nameHead: 'O nome',
+      markHead: 'A marca',
+      markBody: 'O castro — uma fortaleza traçada em anéis concêntricos, com cabanas reunidas dentro das suas muralhas — torna *brigā* visível: um povoado construído em altura, forte o bastante para perdurar e aberto o bastante para reunir o que importa no seu interior.',
+      philosophyHead: 'Filosofia',
+      philosophyBody: 'As comunidades antigas mantinham o conhecimento vivo através da memória e da narrativa. O software carrega agora essa mesma tarefa: o que é construído deve lembrar, para que as pessoas não precisem recomeçar.'
+    },
+    de: {
+      nameHead: 'Der Name',
+      markHead: 'Das Zeichen',
+      markBody: 'Der Castro — eine in konzentrischen Ringen angelegte Wallburg mit Hütten innerhalb ihrer Mauern — macht *brigā* sichtbar: eine Siedlung auf einer Anhöhe, stark genug, um zu bestehen, und offen genug, um zu sammeln, was darin zählt.',
+      philosophyHead: 'Philosophie',
+      philosophyBody: 'Alte Gemeinschaften hielten Wissen durch Erinnerung und Weitererzählen lebendig. Software trägt heute dieselbe Aufgabe: Was gebaut wird, soll sich erinnern, damit Menschen nicht von vorn beginnen müssen.'
+    },
+    it: {
+      nameHead: 'Il nome',
+      markHead: 'Il marchio',
+      markBody: "Il castro — una fortezza tracciata in anelli concentrici, con capanne raccolte entro le sue mura — rende visibile *brigā*: un insediamento costruito in altura, abbastanza forte da durare e abbastanza aperto da raccogliere ciò che conta al suo interno.",
+      philosophyHead: 'Filosofia',
+      philosophyBody: 'Le comunità antiche mantenevano viva la conoscenza attraverso la memoria e il racconto. Il software porta oggi lo stesso compito: ciò che si costruisce deve ricordare, perché le persone non debbano ricominciare da capo.'
+    },
+    ru: {
+      nameHead: 'Название',
+      markHead: 'Знак',
+      markBody: 'Кастро — крепость, очерченная концентрическими кольцами, с хижинами, собранными внутри её стен, — делает *brigā* видимой: поселение, построенное на возвышенности, достаточно прочное, чтобы выстоять, и достаточно открытое, чтобы вместить в себе то, что важно.',
+      philosophyHead: 'Философия',
+      philosophyBody: 'Древние общины сохраняли знание живым через память и пересказ. Сегодня программное обеспечение несёт ту же задачу: то, что создаётся, должно помнить, чтобы людям не приходилось начинать заново.'
+    },
+    zh: {
+      nameHead: '名字',
+      markHead: '标志',
+      markBody: '卡斯特罗(castro)——一座以同心环勾勒、内部聚居着房舍的山堡——让 *brigā* 变得可见:一处建于高地的聚落,坚固到足以长存,又开放到足以将重要之物汇聚其中。',
+      philosophyHead: '理念',
+      philosophyBody: '古代社群靠记忆与口述让知识长存。如今软件承担着同样的任务:被创造出来的东西应当记得,这样人们就不必从头再来。'
+    },
+    ja: {
+      nameHead: '名前',
+      markHead: '紋章',
+      markBody: 'カストロ——同心円状の環で描かれ、城壁の内側に住居が集まる丘の砦——は *brigā* を目に見える形にしたものです。高台に築かれ、存続できるほど強く、大切なものを内に集められるほど開かれた集落です。',
+      philosophyHead: '理念',
+      philosophyBody: '古代の共同体は記憶と語り継ぎによって知識を生かし続けました。ソフトウェアは今、その同じ役割を担っています——作られたものは記憶するべきです。人々がゼロからやり直さずに済むように。'
+    },
+    ko: {
+      nameHead: '이름',
+      markHead: '상징',
+      markBody: '카스트로(castro) — 동심원 모양으로 그려진 성채로, 성벽 안에 오두막들이 모여 있는 — 는 *brigā*를 눈에 보이게 만듭니다: 높은 곳에 세워져 지속될 만큼 튼튼하고, 중요한 것을 안에 모을 만큼 열려 있는 정착지입니다.',
+      philosophyHead: '철학',
+      philosophyBody: '고대 공동체는 기억과 구전을 통해 지식을 살아 있게 했습니다. 오늘날 소프트웨어가 그 같은 역할을 맡습니다: 만들어진 것은 기억해야 합니다, 사람들이 처음부터 다시 시작하지 않도록.'
+    },
+    ar: {
+      nameHead: 'الاسم',
+      markHead: 'الشعار',
+      markBody: 'الكاسترو — حصن مرسوم في حلقات متحدة المركز، تتجمع الأكواخ داخل أسواره — يجعل *brigā* مرئية: مستوطنة بُنيت على مرتفع، قوية بما يكفي لتدوم، ومنفتحة بما يكفي لتجمع ما يهم بداخلها.',
+      philosophyHead: 'الفلسفة',
+      philosophyBody: 'حافظت المجتمعات القديمة على المعرفة حية عبر الذاكرة وإعادة السرد. تحمل البرمجيات اليوم المهمة ذاتها: ما يُبنى يجب أن يتذكر، حتى لا يضطر الناس إلى البدء من جديد.'
+    },
+    hi: {
+      nameHead: 'नाम',
+      markHead: 'चिह्न',
+      markBody: 'कास्ट्रो — संकेंद्रित छल्लों में बना एक किला, जिसकी दीवारों के भीतर झोपड़ियाँ इकट्ठा हैं — *brigā* को दृश्य रूप देता है: ऊँचाई पर बना एक बसाव, इतना मज़बूत कि टिका रहे और इतना खुला कि जो महत्वपूर्ण है उसे अपने भीतर समेट सके।',
+      philosophyHead: 'दर्शन',
+      philosophyBody: 'प्राचीन समुदाय स्मृति और पुनः-कथन के ज़रिए ज्ञान को जीवित रखते थे। सॉफ़्टवेयर अब वही काम करता है: जो बनाया जाए उसे याद रखना चाहिए, ताकि लोगों को फिर से शुरुआत न करनी पड़े।'
+    },
+    bn: {
+      nameHead: 'নাম',
+      markHead: 'প্রতীক',
+      markBody: 'কাস্ত্রো — কেন্দ্রীভূত বলয়ে আঁকা একটি দুর্গ, যার প্রাচীরের ভেতরে কুঁড়েঘরগুলো জড়ো হয়ে আছে — *brigā*-কে দৃশ্যমান করে তোলে: উঁচু জমিতে গড়া একটি বসতি, টিকে থাকার মতো শক্তিশালী এবং গুরুত্বপূর্ণ যা কিছু তার ভেতরে জড়ো করার মতো উন্মুক্ত।',
+      philosophyHead: 'দর্শন',
+      philosophyBody: 'প্রাচীন সম্প্রদায়গুলো স্মৃতি ও পুনর্কথনের মাধ্যমে জ্ঞানকে জীবন্ত রাখত। সফটওয়্যার এখন সেই একই কাজ বহন করে: যা তৈরি হয় তার মনে রাখা উচিত, যাতে মানুষকে আবার শুরু থেকে শুরু করতে না হয়।'
+    },
+    ur: {
+      nameHead: 'نام',
+      markHead: 'نشان',
+      markBody: 'کاسترو — ایک قلعہ جو ہم مرکز حلقوں میں بنا ہے، جس کی دیواروں کے اندر جھونپڑیاں جمع ہیں — *brigā* کو نظر آنے کے قابل بناتا ہے: بلندی پر بنی ایک بستی، اتنی مضبوط کہ قائم رہے اور اتنی کھلی کہ اہم چیزوں کو اپنے اندر سمیٹ سکے۔',
+      philosophyHead: 'فلسفہ',
+      philosophyBody: 'قدیم برادریاں یادداشت اور دوبارہ بیان کے ذریعے علم کو زندہ رکھتی تھیں۔ سافٹ ویئر اب وہی کام سرانجام دیتا ہے: جو کچھ بنایا جائے اسے یاد رکھنا چاہیے، تاکہ لوگوں کو دوبارہ شروع نہ کرنا پڑے۔'
+    },
+    fa: {
+      nameHead: 'نام',
+      markHead: 'نشان',
+      markBody: 'کاسترو — دژی ترسیم‌شده در حلقه‌های هم‌مرکز، با کلبه‌هایی که درون دیوارهایش گرد آمده‌اند — *brigā* را قابل‌مشاهده می‌کند: سکونتگاهی ساخته‌شده بر بلندا، به اندازه‌ای استوار که دوام بیاورد و به اندازه‌ای باز که آنچه اهمیت دارد را در خود گرد آورد.',
+      philosophyHead: 'فلسفه',
+      philosophyBody: 'جوامع باستانی دانش را از طریق حافظه و بازگویی زنده نگه می‌داشتند. نرم‌افزار امروز همان وظیفه را بر عهده دارد: آنچه ساخته می‌شود باید به یاد بیاورد، تا مردم مجبور نباشند از نو آغاز کنند.'
+    },
+    tr: {
+      nameHead: 'İsim',
+      markHead: 'Simge',
+      markBody: "Castro — iç içe halkalar hâlinde çizilmiş, surlarının içinde kulübelerin toplandığı bir kale — *brigā*'yı görünür kılar: yükseklikte kurulmuş, dayanacak kadar güçlü ve içindeki önemli şeyleri toplayacak kadar açık bir yerleşim.",
+      philosophyHead: 'Felsefe',
+      philosophyBody: 'Eski topluluklar bilgiyi hafıza ve yeniden anlatım yoluyla canlı tutardı. Yazılım artık aynı görevi taşıyor: inşa edilen şey hatırlamalı, böylece insanların baştan başlamasına gerek kalmaz.'
+    },
+    vi: {
+      nameHead: 'Tên gọi',
+      markHead: 'Biểu tượng',
+      markBody: 'Castro — một pháo đài được vẽ thành các vòng đồng tâm, với những túp lều tụ họp bên trong tường thành — làm cho *brigā* trở nên hữu hình: một khu định cư xây trên cao, đủ vững chắc để tồn tại và đủ rộng mở để quy tụ những điều quan trọng bên trong nó.',
+      philosophyHead: 'Triết lý',
+      philosophyBody: 'Các cộng đồng cổ xưa giữ cho tri thức sống động qua ký ức và lời kể. Phần mềm ngày nay mang cùng nhiệm vụ đó: những gì được xây dựng nên phải ghi nhớ, để con người không phải bắt đầu lại từ đầu.'
+    },
+    id: {
+      nameHead: 'Nama',
+      markHead: 'Lambang',
+      markBody: 'Castro — benteng yang digambar dalam cincin konsentris, dengan gubuk-gubuk berkumpul di dalam temboknya — membuat *brigā* menjadi nyata: sebuah permukiman yang dibangun di dataran tinggi, cukup kuat untuk bertahan dan cukup terbuka untuk mengumpulkan hal-hal penting di dalamnya.',
+      philosophyHead: 'Filosofi',
+      philosophyBody: 'Komunitas kuno menjaga pengetahuan tetap hidup melalui ingatan dan penceritaan kembali. Perangkat lunak kini membawa tugas yang sama: apa yang dibangun harus mengingat, agar orang tidak perlu memulai dari awal lagi.'
+    },
+    th: {
+      nameHead: 'ชื่อ',
+      markHead: 'สัญลักษณ์',
+      markBody: 'คาสโตร — ป้อมปราการที่ลากเป็นวงแหวนซ้อนกัน มีกระท่อมรวมกันอยู่ภายในกำแพง — ทำให้ *brigā* มองเห็นได้: ถิ่นฐานที่สร้างบนที่สูง แข็งแกร่งพอจะยืนยงและเปิดกว้างพอจะรวบรวมสิ่งสำคัญไว้ภายใน',
+      philosophyHead: 'ปรัชญา',
+      philosophyBody: 'ชุมชนโบราณรักษาความรู้ให้มีชีวิตผ่านความทรงจำและการเล่าขาน วันนี้ซอฟต์แวร์แบกรับหน้าที่เดียวกันนั้น สิ่งที่ถูกสร้างขึ้นควรจดจำไว้ เพื่อที่ผู้คนจะไม่ต้องเริ่มต้นใหม่'
+    },
+    sw: {
+      nameHead: 'Jina',
+      markHead: 'Alama',
+      markBody: 'Castro — ngome iliyochorwa kwa miduara inayozunguka kituo kimoja, yenye vibanda vilivyokusanyika ndani ya kuta zake — inafanya *brigā* ionekane: makazi yaliyojengwa juu ya kilele, imara vya kutosha kudumu na wazi vya kutosha kukusanya yaliyo muhimu ndani yake.',
+      philosophyHead: 'Falsafa',
+      philosophyBody: 'Jamii za kale zilihifadhi maarifa hai kupitia kumbukumbu na usimuliaji. Programu sasa inabeba jukumu hilo hilo: kile kinachojengwa kinapaswa kukumbuka, ili watu wasilazimike kuanza upya.'
+    },
+    te: {
+      nameHead: 'పేరు',
+      markHead: 'చిహ్నం',
+      markBody: 'కాస్ట్రో — కేంద్రీకృత వలయాలలో గీయబడిన కోట, దాని గోడల లోపల గుడిసెలు సమావేశమై ఉంటాయి — *brigā*ను కనిపించేలా చేస్తుంది: ఎత్తైన ప్రదేశంలో నిర్మించిన ఒక నివాసం, నిలదొక్కుకునేంత బలంగా మరియు ముఖ్యమైనవాటిని తనలో సమకూర్చుకునేంత తెరిచి ఉంటుంది.',
+      philosophyHead: 'తత్వం',
+      philosophyBody: 'పురాతన సమాజాలు జ్ఞాపకం మరియు తిరిగి చెప్పడం ద్వారా జ్ఞానాన్ని సజీవంగా ఉంచేవి. సాఫ్ట్‌వేర్ ఇప్పుడు అదే పనిని మోస్తుంది: నిర్మించినది గుర్తుంచుకోవాలి, తద్వారా ప్రజలు మళ్లీ మొదటి నుండి ప్రారంభించాల్సిన అవసరం లేకుండా.'
+    },
+    ta: {
+      nameHead: 'பெயர்',
+      markHead: 'சின்னம்',
+      markBody: 'காஸ்ட்ரோ — செறிவான வளையங்களில் வரையப்பட்ட ஒரு கோட்டை, அதன் சுவர்களுக்குள் குடிசைகள் ஒன்றுகூடியிருக்கும் — *brigā*வை காணக்கூடியதாக ஆக்குகிறது: உயரமான இடத்தில் கட்டப்பட்ட ஒரு குடியேற்றம், நீடிக்கும் அளவுக்கு வலிமையானது மற்றும் முக்கியமானவற்றை தனக்குள் சேகரிக்கும் அளவுக்கு திறந்தது.',
+      philosophyHead: 'தத்துவம்',
+      philosophyBody: 'பண்டைய சமூகங்கள் நினைவு மற்றும் மறுசொல்லல் மூலம் அறிவை உயிருடன் வைத்திருந்தன. மென்பொருள் இப்போது அதே பணியை சுமக்கிறது: கட்டப்படுவது நினைவில் கொள்ள வேண்டும், மக்கள் மீண்டும் தொடங்க வேண்டியதில்லாதவாறு.'
+    },
+    pa: {
+      nameHead: 'ਨਾਮ',
+      markHead: 'ਨਿਸ਼ਾਨ',
+      markBody: "ਕਾਸਤਰੋ — ਕੇਂਦਰਿਤ ਰਿੰਗਾਂ ਵਿੱਚ ਬਣਿਆ ਇੱਕ ਕਿਲ੍ਹਾ, ਜਿਸ ਦੀਆਂ ਦੀਵਾਰਾਂ ਅੰਦਰ ਝੌਂਪੜੀਆਂ ਇਕੱਠੀਆਂ ਹੁੰਦੀਆਂ ਹਨ — *brigā* ਨੂੰ ਦਿਖਾਈ ਦੇਣ ਯੋਗ ਬਣਾਉਂਦਾ ਹੈ: ਉਚਾਈ 'ਤੇ ਬਣੀ ਇੱਕ ਬਸਤੀ, ਟਿਕੇ ਰਹਿਣ ਜੋਗੀ ਮਜ਼ਬੂਤ ਅਤੇ ਜ਼ਰੂਰੀ ਚੀਜ਼ਾਂ ਨੂੰ ਆਪਣੇ ਅੰਦਰ ਇਕੱਠਾ ਕਰਨ ਜੋਗੀ ਖੁੱਲ੍ਹੀ।",
+      philosophyHead: 'ਦਰਸ਼ਨ',
+      philosophyBody: 'ਪ੍ਰਾਚੀਨ ਭਾਈਚਾਰੇ ਯਾਦ ਅਤੇ ਮੁੜ-ਕਥਨ ਰਾਹੀਂ ਗਿਆਨ ਨੂੰ ਜ਼ਿੰਦਾ ਰੱਖਦੇ ਸਨ। ਸਾਫਟਵੇਅਰ ਹੁਣ ਉਹੀ ਕੰਮ ਚੁੱਕਦਾ ਹੈ: ਜੋ ਬਣਾਇਆ ਜਾਂਦਾ ਹੈ ਉਸਨੂੰ ਯਾਦ ਰੱਖਣਾ ਚਾਹੀਦਾ ਹੈ, ਤਾਂ ਜੋ ਲੋਕਾਂ ਨੂੰ ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਨਾ ਕਰਨਾ ਪਵੇ।'
+    }
+  };
+
+  var currentLang;
+
+  function t(key, vars) {
+    var dict = STRINGS[currentLang] || STRINGS.gl;
+    var common = BrerenCommon.COMMON_STRINGS[currentLang] || BrerenCommon.COMMON_STRINGS.gl;
+    var str = dict[key] || common[key] || STRINGS.gl[key] || BrerenCommon.COMMON_STRINGS.gl[key] || key;
+    if (vars) {
+      Object.keys(vars).forEach(function (k) {
+        str = str.replace('{' + k + '}', vars[k]);
+      });
+    }
+    return str;
+  }
+
+  function selectLang(code) {
+    currentLang = code;
+    localStorage.setItem('breren-lang', code);
+    document.documentElement.lang = code;
+    BrerenCommon.applyDirection(code);
+    applyTexts();
+  }
+
+  function applyTexts() {
+    document.title = t('aboutTitle');
+    document.getElementById('page-tagline').textContent = t('tagline');
+    document.getElementById('home-link').textContent = t('backToHome');
+    document.getElementById('home-link-2').textContent = t('backToHome');
+    document.getElementById('name-head').textContent = t('nameHead');
+    document.getElementById('name-body').textContent = t('aboutOrigin');
+    document.getElementById('more-link').textContent = t('aboutMore');
+    document.getElementById('mark-head').textContent = t('markHead');
+    document.getElementById('mark-body').textContent = t('markBody');
+    document.getElementById('philosophy-head').textContent = t('philosophyHead');
+    document.getElementById('philosophy-body').textContent = t('philosophyBody');
+  }
+
+  BrerenCommon.applyIncomingPreset();
+  currentLang = BrerenCommon.detectLang();
+
+  BrerenCommon.setupLangPicker(function () { return currentLang; }, selectLang);
+  BrerenCommon.setupThemeToggle(t);
+  setupLogoMark();
+  BrerenCommon.applyTheme(BrerenCommon.effectiveTheme(), t);
+  BrerenCommon.applyDirection(currentLang);
+  applyTexts();
+
+  // ---- logo mark ----------------------------------------------------
+  // Static (non-interactive replay) lockup for the card header, plus the
+  // interactive header mark that matches index.html's redraw-on-click.
+
+  function setupLogoMark() {
+    var mark = document.getElementById('logo-mark');
+    var lockup = document.getElementById('mark-lockup');
+    var busy = false;
+
+    fetch('../icons/breren-logo-animated.svg', { cache: 'no-store' })
+      .then(function (r) { return r.text(); })
+      .then(function (svgText) {
+        mark.innerHTML = svgText;
+        mark.addEventListener('click', replay);
+        mark.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            replay();
+          }
+        });
+      })
+      .catch(function () {}); // decorative; page works without it
+
+    fetch('../icons/breren-logo.svg', { cache: 'no-store' })
+      .then(function (r) { return r.text(); })
+      .then(function (svgText) { lockup.innerHTML = svgText; })
+      .catch(function () {});
+
+    function replay() {
+      if (busy) return;
+      var animated = mark.querySelectorAll('.rampart, .hut');
+      if (animated.length === 0) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      busy = true;
+      mark.setAttribute('aria-disabled', 'true');
+      var remaining = animated.length;
+
+      Array.prototype.forEach.call(animated, function (el) { el.style.animation = 'none'; });
+      void mark.offsetWidth; // force reflow so the animation restarts
+      Array.prototype.forEach.call(animated, function (el) {
+        el.style.animation = '';
+        el.addEventListener('animationend', onEnd);
+      });
+
+      function onEnd(e) {
+        e.currentTarget.removeEventListener('animationend', onEnd);
+        remaining--;
+        if (remaining === 0) {
+          busy = false;
+          mark.setAttribute('aria-disabled', 'false');
+        }
+      }
+    }
+  }
+})();
+</script>
+</body>
+</html>

@@ -6,240 +6,8 @@
 <title>Breren</title>
 <link rel="icon" type="image/svg+xml" href="icons/breren-logo.svg">
 <link rel="alternate icon" href="icons/breren.ico">
+<link rel="stylesheet" href="common.css">
 <style>
-  /* Gruvbox palette: https://github.com/morhetz/gruvbox */
-  :root {
-    color-scheme: light dark;
-  }
-  :root, :root[data-theme="light"] {
-    --bg: #fbf1c7;        /* gruvbox light bg0 */
-    --bg-alt: #f2e5bc;    /* gruvbox light bg0_s */
-    --fg: #3c3836;        /* gruvbox light fg1 */
-    --fg-muted: #7c6f64;  /* gruvbox light fg4 */
-    --card-bg: #ebdbb2;   /* gruvbox light bg1 */
-    --card-border: #d5c4a1; /* gruvbox light bg2 */
-    --accent: #d65d0e;    /* gruvbox light orange */
-    --shadow: rgba(60, 45, 20, 0.15);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #282828;        /* gruvbox dark bg0 */
-      --bg-alt: #1d2021;    /* gruvbox dark bg0_h */
-      --fg: #ebdbb2;        /* gruvbox dark fg1 */
-      --fg-muted: #a89984;  /* gruvbox dark fg4 */
-      --card-bg: #3c3836;   /* gruvbox dark bg1 */
-      --card-border: #504945; /* gruvbox dark bg2 */
-      --accent: #fe8019;    /* gruvbox dark bright orange */
-      --shadow: rgba(0, 0, 0, 0.45);
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #282828; --bg-alt: #1d2021; --fg: #ebdbb2; --fg-muted: #a89984;
-    --card-bg: #3c3836; --card-border: #504945; --accent: #fe8019;
-    --shadow: rgba(0, 0, 0, 0.45);
-  }
-
-  * { box-sizing: border-box; }
-  html, body {
-    margin: 0; padding: 0; min-height: 100%;
-    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
-    color: var(--fg);
-    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  }
-  main {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 4rem 1.5rem 5rem;
-    position: relative;
-  }
-  .toolbar {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  /* Language picker */
-  .lang-picker {
-    position: relative;
-  }
-  .lang-trigger {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font: inherit;
-    cursor: pointer;
-    border: 1px solid var(--card-border);
-    border-radius: 8px;
-    background: var(--card-bg);
-    color: var(--fg);
-    padding: 0.4rem 0.6rem;
-    font-size: 0.82rem;
-    font-weight: 600;
-  }
-  .lang-trigger:hover { border-color: var(--accent); }
-  .lang-trigger .chevron {
-    color: var(--fg-muted);
-    font-size: 0.7rem;
-  }
-  .lang-menu {
-    position: absolute;
-    top: calc(100% + 0.4rem);
-    right: 0;
-    margin: 0;
-    padding: 0.35rem;
-    list-style: none;
-    width: 15rem;
-    max-height: 20rem;
-    overflow-y: auto;
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 10px;
-    box-shadow: 0 8px 24px var(--shadow);
-    z-index: 20;
-  }
-  .lang-menu[hidden] { display: none; }
-  .lang-option {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
-    width: 100%;
-    font: inherit;
-    text-align: left;
-    cursor: pointer;
-    border: none;
-    border-radius: 6px;
-    background: transparent;
-    color: var(--fg);
-    padding: 0.45rem 0.55rem;
-    font-size: 0.86rem;
-  }
-  .lang-option:hover,
-  .lang-option:focus-visible {
-    background: color-mix(in srgb, var(--accent) 18%, transparent);
-    outline: none;
-  }
-  .lang-option[aria-selected="true"] {
-    font-weight: 700;
-    color: var(--accent);
-  }
-  .flag {
-    flex: none;
-    display: inline-flex;
-    width: 1.3rem;
-    height: 1.3rem;
-    line-height: 1.3rem;
-    font-size: 1.1rem;
-  }
-  .flag svg { width: 100%; height: 100%; border-radius: 2px; }
-
-  .theme-btn, .about-btn {
-    font: inherit;
-    cursor: pointer;
-    border: 1px solid var(--card-border);
-    border-radius: 8px;
-    background: var(--card-bg);
-    color: var(--fg-muted);
-    width: 2.1rem;
-    height: 2.1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-  }
-  .theme-btn:hover, .about-btn:hover { border-color: var(--accent); }
-
-  /* About modal */
-  .about-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-    z-index: 30;
-  }
-  .about-overlay[hidden] { display: none; }
-  .about-dialog {
-    max-width: 32rem;
-    width: 100%;
-    max-height: 85vh;
-    overflow-y: auto;
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 14px;
-    box-shadow: 0 12px 32px var(--shadow);
-    padding: 1.75rem;
-    position: relative;
-  }
-  .about-close {
-    position: absolute;
-    top: 0.9rem;
-    right: 0.9rem;
-    font: inherit;
-    cursor: pointer;
-    border: 1px solid var(--card-border);
-    border-radius: 8px;
-    background: transparent;
-    color: var(--fg-muted);
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .about-close:hover { border-color: var(--accent); }
-  .about-dialog h2 {
-    margin: 0 0.5rem 0.75rem 0;
-    font-size: 1.3rem;
-    letter-spacing: 0.04em;
-  }
-  .about-meaning {
-    font-weight: 600;
-    color: var(--accent);
-    margin: 0 0 1rem;
-  }
-  .about-origin {
-    color: var(--fg);
-    line-height: 1.55;
-    margin: 0 0 1.25rem;
-  }
-  .about-more {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-  }
-  .about-more:hover { text-decoration: underline; }
-
-  header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-  .mark {
-    display: block;
-    width: 72px;
-    height: 72px;
-    margin: 0 auto 0.5rem;
-    cursor: pointer;
-  }
-  .mark svg { display: block; width: 100%; height: 100%; }
-  .mark:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-  h1 {
-    font-size: 2rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin: 0 0 0.4rem;
-    font-weight: 700;
-  }
-  .tagline {
-    color: var(--fg-muted);
-    font-size: 1rem;
-    margin: 0;
-  }
   .category {
     margin-bottom: 2.5rem;
   }
@@ -312,20 +80,6 @@
     color: var(--fg-muted);
     padding: 2rem 0;
   }
-  footer {
-    margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--card-border);
-    text-align: center;
-    font-size: 0.8rem;
-    color: var(--fg-muted);
-  }
-  footer a {
-    color: var(--fg-muted);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-  footer a:hover { color: var(--accent); }
 </style>
 </head>
 <body>
@@ -339,7 +93,6 @@
       </button>
       <ul class="lang-menu" id="lang-menu" role="listbox" hidden></ul>
     </div>
-    <button class="about-btn" id="about-toggle" type="button">ℹ</button>
     <button class="theme-btn" id="theme-toggle" type="button"></button>
   </div>
   <header>
@@ -349,393 +102,158 @@
   </header>
   <div id="content"></div>
   <footer>
+    <a id="about-link" href="about/"></a>
+    <span class="footer-sep">·</span>
     <a id="license-link" href="/licenses/pbl">PayBack License (PBL) 2.0</a>
   </footer>
 </main>
-<div class="about-overlay" id="about-overlay" hidden>
-  <div class="about-dialog" role="dialog" aria-modal="true" aria-labelledby="about-title">
-    <button class="about-close" id="about-close" type="button" aria-label="Close">✕</button>
-    <h2 id="about-title">Breren</h2>
-    <p class="about-meaning" id="about-meaning"></p>
-    <p class="about-origin" id="about-origin"></p>
-    <a class="about-more" id="about-more" href="https://github.com/Ran-n/breren/blob/main/docs/naming.md" target="_blank" rel="noopener noreferrer"></a>
-  </div>
-</div>
+<script src="common.js"></script>
 <script>
 (function () {
   var LINKS_FILE = 'links.toml';
   var TRANSLATIONS_FILE = 'translations.toml';
 
-  // SVG flags (emoji flags don't render on all platforms/fonts).
-  var FLAG_GALEGO = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#ffffff"/><polygon points="0,20 0,14 24,0 30,0" fill="#0090d6"/></svg>';
-  var FLAG_ESPERANTO = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#007a3d"/><rect width="13" height="11" fill="#ffffff"/><text x="6.6" y="9.7" font-size="8" text-anchor="middle" dominant-baseline="middle" fill="#007a3d">★</text></svg>';
-  var FLAG_GB = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#00247d"/><path d="M0,0 L30,20 M30,0 L0,20" stroke="#ffffff" stroke-width="4"/><path d="M0,0 L30,20 M30,0 L0,20" stroke="#cf142b" stroke-width="1.5"/><path d="M15,0 V20 M0,10 H30" stroke="#ffffff" stroke-width="6.5"/><path d="M15,0 V20 M0,10 H30" stroke="#cf142b" stroke-width="4"/></svg>';
-  var FLAG_CN = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#de2910"/><g fill="#ffde00"><path d="M5,2 L6,5.2 L9,3.2 L7,6 L9,7 L5.8,6.6 L6,10 L4.6,6.9 L2,8.5 L3.8,5.7 L1,4.6 L4.4,4.6 Z"/><circle cx="10.5" cy="1.5" r="0.7"/><circle cx="12" cy="4" r="0.7"/><circle cx="12" cy="7" r="0.7"/><circle cx="10" cy="9" r="0.7"/></g></svg>';
-  var FLAG_IN = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="6.67" fill="#ff9933"/><rect width="30" height="6.67" y="6.67" fill="#ffffff"/><rect width="30" height="6.66" y="13.34" fill="#138808"/><circle cx="15" cy="10" r="2.4" fill="none" stroke="#000080" stroke-width="0.4"/></svg>';
-  var FLAG_ES = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#aa151b"/><rect width="30" height="10" y="5" fill="#f1bf00"/></svg>';
-  var FLAG_SA = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#006c35"/><rect x="4" y="13.5" width="18" height="1.6" fill="#ffffff"/><polygon points="22,13.5 26,14.3 22,15.1" fill="#ffffff"/></svg>';
-  var FLAG_FR = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="10" height="20" fill="#0055a4"/><rect width="10" height="20" x="10" fill="#ffffff"/><rect width="10" height="20" x="20" fill="#ef4135"/></svg>';
-  var FLAG_BD = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#006a4e"/><circle cx="13.5" cy="10" r="5.5" fill="#f42a41"/></svg>';
-  var FLAG_PT = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#da291c"/><rect width="12" height="20" fill="#046a38"/><circle cx="12" cy="10" r="3.4" fill="#f2c500" stroke="#da291c" stroke-width="0.3"/></svg>';
-  var FLAG_RU = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="6.67" fill="#ffffff"/><rect width="30" height="6.67" y="6.67" fill="#0039a6"/><rect width="30" height="6.66" y="13.34" fill="#d52b1e"/></svg>';
-  var FLAG_PK = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#01411c"/><rect width="7.5" height="20" fill="#ffffff"/><circle cx="19" cy="10" r="4.5" fill="#ffffff"/><circle cx="20.5" cy="10" r="3.6" fill="#01411c"/><polygon points="24,6.5 24.9,9 27.5,9 25.4,10.6 26.2,13.1 24,11.6 21.8,13.1 22.6,10.6 20.5,9 23.1,9" fill="#ffffff"/></svg>';
-  var FLAG_ID = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="10" fill="#ce1126"/><rect width="30" height="10" y="10" fill="#ffffff"/></svg>';
-  var FLAG_DE = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="6.67" fill="#000000"/><rect width="30" height="6.67" y="6.67" fill="#dd0000"/><rect width="30" height="6.66" y="13.34" fill="#ffce00"/></svg>';
-  var FLAG_JP = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#ffffff"/><circle cx="15" cy="10" r="5.5" fill="#bc002d"/></svg>';
-  var FLAG_TZ = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#1eb53a"/><polygon points="0,20 0,15 30,5 30,0" fill="#00a3dd"/><polygon points="0,20 0,16 30,6 30,2" fill="#fcd116"/><polygon points="0,19 0,17 30,7 30,5" fill="#000000"/></svg>';
-  var FLAG_TR = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#e30a17"/><circle cx="12.5" cy="10" r="4.2" fill="#ffffff"/><circle cx="13.7" cy="10" r="3.4" fill="#e30a17"/><polygon points="18,6.5 18.9,9 21.5,9 19.4,10.6 20.2,13.1 18,11.6 15.8,13.1 16.6,10.6 14.5,9 17.1,9" fill="#ffffff"/></svg>';
-  var FLAG_VN = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#da251d"/><polygon points="15,4.5 16.3,8.4 20.4,8.4 17.1,10.8 18.4,14.7 15,12.3 11.6,14.7 12.9,10.8 9.6,8.4 13.7,8.4" fill="#ffff00"/></svg>';
-  var FLAG_KR = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#ffffff"/><circle cx="15" cy="10" r="4" fill="#cd2e3a"/><path d="M15,6 A2,2 0 0 1 15,10 A2,2 0 0 0 15,14 A4,4 0 0 0 15,6 Z" fill="#0047a0"/></svg>';
-  var FLAG_IT = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="10" height="20" fill="#009246"/><rect width="10" height="20" x="10" fill="#ffffff"/><rect width="10" height="20" x="20" fill="#ce2b37"/></svg>';
-  var FLAG_IR = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="6.67" fill="#239f40"/><rect width="30" height="6.67" y="6.67" fill="#ffffff"/><rect width="30" height="6.66" y="13.34" fill="#da0000"/><circle cx="15" cy="10" r="2.2" fill="none" stroke="#da0000" stroke-width="0.3"/></svg>';
-  var FLAG_PA = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#f8bd21"/><rect width="30" height="2.5" fill="#0039a6"/><rect width="30" height="2.5" y="17.5" fill="#0039a6"/><circle cx="15" cy="10" r="3.6" fill="#ff8000"/></svg>';
-  var FLAG_TH = '<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#a51931"/><rect width="30" height="13.33" y="3.33" fill="#ffffff"/><rect width="30" height="6.67" y="6.67" fill="#2d2a4a"/></svg>';
-
-  // Ordered roughly by number of speakers, with Galego pinned first and
-  // Esperanto last. `rtl: true` flips document direction when selected.
-  var LANGUAGES = [
-    { code: 'gl', flag: FLAG_GALEGO, name: 'Galego' },
-    { code: 'en', flag: FLAG_GB, name: 'English' },
-    { code: 'zh', flag: FLAG_CN, name: '中文' },
-    { code: 'hi', flag: FLAG_IN, name: 'हिन्दी' },
-    { code: 'es', flag: FLAG_ES, name: 'Español' },
-    { code: 'ar', flag: FLAG_SA, name: 'العربية', rtl: true },
-    { code: 'fr', flag: FLAG_FR, name: 'Français' },
-    { code: 'bn', flag: FLAG_BD, name: 'বাংলা' },
-    { code: 'pt', flag: FLAG_PT, name: 'Português' },
-    { code: 'ru', flag: FLAG_RU, name: 'Русский' },
-    { code: 'ur', flag: FLAG_PK, name: 'اردو', rtl: true },
-    { code: 'id', flag: FLAG_ID, name: 'Bahasa Indonesia' },
-    { code: 'de', flag: FLAG_DE, name: 'Deutsch' },
-    { code: 'ja', flag: FLAG_JP, name: '日本語' },
-    { code: 'sw', flag: FLAG_TZ, name: 'Kiswahili' },
-    { code: 'te', flag: FLAG_IN, name: 'తెలుగు' },
-    { code: 'tr', flag: FLAG_TR, name: 'Türkçe' },
-    { code: 'ta', flag: FLAG_IN, name: 'தமிழ்' },
-    { code: 'vi', flag: FLAG_VN, name: 'Tiếng Việt' },
-    { code: 'ko', flag: FLAG_KR, name: '한국어' },
-    { code: 'it', flag: FLAG_IT, name: 'Italiano' },
-    { code: 'fa', flag: FLAG_IR, name: 'فارسی', rtl: true },
-    { code: 'pa', flag: FLAG_PA, name: 'ਪੰਜਾਬੀ' },
-    { code: 'th', flag: FLAG_TH, name: 'ไทย' },
-    { code: 'eo', flag: FLAG_ESPERANTO, name: 'Esperanto' }
-  ];
-  var SUPPORTED_LANGS = LANGUAGES.map(function (l) { return l.code; });
-  var LANG_BY_CODE = {};
-  LANGUAGES.forEach(function (l) { LANG_BY_CODE[l.code] = l; });
-
   var STRINGS = {
     gl: {
-      tagline: 'Un alicerce que leva adiante o que importa.',
       empty: 'Aínda non hai ligazóns — engade algunhas a {file}.',
       errorPrefix: 'Non se puido cargar {file}',
-      themeToLight: 'Cambiar a modo claro',
-      themeToDark: 'Cambiar a modo escuro',
-      aboutBtnLabel: 'Sobre Breren',
-      aboutTitle: 'Sobre Breren',
-      aboutOrigin: 'Breren combina dúas raíces antigas: o protoindoeuropeo *bher-* — levar, portar, transmitir cara adiante — e o protoceltra *brigā* — unha fortaleza, unha altura desde a que se ve máis lonxe. Xuntas: unha base forte que leva o que importa cara ao futuro.',
-      aboutMore: 'Le a historia completa do nome'
+      aboutLink: 'Sobre Breren'
     },
     en: {
-      tagline: 'A foundation that carries what matters forward.',
       empty: 'No links yet — add some to {file}.',
       errorPrefix: 'Could not load {file}',
-      themeToLight: 'Switch to light mode',
-      themeToDark: 'Switch to dark mode',
-      aboutBtnLabel: 'About Breren',
-      aboutTitle: 'About Breren',
-      aboutOrigin: 'Breren blends two ancient roots: Proto-Indo-European *bher-* — to carry, to bear, to bring forward — and Proto-Celtic *brigā* — a stronghold, a height from which you can see further. Together: a strong foundation that carries what matters into the future.',
-      aboutMore: 'Read the full naming story'
+      aboutLink: 'About Breren'
     },
     eo: {
-      tagline: 'Fundamento kiu portas antaŭen tion, kio gravas.',
       empty: 'Ankoraŭ neniuj ligiloj — aldonu kelkajn al {file}.',
       errorPrefix: 'Ne eblis ŝargi {file}',
-      themeToLight: 'Ŝanĝi al luma reĝimo',
-      themeToDark: 'Ŝanĝi al malluma reĝimo',
-      aboutBtnLabel: 'Pri Breren',
-      aboutTitle: 'Pri Breren',
-      aboutOrigin: 'Breren kombinas du antikvajn radikojn: la praindeŭropan *bher-* — porti, teni, antaŭenporti — kaj la prakeltan *brigā* — fortikaĵo, alto de kie oni vidas pli malproksimen. Kune: forta fundamento kiu portas antaŭen tion, kio gravas.',
-      aboutMore: 'Legu la kompletan historion de la nomo'
+      aboutLink: 'Pri Breren'
     },
     es: {
-      tagline: 'Un fundamento que impulsa hacia adelante lo que importa.',
       empty: 'Aún no hay enlaces — añade algunos a {file}.',
       errorPrefix: 'No se pudo cargar {file}',
-      themeToLight: 'Cambiar a modo claro',
-      themeToDark: 'Cambiar a modo oscuro',
-      aboutBtnLabel: 'Sobre Breren',
-      aboutTitle: 'Sobre Breren',
-      aboutOrigin: 'Breren combina dos raíces antiguas: el protoindoeuropeo *bher-* — llevar, portar, transmitir hacia adelante — y el protoceltal *brigā* — una fortaleza, una altura desde la que se ve más lejos. Juntas: una base fuerte que lleva hacia adelante lo que importa.',
-      aboutMore: 'Lee la historia completa del nombre'
+      aboutLink: 'Sobre Breren'
     },
     fr: {
-      tagline: "Une fondation qui fait avancer ce qui compte.",
       empty: 'Pas encore de liens — ajoutez-en dans {file}.',
       errorPrefix: 'Impossible de charger {file}',
-      themeToLight: 'Passer en mode clair',
-      themeToDark: 'Passer en mode sombre',
-      aboutBtnLabel: 'À propos de Breren',
-      aboutTitle: 'À propos de Breren',
-      aboutOrigin: "Breren associe deux racines anciennes : le proto-indo-européen *bher-* — porter, transmettre, faire avancer — et le proto-celtique *brigā* — une forteresse, une hauteur d'où l'on voit plus loin. Ensemble : une fondation solide qui fait avancer ce qui compte.",
-      aboutMore: "Lire l'histoire complète du nom"
+      aboutLink: 'À propos de Breren'
     },
     pt: {
-      tagline: 'Uma base que leva adiante o que importa.',
       empty: 'Ainda sem links — adicione alguns a {file}.',
       errorPrefix: 'Não foi possível carregar {file}',
-      themeToLight: 'Mudar para o modo claro',
-      themeToDark: 'Mudar para o modo escuro',
-      aboutBtnLabel: 'Sobre a Breren',
-      aboutTitle: 'Sobre a Breren',
-      aboutOrigin: 'A Breren combina duas raízes antigas: o proto-indo-europeu *bher-* — carregar, levar, transmitir adiante — e o proto-celta *brigā* — uma fortaleza, uma altura de onde se vê mais longe. Juntas: uma base forte que leva adiante o que importa.',
-      aboutMore: 'Leia a história completa do nome'
+      aboutLink: 'Sobre a Breren'
     },
     de: {
-      tagline: 'Ein Fundament, das Wichtiges weiterträgt.',
       empty: 'Noch keine Links — füge welche zu {file} hinzu.',
       errorPrefix: '{file} konnte nicht geladen werden',
-      themeToLight: 'Zum hellen Modus wechseln',
-      themeToDark: 'Zum dunklen Modus wechseln',
-      aboutBtnLabel: 'Über Breren',
-      aboutTitle: 'Über Breren',
-      aboutOrigin: 'Breren verbindet zwei alte Wurzeln: das urindogermanische *bher-* — tragen, bringen, weitertragen — und das urkeltische *brigā* — eine Festung, eine Anhöhe, von der aus man weiter sieht. Zusammen: ein starkes Fundament, das Wichtiges in die Zukunft trägt.',
-      aboutMore: 'Die ganze Geschichte des Namens lesen'
+      aboutLink: 'Über Breren'
     },
     it: {
-      tagline: 'Una fondazione che porta avanti ciò che conta.',
       empty: 'Ancora nessun link — aggiungine in {file}.',
       errorPrefix: 'Impossibile caricare {file}',
-      themeToLight: 'Passa alla modalità chiara',
-      themeToDark: 'Passa alla modalità scura',
-      aboutBtnLabel: 'Informazioni su Breren',
-      aboutTitle: 'Informazioni su Breren',
-      aboutOrigin: "Breren unisce due antiche radici: il proto-indoeuropeo *bher-* — portare, recare, trasmettere in avanti — e il proto-celtico *brigā* — una fortezza, un'altura da cui si vede più lontano. Insieme: una base solida che porta avanti ciò che conta.",
-      aboutMore: 'Leggi la storia completa del nome'
+      aboutLink: 'Informazioni su Breren'
     },
     ru: {
-      tagline: 'Основа, которая несёт вперёд то, что важно.',
       empty: 'Пока нет ссылок — добавьте их в {file}.',
       errorPrefix: 'Не удалось загрузить {file}',
-      themeToLight: 'Переключиться на светлую тему',
-      themeToDark: 'Переключиться на тёмную тему',
-      aboutBtnLabel: 'О Breren',
-      aboutTitle: 'О Breren',
-      aboutOrigin: 'Breren соединяет два древних корня: праиндоевропейский *bher-* — нести, приносить, передавать вперёд — и пракельтский *brigā* — крепость, возвышенность, с которой видно дальше. Вместе: прочная основа, несущая важное в будущее.',
-      aboutMore: 'Прочитать полную историю названия'
+      aboutLink: 'О Breren'
     },
     zh: {
-      tagline: '承载重要之物，一路向前的根基。',
       empty: '还没有链接——请在 {file} 中添加。',
       errorPrefix: '无法加载 {file}',
-      themeToLight: '切换到浅色模式',
-      themeToDark: '切换到深色模式',
-      aboutBtnLabel: '关于 Breren',
-      aboutTitle: '关于 Breren',
-      aboutOrigin: 'Breren 融合了两个古老的词根:原始印欧语 *bher-*——承载、携带、向前传递——以及原始凯尔特语 *brigā*——堡垒,能看得更远的高地。合而为一:承载重要之物、迈向未来的坚实根基。',
-      aboutMore: '阅读完整的命名故事'
+      aboutLink: '关于 Breren'
     },
     ja: {
-      tagline: '大切なものを未来へ運ぶ土台。',
       empty: 'まだリンクがありません — {file} に追加してください。',
       errorPrefix: '{file} を読み込めませんでした',
-      themeToLight: 'ライトモードに切り替える',
-      themeToDark: 'ダークモードに切り替える',
-      aboutBtnLabel: 'Breren について',
-      aboutTitle: 'Breren について',
-      aboutOrigin: 'Brerenは二つの古い語根を組み合わせています。印欧祖語の*bher-*(運ぶ、携える、前へ伝える)と、ケルト祖語の*brigā*(砦、より遠くを見渡せる高台)です。合わせると、大切なものを未来へ運ぶ強固な土台となります。',
-      aboutMore: '名前の由来を詳しく読む'
+      aboutLink: 'Breren について'
     },
     ko: {
-      tagline: '중요한 것을 앞으로 나아가게 하는 토대.',
       empty: '아직 링크가 없습니다 — {file} 에 추가하세요.',
       errorPrefix: '{file} 을(를) 불러올 수 없습니다',
-      themeToLight: '라이트 모드로 전환',
-      themeToDark: '다크 모드로 전환',
-      aboutBtnLabel: 'Breren 소개',
-      aboutTitle: 'Breren 소개',
-      aboutOrigin: 'Breren은 두 가지 고대 어근을 결합합니다. 인도유럽조어 *bher-*(나르다, 짊어지다, 앞으로 전하다)와 켈트조어 *brigā*(요새, 더 멀리 볼 수 있는 높은 곳)입니다. 함께: 중요한 것을 미래로 나르는 튼튼한 토대입니다.',
-      aboutMore: '이름의 전체 이야기 읽기'
+      aboutLink: 'Breren 소개'
     },
     ar: {
-      tagline: 'أساس يحمل ما يهم إلى الأمام.',
       empty: 'لا توجد روابط بعد — أضف بعضها إلى {file}.',
       errorPrefix: 'تعذّر تحميل {file}',
-      themeToLight: 'التبديل إلى الوضع الفاتح',
-      themeToDark: 'التبديل إلى الوضع الداكن',
-      aboutBtnLabel: 'عن Breren',
-      aboutTitle: 'عن Breren',
-      aboutOrigin: 'يجمع اسم Breren بين جذرين قديمين: الجذر الهندي الأوروبي البدائي *bher-* — يحمل، يسند، ينقل إلى الأمام — والجذر السلتي البدائي *brigā* — حصن، مرتفع يُرى منه أبعد. معًا: أساس قوي يحمل ما يهم نحو المستقبل.',
-      aboutMore: 'اقرأ القصة الكاملة للاسم'
+      aboutLink: 'عن Breren'
     },
     hi: {
-      tagline: 'एक नींव जो ज़रूरी चीज़ों को आगे ले जाती है।',
       empty: 'अभी कोई लिंक नहीं है — {file} में कुछ जोड़ें।',
       errorPrefix: '{file} लोड नहीं हो सका',
-      themeToLight: 'लाइट मोड में बदलें',
-      themeToDark: 'डार्क मोड में बदलें',
-      aboutBtnLabel: 'Breren के बारे में',
-      aboutTitle: 'Breren के बारे में',
-      aboutOrigin: 'Breren दो प्राचीन मूलों को जोड़ता है: प्रोटो-इंडो-यूरोपीय *bher-* — ले जाना, वहन करना, आगे पहुँचाना — और प्रोटो-सेल्टिक *brigā* — एक किला, एक ऊँचाई जहाँ से आगे तक देखा जा सके। साथ में: एक मज़बूत नींव जो ज़रूरी चीज़ों को भविष्य की ओर ले जाती है।',
-      aboutMore: 'नाम की पूरी कहानी पढ़ें'
+      aboutLink: 'Breren के बारे में'
     },
     bn: {
-      tagline: 'একটি ভিত্তি যা গুরুত্বপূর্ণ জিনিসকে সামনে এগিয়ে নিয়ে যায়।',
       empty: 'এখনো কোনো লিঙ্ক নেই — {file}-এ কিছু যোগ করুন।',
       errorPrefix: '{file} লোড করা যায়নি',
-      themeToLight: 'লাইট মোডে যান',
-      themeToDark: 'ডার্ক মোডে যান',
-      aboutBtnLabel: 'Breren সম্পর্কে',
-      aboutTitle: 'Breren সম্পর্কে',
-      aboutOrigin: 'Breren দুটি প্রাচীন মূল একত্রিত করে: প্রোটো-ইন্দো-ইউরোপীয় *bher-* — বহন করা, ধরে রাখা, সামনে এগিয়ে নেওয়া — এবং প্রোটো-কেল্টিক *brigā* — একটি দুর্গ, এমন উচ্চতা যেখান থেকে আরও দূর দেখা যায়। একসাথে: একটি শক্তিশালী ভিত্তি যা গুরুত্বপূর্ণ জিনিসকে ভবিষ্যতের দিকে বহন করে।',
-      aboutMore: 'নামের সম্পূর্ণ গল্প পড়ুন'
+      aboutLink: 'Breren সম্পর্কে'
     },
     ur: {
-      tagline: 'ایک بنیاد جو اہم چیزوں کو آگے لے کر جاتی ہے۔',
       empty: 'ابھی تک کوئی لنک نہیں — {file} میں کچھ شامل کریں۔',
       errorPrefix: '{file} لوڈ نہیں ہو سکی',
-      themeToLight: 'لائٹ موڈ پر جائیں',
-      themeToDark: 'ڈارک موڈ پر جائیں',
-      aboutBtnLabel: 'Breren کے بارے میں',
-      aboutTitle: 'Breren کے بارے میں',
-      aboutOrigin: 'Breren دو قدیم جڑوں کو ملاتا ہے: پروٹو-انڈو-یورپی *bher-* — اٹھانا، لے جانا، آگے پہنچانا — اور پروٹو-سیلٹک *brigā* — ایک قلعہ، ایک بلندی جہاں سے مزید دور دیکھا جا سکے۔ ملا کر: ایک مضبوط بنیاد جو اہم چیزوں کو مستقبل کی طرف لے جاتی ہے۔',
-      aboutMore: 'نام کی مکمل کہانی پڑھیں'
+      aboutLink: 'Breren کے بارے میں'
     },
     fa: {
-      tagline: 'بنیادی که آنچه اهمیت دارد را به پیش می‌برد.',
       empty: 'هنوز پیوندی وجود ندارد — چند مورد به {file} اضافه کنید.',
       errorPrefix: 'بارگذاری {file} ممکن نشد',
-      themeToLight: 'رفتن به حالت روشن',
-      themeToDark: 'رفتن به حالت تاریک',
-      aboutBtnLabel: 'درباره Breren',
-      aboutTitle: 'درباره Breren',
-      aboutOrigin: 'Breren دو ریشه باستانی را ترکیب می‌کند: ریشه پروتوهندواروپایی *bher-* — حمل کردن، بردن، به‌پیش‌بردن — و ریشه پروتوکلتیک *brigā* — دژی، بلندایی که از آن دورتر می‌توان دید. با هم: بنیادی استوار که آنچه اهمیت دارد را به آینده می‌برد.',
-      aboutMore: 'داستان کامل نام را بخوانید'
+      aboutLink: 'درباره Breren'
     },
     tr: {
-      tagline: 'Önemli olanı ileriye taşıyan bir temel.',
       empty: 'Henüz bağlantı yok — {file} dosyasına birkaç tane ekleyin.',
       errorPrefix: '{file} yüklenemedi',
-      themeToLight: 'Aydınlık moda geç',
-      themeToDark: 'Karanlık moda geç',
-      aboutBtnLabel: 'Breren Hakkında',
-      aboutTitle: 'Breren Hakkında',
-      aboutOrigin: 'Breren iki eski kökü birleştirir: Proto-Hint-Avrupa kökü *bher-* — taşımak, sürdürmek, ileriye götürmek — ve Proto-Kelt kökü *brigā* — bir kale, daha uzağı görebileceğiniz bir yükseklik. Birlikte: önemli olanı geleceğe taşıyan güçlü bir temel.',
-      aboutMore: 'İsmin tam hikâyesini oku'
+      aboutLink: 'Breren Hakkında'
     },
     vi: {
-      tagline: 'Một nền tảng mang những điều quan trọng tiến về phía trước.',
       empty: 'Chưa có liên kết nào — hãy thêm vào {file}.',
       errorPrefix: 'Không thể tải {file}',
-      themeToLight: 'Chuyển sang chế độ sáng',
-      themeToDark: 'Chuyển sang chế độ tối',
-      aboutBtnLabel: 'Về Breren',
-      aboutTitle: 'Về Breren',
-      aboutOrigin: 'Breren kết hợp hai gốc từ cổ xưa: gốc Tiền Ấn-Âu *bher-* — mang, gánh vác, đưa về phía trước — và gốc Tiền Celt *brigā* — một pháo đài, một nơi cao để nhìn xa hơn. Kết hợp lại: một nền tảng vững chắc mang những điều quan trọng tiến về phía trước.',
-      aboutMore: 'Đọc câu chuyện đầy đủ về cái tên'
+      aboutLink: 'Về Breren'
     },
     id: {
-      tagline: 'Fondasi yang membawa hal-hal penting maju ke depan.',
       empty: 'Belum ada tautan — tambahkan beberapa di {file}.',
       errorPrefix: 'Tidak dapat memuat {file}',
-      themeToLight: 'Beralih ke mode terang',
-      themeToDark: 'Beralih ke mode gelap',
-      aboutBtnLabel: 'Tentang Breren',
-      aboutTitle: 'Tentang Breren',
-      aboutOrigin: 'Breren memadukan dua akar kuno: Proto-Indo-Eropa *bher-* — membawa, memikul, membawa maju — dan Proto-Celtic *brigā* — sebuah benteng, ketinggian tempat memandang lebih jauh. Bersama-sama: fondasi kuat yang membawa hal-hal penting menuju masa depan.',
-      aboutMore: 'Baca kisah lengkap nama ini'
+      aboutLink: 'Tentang Breren'
     },
     th: {
-      tagline: 'รากฐานที่นำสิ่งสำคัญไปข้างหน้า',
       empty: 'ยังไม่มีลิงก์ — เพิ่มลงใน {file}',
       errorPrefix: 'โหลด {file} ไม่สำเร็จ',
-      themeToLight: 'สลับเป็นโหมดสว่าง',
-      themeToDark: 'สลับเป็นโหมดมืด',
-      aboutBtnLabel: 'เกี่ยวกับ Breren',
-      aboutTitle: 'เกี่ยวกับ Breren',
-      aboutOrigin: 'Breren ผสานรากศัพท์โบราณสองราก คือ Proto-Indo-European *bher-* ที่แปลว่าแบก นำพา ส่งต่อไปข้างหน้า และ Proto-Celtic *brigā* ที่แปลว่าป้อมปราการ ที่สูงซึ่งมองเห็นได้ไกลกว่า รวมกันแล้วคือรากฐานที่มั่นคงซึ่งนำสิ่งสำคัญไปสู่อนาคต',
-      aboutMore: 'อ่านเรื่องราวเต็มของชื่อนี้'
+      aboutLink: 'เกี่ยวกับ Breren'
     },
     sw: {
-      tagline: 'Msingi unaobeba mbele mambo muhimu.',
       empty: 'Bado hakuna viungo — ongeza baadhi kwenye {file}.',
       errorPrefix: 'Imeshindwa kupakia {file}',
-      themeToLight: 'Badilisha hali ya mwanga',
-      themeToDark: 'Badilisha hali ya giza',
-      aboutBtnLabel: 'Kuhusu Breren',
-      aboutTitle: 'Kuhusu Breren',
-      aboutOrigin: 'Breren huchanganya mizizi miwili ya kale: mzizi wa Proto-Indo-European *bher-* — kubeba, kuchukua, kupeleka mbele — na mzizi wa Proto-Celtic *brigā* — ngome, kilele ambacho unaweza kuona mbali zaidi. Kwa pamoja: msingi imara unaobeba mambo muhimu kuelekea siku zijazo.',
-      aboutMore: 'Soma hadithi kamili ya jina'
+      aboutLink: 'Kuhusu Breren'
     },
     te: {
-      tagline: 'ముఖ్యమైన వాటిని ముందుకు తీసుకెళ్లే పునాది.',
       empty: 'ఇంకా లింక్‌లు లేవు — {file}కు కొన్ని జోడించండి.',
       errorPrefix: '{file}ను లోడ్ చేయలేకపోయాము',
-      themeToLight: 'లైట్ మోడ్‌కు మారండి',
-      themeToDark: 'డార్క్ మోడ్‌కు మారండి',
-      aboutBtnLabel: 'Breren గురించి',
-      aboutTitle: 'Breren గురించి',
-      aboutOrigin: 'Breren రెండు ప్రాచీన మూలాలను మిళితం చేస్తుంది: ప్రోటో-ఇండో-యూరోపియన్ *bher-* — మోయడం, భరించడం, ముందుకు తీసుకెళ్లడం — మరియు ప్రోటో-సెల్టిక్ *brigā* — కోట, మరింత దూరం చూడగలిగే ఎత్తైన ప్రదేశం. కలిపి: ముఖ్యమైన వాటిని భవిష్యత్తు వైపు మోసుకెళ్లే బలమైన పునాది.',
-      aboutMore: 'పేరు వెనుక పూర్తి కథను చదవండి'
+      aboutLink: 'Breren గురించి'
     },
     ta: {
-      tagline: 'முக்கியமானதை முன்னோக்கி கொண்டு செல்லும் அடித்தளம்.',
       empty: 'இதுவரை இணைப்புகள் இல்லை — {file} இல் சிலவற்றைச் சேர்க்கவும்.',
       errorPrefix: '{file} ஐ ஏற்ற முடியவில்லை',
-      themeToLight: 'லைட் பயன்முறைக்கு மாறவும்',
-      themeToDark: 'டார்க் பயன்முறைக்கு மாறவும்',
-      aboutBtnLabel: 'Breren பற்றி',
-      aboutTitle: 'Breren பற்றி',
-      aboutOrigin: 'Breren இரண்டு பண்டைய வேர்களை இணைக்கிறது: புரோட்டோ-இந்தோ-ஐரோப்பிய *bher-* — சுமப்பது, தாங்குவது, முன்னோக்கி கொண்டு செல்வது — மற்றும் புரோட்டோ-கெல்டிக் *brigā* — ஒரு கோட்டை, தொலைவை பார்க்கக்கூடிய உயரம். ஒன்றாக: முக்கியமானதை எதிர்காலத்திற்கு கொண்டு செல்லும் வலுவான அடித்தளம்.',
-      aboutMore: 'பெயரின் முழு கதையைப் படியுங்கள்'
+      aboutLink: 'Breren பற்றி'
     },
     pa: {
-      tagline: 'ਇੱਕ ਬੁਨਿਆਦ ਜੋ ਜ਼ਰੂਰੀ ਚੀਜ਼ਾਂ ਨੂੰ ਅੱਗੇ ਲੈ ਜਾਂਦੀ ਹੈ।',
       empty: 'ਹਾਲੇ ਕੋਈ ਲਿੰਕ ਨਹੀਂ — {file} ਵਿੱਚ ਕੁਝ ਸ਼ਾਮਲ ਕਰੋ।',
       errorPrefix: '{file} ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੀ',
-      themeToLight: "ਲਾਈਟ ਮੋਡ 'ਤੇ ਜਾਓ",
-      themeToDark: "ਡਾਰਕ ਮੋਡ 'ਤੇ ਜਾਓ",
-      aboutBtnLabel: 'Breren ਬਾਰੇ',
-      aboutTitle: 'Breren ਬਾਰੇ',
-      aboutOrigin: 'Breren ਦੋ ਪ੍ਰਾਚੀਨ ਜੜ੍ਹਾਂ ਨੂੰ ਜੋੜਦਾ ਹੈ: ਪ੍ਰੋਟੋ-ਇੰਡੋ-ਯੂਰਪੀਅਨ *bher-* — ਚੁੱਕਣਾ, ਲਿਜਾਣਾ, ਅੱਗੇ ਪਹੁੰਚਾਉਣਾ — ਅਤੇ ਪ੍ਰੋਟੋ-ਸੈਲਟਿਕ *brigā* — ਇੱਕ ਕਿਲ੍ਹਾ, ਇੱਕ ਉਚਾਈ ਜਿੱਥੋਂ ਹੋਰ ਦੂਰ ਤੱਕ ਦੇਖਿਆ ਜਾ ਸਕੇ। ਇਕੱਠੇ: ਇੱਕ ਮਜ਼ਬੂਤ ਬੁਨਿਆਦ ਜੋ ਜ਼ਰੂਰੀ ਚੀਜ਼ਾਂ ਨੂੰ ਭਵਿੱਖ ਵੱਲ ਲੈ ਜਾਂਦੀ ਹੈ।',
-      aboutMore: 'ਨਾਮ ਦੀ ਪੂਰੀ ਕਹਾਣੀ ਪੜ੍ਹੋ'
+      aboutLink: 'Breren ਬਾਰੇ'
     }
   };
-  var RTL_LANGS = ['ar', 'ur', 'fa'];
 
-  // A page linking back here (e.g. vitralis's "Breren" link) can hand off
-  // its current language/theme via ?lang=&theme= query params - a plain
-  // top-level navigation can't carry a postMessage, since the page that
-  // would send it has already unloaded by the time this one loads. Applied
-  // unconditionally (not just first-seed) and then stripped from the URL.
-  (function applyIncomingPreset() {
-    var params = new URLSearchParams(window.location.search);
-    var lang = (params.get('lang') || '').toLowerCase();
-    var theme = (params.get('theme') || '').toLowerCase();
-    var hasLang = lang && SUPPORTED_LANGS.indexOf(lang) !== -1;
-    var hasTheme = theme === 'light' || theme === 'dark';
-    if (hasLang) localStorage.setItem('breren-lang', lang);
-    if (hasTheme) localStorage.setItem('breren-theme', theme);
-    if (params.has('lang') || params.has('theme')) {
-      params.delete('lang');
-      params.delete('theme');
-      var qs = params.toString();
-      var newUrl = window.location.pathname + (qs ? '?' + qs : '') + window.location.hash;
-      window.history.replaceState(null, '', newUrl);
-    }
-  })();
-
-  var currentLang = detectLang();
+  var currentLang;
   var latestData = null;
   var latestError = null;
   var translations = {};
 
-  setupLangPicker();
-  setupThemeToggle();
+  BrerenCommon.applyIncomingPreset();
+  currentLang = BrerenCommon.detectLang();
+
+  BrerenCommon.setupLangPicker(function () { return currentLang; }, selectLang);
+  BrerenCommon.setupThemeToggle(t);
   setupLogoMark();
-  setupAboutModal();
-  applyTheme(effectiveTheme());
-  applyDirection(currentLang);
+  BrerenCommon.applyTheme(BrerenCommon.effectiveTheme(), t);
+  BrerenCommon.applyDirection(currentLang);
   applyTexts();
 
   fetchTOML(TRANSLATIONS_FILE)
@@ -760,20 +278,10 @@
 
   // ---- i18n ----------------------------------------------------------
 
-  function detectLang() {
-    var stored = localStorage.getItem('breren-lang');
-    if (stored && SUPPORTED_LANGS.indexOf(stored) !== -1) return stored;
-    var candidates = navigator.languages || [navigator.language || 'gl'];
-    for (var i = 0; i < candidates.length; i++) {
-      var code = (candidates[i] || '').slice(0, 2).toLowerCase();
-      if (SUPPORTED_LANGS.indexOf(code) !== -1) return code;
-    }
-    return 'gl';
-  }
-
   function t(key, vars) {
     var dict = STRINGS[currentLang] || STRINGS.gl;
-    var str = dict[key] || STRINGS.gl[key] || key;
+    var common = BrerenCommon.COMMON_STRINGS[currentLang] || BrerenCommon.COMMON_STRINGS.gl;
+    var str = dict[key] || common[key] || STRINGS.gl[key] || BrerenCommon.COMMON_STRINGS.gl[key] || key;
     if (vars) {
       Object.keys(vars).forEach(function (k) {
         str = str.replace('{' + k + '}', vars[k]);
@@ -795,156 +303,19 @@
     return obj[key] || obj[base];
   }
 
-  function setupLangPicker() {
-    var trigger = document.getElementById('lang-trigger');
-    var menu = document.getElementById('lang-menu');
-    var triggerFlag = document.getElementById('lang-trigger-flag');
-    var triggerName = document.getElementById('lang-trigger-name');
-
-    LANGUAGES.forEach(function (lang) {
-      var li = document.createElement('li');
-      li.setAttribute('role', 'presentation');
-
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'lang-option';
-      btn.setAttribute('role', 'option');
-      btn.setAttribute('aria-selected', String(lang.code === currentLang));
-      btn.innerHTML =
-        '<span class="flag">' + lang.flag + '</span><span>' + lang.name + '</span>';
-      btn.addEventListener('click', function () {
-        selectLang(lang.code);
-        closeMenu();
-      });
-
-      li.appendChild(btn);
-      menu.appendChild(li);
-    });
-
-    updateTrigger();
-
-    trigger.addEventListener('click', function () {
-      var isOpen = !menu.hidden;
-      if (isOpen) closeMenu(); else openMenu();
-    });
-
-    document.addEventListener('click', function (e) {
-      if (!menu.hidden && !e.target.closest('.lang-picker')) closeMenu();
-    });
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !menu.hidden) {
-        closeMenu();
-        trigger.focus();
-      }
-    });
-
-    function openMenu() {
-      menu.hidden = false;
-      trigger.setAttribute('aria-expanded', 'true');
-    }
-    function closeMenu() {
-      menu.hidden = true;
-      trigger.setAttribute('aria-expanded', 'false');
-    }
-    function updateTrigger() {
-      var lang = LANG_BY_CODE[currentLang];
-      triggerFlag.innerHTML = lang.flag;
-      triggerName.textContent = lang.name;
-      Array.prototype.forEach.call(menu.querySelectorAll('.lang-option'), function (btn, i) {
-        btn.setAttribute('aria-selected', String(LANGUAGES[i].code === currentLang));
-      });
-    }
-
-    // exposed for selectLang()
-    setupLangPicker._updateTrigger = updateTrigger;
-  }
-
   function selectLang(code) {
     currentLang = code;
     localStorage.setItem('breren-lang', code);
     document.documentElement.lang = code;
-    applyDirection(code);
-    setupLangPicker._updateTrigger();
+    BrerenCommon.applyDirection(code);
     applyTexts();
-  }
-
-  function applyDirection(code) {
-    var lang = LANG_BY_CODE[code];
-    document.documentElement.dir = lang && lang.rtl ? 'rtl' : 'ltr';
   }
 
   function applyTexts() {
     document.getElementById('page-tagline').textContent = t('tagline');
-    updateThemeButtonLabel();
-    updateAboutTexts();
+    document.getElementById('about-link').textContent = t('aboutLink');
     if (latestData) render(latestData);
     else if (latestError) renderError(latestError);
-  }
-
-  // ---- theme ----------------------------------------------------------
-
-  function effectiveTheme() {
-    var stored = localStorage.getItem('breren-theme');
-    if (stored) return stored;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-
-  function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    var btn = document.getElementById('theme-toggle');
-    btn.textContent = theme === 'dark' ? '☀️' : '🌙';
-    updateThemeButtonLabel();
-  }
-
-  function updateThemeButtonLabel() {
-    var theme = document.documentElement.getAttribute('data-theme');
-    var btn = document.getElementById('theme-toggle');
-    btn.setAttribute('aria-label', theme === 'dark' ? t('themeToLight') : t('themeToDark'));
-    btn.title = btn.getAttribute('aria-label');
-  }
-
-  function setupThemeToggle() {
-    document.getElementById('theme-toggle').addEventListener('click', function () {
-      var next = effectiveTheme() === 'dark' ? 'light' : 'dark';
-      localStorage.setItem('breren-theme', next);
-      applyTheme(next);
-    });
-  }
-
-  // ---- about modal ----------------------------------------------------
-
-  function setupAboutModal() {
-    var toggle = document.getElementById('about-toggle');
-    var overlay = document.getElementById('about-overlay');
-    var closeBtn = document.getElementById('about-close');
-
-    toggle.addEventListener('click', open);
-    closeBtn.addEventListener('click', close);
-    overlay.addEventListener('click', function (e) {
-      if (e.target === overlay) close();
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !overlay.hidden) close();
-    });
-
-    function open() {
-      overlay.hidden = false;
-      closeBtn.focus();
-    }
-    function close() {
-      overlay.hidden = true;
-      toggle.focus();
-    }
-  }
-
-  function updateAboutTexts() {
-    document.getElementById('about-toggle').setAttribute('aria-label', t('aboutBtnLabel'));
-    document.getElementById('about-toggle').title = t('aboutBtnLabel');
-    document.getElementById('about-title').textContent = t('aboutTitle');
-    document.getElementById('about-meaning').textContent = t('tagline');
-    document.getElementById('about-origin').textContent = t('aboutOrigin');
-    document.getElementById('about-more').textContent = t('aboutMore');
   }
 
   // ---- logo mark ----------------------------------------------------

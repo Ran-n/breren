@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/08/04 11:20:04.867354 )
+[//]: # (+ Revised: 	2026/08/04 11:23:41.466789 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -67,6 +67,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Tiles pointing to a same-origin URL (e.g. the Vitralis tile, served
+  from `breren.com/vitralis`) now open in the same tab instead of a
+  new one; only cross-origin tiles still open in a new tab.
 - The header mark now redraws its animation on click (inlined as SVG
   instead of an `<img>` so the animation can be restarted); it ignores
   further clicks until the redraw finishes.

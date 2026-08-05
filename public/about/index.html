@@ -113,8 +113,8 @@
     gap: 0.5rem;
   }
   .lockup-frame {
-    width: 140px;
-    height: 140px;
+    width: 176px;
+    height: 176px;
     border-radius: 16px;
     padding: 12px;
     cursor: pointer;
@@ -1072,10 +1072,18 @@
   // paints ramparts with gradient fills (shipped in both a light and a
   // `-dark` id variant) rather than flat colors, so forcing a ground here
   // means forcing which gradient id each rampart references.
+  // The source SVG's `.enter` class (scale 0.82->1 + fade-in) is meant
+  // for the mark's first reveal, not a repeat spin: replaying it on every
+  // double-click pops/fades the whole mark for 0.6s before rotation even
+  // starts, which reads as a flick before the spin "starts". Killing it
+  // here and zeroing the rotations' own 0.6s sync delay (it existed only
+  // to wait out that entrance) makes the spin begin immediately instead.
   function forceSpinColorsAndOneCycle(svgText, dark, palette) {
     var suffix = dark ? '-dark' : '';
     var override =
       '<style>' + SIZE_RULE +
+      '.enter{animation:none !important;opacity:1 !important;transform:none !important}' +
+      '.outer,.middle,.inner,.huts{animation-delay:0s !important}' +
       '.outer{stroke:url(#g-outer' + suffix + ') !important;animation-iteration-count:1 !important;animation-fill-mode:forwards !important}' +
       '.middle{stroke:url(#g-middle' + suffix + ') !important;animation-iteration-count:2 !important;animation-fill-mode:forwards !important}' +
       '.inner{stroke:url(#g-inner' + suffix + ') !important;animation-iteration-count:4 !important;animation-fill-mode:forwards !important}' +
@@ -1084,10 +1092,9 @@
     return svgText.replace('</svg>', override + '</svg>');
   }
 
-  // Matches forceSpinColorsAndOneCycle's forced timing: the 0.6s entry
-  // delay (source's own `.outer, .middle, .inner, .huts` rule) plus the
-  // 16s LCM cycle every piece now completes in lockstep.
-  var SPIN_CYCLE_MS = 16600;
+  // The 16s LCM cycle every piece now completes in lockstep, with no
+  // more entry delay to wait out first (see forceSpinColorsAndOneCycle).
+  var SPIN_CYCLE_MS = 16000;
 
   // One lockup: fetches all three source SVGs once, then lets `playDraw`/
   // `playSpin` repaint its private shadow root on demand. Rests on the

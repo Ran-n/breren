@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/08/05 10:22:07.076003 )
+[//]: # (+ Revised: 	2026/08/05 10:34:41.600499 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -24,9 +24,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Enlarged the light/dark logo lockup frames on the About page
-  (`public/about/index.html`) from 88px to 140px.
+  (`public/about/index.html`) from 88px to 176px (140px as an
+  intermediate step).
 
 ### Fixed
+
+- `public/about/index.html`: double-clicking either lockup to spin it
+  replayed `breren-logo-spin.svg`'s `.enter` entrance animation (a 0.6s
+  scale/fade-in meant for the mark's *first* reveal) from scratch every
+  time, since the full SVG markup — including that class — gets
+  re-inserted fresh on each spin. That read as a flick/pop before the
+  rotation itself got going, on both the light and dark tile. The
+  injected spin override now disables `.enter` and zeroes the
+  rotations' matching 0.6s sync delay, so the spin starts immediately
+  instead.
 
 - `public/icons/breren-logo-spin.svg`: the drop shadow (`feDropShadow`)
   sat on the same group as the continuously-rotating pieces, which made

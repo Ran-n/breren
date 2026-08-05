@@ -30,16 +30,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `about/index.html` — the mark card now shows the reveal animation on
-  both a fixed light and a fixed dark ground side by side (forced
-  colors, independent of the page's own theme toggle or the OS
-  preference). Click either to replay the draw-in reveal; double-click
-  to switch it to the `breren-logo-spin.svg` loading-indicator variant.
-  Each lockup renders into its own shadow root so the two copies' CSS
-  classes and `@keyframes` (identical between the two, since they're
-  fetches of the same source files) can't collide and steal each
-  other's in-flight animation. Captions translated across all 25
-  supported languages.
+- `about/index.html` — the mark card shows the static mark at rest on
+  both a fixed light and a fixed dark ground side by side, each larger
+  (148px) and forced to that ground's colors regardless of the page's
+  own theme toggle or the OS preference. Click either to replay the
+  draw-in reveal; double-click to spin it once — `breren-logo-spin.svg`'s
+  four independently-timed pieces (16s/8s/4s/8s) are forced to complete
+  an integer number of their own revolutions in the same 16s window (LCM
+  of their periods), so the whole composite mark lands back at its exact
+  starting rotation and settles on the plain static mark instead of
+  looping forever or stopping mid-turn. Each lockup renders into its own
+  shadow root so the two copies' CSS classes and `@keyframes` (identical
+  between the two, since they're fetches of the same source files) can't
+  collide and steal each other's in-flight animation. Captions
+  translated across all 25 supported languages.
 - `about/index.html` — the full *bher-*/*brigā* naming story integrated
   directly into the "The name" card (etymology pairs for each root, the
   BRE-/-REN combination, and an aside on why an existing Celtic name
@@ -47,8 +51,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   to the philosophy card, translated across all 25 supported languages.
   Replaces the external link to `docs/naming.md` on GitHub.
 - `about/index.html` — a "Palette" card between the mark and philosophy
-  sections, with swatches for the Gruvbox background, card, accent, and
-  ink colors, translated across all 25 supported languages.
+  sections, with light/dark swatch pairs for the mark's own outer/
+  middle/inner rampart and hut tones (the established values already
+  in `icons/breren-logo.svg`, not the site's Gruvbox interface theme —
+  a separate, fixed brand identity), translated across all 25
+  supported languages.
 - `about/index.html` — dedicated "About Breren" page at
   `breren.com/about`: the *bher-*/*brigā* naming story, a card on the
   castro mark's *brigā* symbolism, and a short philosophy statement,
@@ -134,6 +141,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `icons/breren-logo-spin.svg` — reduced the drop-shadow's blur radius
+  (`stdDeviation` 4 → 1.5) and filter region; at the mark's spinning
+  size the wide, soft shadow read as smudging on the strokes, most
+  visible on the dark-ground gradient variant where its already-narrow
+  tonal range gave the blur little contrast to work against.
 - `index.html`, `about/index.html` — the `color-scheme` meta tag alone
   didn't stop the white flash on navigation/reload, since it only
   helps once the browser has actually painted with an opinion about

@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/08/05 10:09:05.330396 )
+[//]: # (+ Revised: 	2026/08/05 10:12:44.535005 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -40,6 +40,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   a static duplicate would be left exposed as they orbit away from it)
   render without a shadow. Ramparts keep their original hand-drawn
   contour.
+- Same file: the `#depth` filter was `feDropShadow`, which always
+  composites the original opaque shape back on top of its own blurred
+  shadow. That made the new static shadow group's black duplicate paths
+  render solid wherever the animated foreground didn't land exactly on
+  top of them — visible as a stray black smear in viewers that don't
+  run the spin animation at all (e.g. VS Code's SVG preview). Rebuilt
+  `#depth` by hand from its primitives (`feGaussianBlur` +
+  `feOffset` + `feFlood` + `feComposite`) so its output is only the
+  blurred, offset, flood-colored halo — never the source shape — with
+  nothing solid left to expose.
 
 - Moved everything actually served at breren.com (`index.html`,
   `about/`, `licenses/`, `vitralis/`, `common.css`/`common.js`,

@@ -18,10 +18,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `about/index.html` — the mark card now shows the reveal animation on
   both a fixed light and a fixed dark ground side by side (forced
   colors, independent of the page's own theme toggle or the OS
-  preference), each replayable on click, plus a third demo of the
-  `breren-logo-spin.svg` loading-indicator variant that repaints to
-  match the page's theme as it's toggled. Captions translated across
-  all 25 supported languages.
+  preference). Click either to replay the draw-in reveal; double-click
+  to switch it to the `breren-logo-spin.svg` loading-indicator variant.
+  Each lockup renders into its own shadow root so the two copies' CSS
+  classes and `@keyframes` (identical between the two, since they're
+  fetches of the same source files) can't collide and steal each
+  other's in-flight animation. Captions translated across all 25
+  supported languages.
 - `about/index.html` — the full *bher-*/*brigā* naming story integrated
   directly into the "The name" card (etymology pairs for each root, the
   BRE-/-REN combination, and an aside on why an existing Celtic name

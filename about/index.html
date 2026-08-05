@@ -111,10 +111,15 @@
   .lockup-frame:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   .lockup-light { background: #edebe4; border: 1px solid #d5c4a1; }
   .lockup-dark  { background: #17191a; border: 1px solid #33302e; }
-  .lockup-spin  { background: var(--card-bg); border: 1px solid var(--card-border); cursor: default; }
   .lockup-caption {
     margin: 0;
     font-size: 0.78rem;
+    color: var(--fg-muted);
+    text-align: center;
+  }
+  .lockup-hint {
+    margin: 0;
+    font-size: 0.75rem;
     color: var(--fg-muted);
     text-align: center;
   }
@@ -200,10 +205,7 @@
           <p class="lockup-caption" id="lockup-dark-caption"></p>
         </div>
       </div>
-      <div class="lockup-item">
-        <div class="lockup-frame lockup-spin" id="lockup-spin" aria-hidden="true"></div>
-        <p class="lockup-caption" id="lockup-spin-caption"></p>
-      </div>
+      <p class="lockup-hint" id="lockup-hint"></p>
     </div>
   </section>
 
@@ -242,7 +244,7 @@
       markBody: 'O castro — un forte trazado en aneis concéntricos, coas cabanas reunidas dentro das súas murallas — fai visible *brigā*: un asentamento construído en alto, forte dabondo para perdurar e aberto dabondo para reunir o que importa dentro del.',
       lockupLight: 'Claro',
       lockupDark: 'Escuro',
-      lockupSpin: 'Cargando',
+      lockupHint: 'Clic para redebuxar, dobre clic para xirar.',
       etymologyHead: 'Etimoloxía',
       bherHead: '*bher-* — levar',
       bherBody: 'Unha raíz protoindoeuropea detrás do inglés bear, burden e birth, do latín ferre e do grego pherein. A idea central non é o movemento en si: algo valioso existe, e alguén ten a responsabilidade de levalo adiante. O software fai exactamente iso — unha ferramenta dixital leva memorias, preferencias, coñecemento e fluxos de traballo. Unha aplicación non é só código; é un recipiente que permite que algo humano sobreviva máis alá do momento.',
@@ -268,7 +270,7 @@
       markBody: 'The castro — a hillfort traced in concentric rings, with huts gathered inside its walls — makes *brigā* visible: a settlement built on high ground, strong enough to endure and open enough to gather what matters within it.',
       lockupLight: 'Light',
       lockupDark: 'Dark',
-      lockupSpin: 'Loading',
+      lockupHint: 'Click to redraw, double-click to spin.',
       etymologyHead: 'Etymology',
       bherHead: '*bher-* — to carry',
       bherBody: 'A Proto-Indo-European root behind English bear, burden and birth, Latin ferre, and Greek pherein. Its core idea isn\'t motion for its own sake: something valuable exists, and someone has the responsibility to carry it onward. Software does exactly this — a digital tool carries memories, preferences, knowledge and workflows. An application isn\'t only code; it\'s a vessel that lets something human survive beyond the moment.',
@@ -294,7 +296,7 @@
       markBody: 'La kastro — fortikaĵo desegnita per koncentraj ringoj, kun kabanoj kolektitaj interne de ĝiaj muroj — igas *brigā*n videbla: loĝejo konstruita sur alteco, sufiĉe forta por daŭri kaj sufiĉe malfermita por kolekti interne tion, kio gravas.',
       lockupLight: 'Hela',
       lockupDark: 'Malluma',
-      lockupSpin: 'Ŝargante',
+      lockupHint: 'Alklaku por redesegni, duoble alklaku por turni.',
       etymologyHead: 'Etimologio',
       bherHead: '*bher-* — porti',
       bherBody: 'Praindeŭropa radiko malantaŭ la angla bear, burden kaj birth, la latina ferre, kaj la greka pherein. Ĝia kerna ideo ne estas movado por si mem: io valora ekzistas, kaj iu havas la respondecon porti ĝin plu. Programaro faras ĝuste tion — cifereca ilo portas memorojn, preferojn, scion kaj laborfluojn. Aplikaĵo ne estas nur kodo; ĝi estas ujo, kiu lasas ion homan postvivi la momenton.',
@@ -320,7 +322,7 @@
       markBody: 'El castro — un fuerte trazado en anillos concéntricos, con las cabañas reunidas dentro de sus murallas — hace visible *brigā*: un asentamiento construido en alto, lo bastante fuerte para perdurar y lo bastante abierto para reunir lo que importa en su interior.',
       lockupLight: 'Claro',
       lockupDark: 'Oscuro',
-      lockupSpin: 'Cargando',
+      lockupHint: 'Clic para redibujar, doble clic para girar.',
       etymologyHead: 'Etimología',
       bherHead: '*bher-* — llevar',
       bherBody: 'Una raíz protoindoeuropea detrás del inglés bear, burden y birth, del latín ferre y del griego pherein. Su idea central no es el movimiento por sí mismo: algo valioso existe, y alguien tiene la responsabilidad de llevarlo hacia adelante. El software hace exactamente eso — una herramienta digital lleva recuerdos, preferencias, conocimiento y flujos de trabajo. Una aplicación no es solo código; es un recipiente que permite que algo humano sobreviva más allá del momento.',
@@ -346,7 +348,7 @@
       markBody: "Le castro — une forteresse tracée en anneaux concentriques, avec des huttes rassemblées derrière ses murailles — rend *brigā* visible : une implantation bâtie en hauteur, assez forte pour durer et assez ouverte pour rassembler ce qui compte en son sein.",
       lockupLight: 'Clair',
       lockupDark: 'Sombre',
-      lockupSpin: 'Chargement',
+      lockupHint: 'Cliquer pour redessiner, double-cliquer pour faire tourner.',
       etymologyHead: 'Étymologie',
       bherHead: '*bher-* — porter',
       bherBody: 'Une racine proto-indo-européenne à l\'origine de l\'anglais bear, burden et birth, du latin ferre et du grec pherein. Son idée centrale n\'est pas le mouvement pour lui-même : quelque chose de précieux existe, et quelqu\'un a la responsabilité de le porter plus loin. Le logiciel fait exactement cela — un outil numérique porte des souvenirs, des préférences, des connaissances et des habitudes de travail. Une application n\'est pas seulement du code ; c\'est un vase qui permet à quelque chose d\'humain de survivre au-delà de l\'instant.',
@@ -372,7 +374,7 @@
       markBody: 'O castro — uma fortaleza traçada em anéis concêntricos, com cabanas reunidas dentro das suas muralhas — torna *brigā* visível: um povoado construído em altura, forte o bastante para perdurar e aberto o bastante para reunir o que importa no seu interior.',
       lockupLight: 'Claro',
       lockupDark: 'Escuro',
-      lockupSpin: 'A carregar',
+      lockupHint: 'Clique para redesenhar, duplo clique para rodar.',
       etymologyHead: 'Etimologia',
       bherHead: '*bher-* — levar',
       bherBody: 'Uma raiz proto-indo-europeia por trás do inglês bear, burden e birth, do latim ferre e do grego pherein. A sua ideia central não é o movimento por si só: algo valioso existe, e alguém tem a responsabilidade de o levar adiante. O software faz exatamente isso — uma ferramenta digital carrega memórias, preferências, conhecimento e fluxos de trabalho. Uma aplicação não é apenas código; é um recipiente que permite que algo humano sobreviva além do momento.',
@@ -398,7 +400,7 @@
       markBody: 'Der Castro — eine in konzentrischen Ringen angelegte Wallburg mit Hütten innerhalb ihrer Mauern — macht *brigā* sichtbar: eine Siedlung auf einer Anhöhe, stark genug, um zu bestehen, und offen genug, um zu sammeln, was darin zählt.',
       lockupLight: 'Hell',
       lockupDark: 'Dunkel',
-      lockupSpin: 'Laden',
+      lockupHint: 'Klicken zum Neuzeichnen, Doppelklick zum Drehen.',
       etymologyHead: 'Etymologie',
       bherHead: '*bher-* — tragen',
       bherBody: 'Eine urindogermanische Wurzel hinter dem englischen bear, burden und birth, dem lateinischen ferre und dem griechischen pherein. Ihr Kerngedanke ist nicht Bewegung um ihrer selbst willen: Etwas Wertvolles existiert, und jemand trägt die Verantwortung, es weiterzutragen. Genau das tut Software — ein digitales Werkzeug trägt Erinnerungen, Vorlieben, Wissen und Arbeitsabläufe. Eine Anwendung ist nicht nur Code; sie ist ein Gefäß, das etwas Menschliches den Moment überdauern lässt.',
@@ -424,7 +426,7 @@
       markBody: "Il castro — una fortezza tracciata in anelli concentrici, con capanne raccolte entro le sue mura — rende visibile *brigā*: un insediamento costruito in altura, abbastanza forte da durare e abbastanza aperto da raccogliere ciò che conta al suo interno.",
       lockupLight: 'Chiaro',
       lockupDark: 'Scuro',
-      lockupSpin: 'Caricamento',
+      lockupHint: 'Clic per ridisegnare, doppio clic per far girare.',
       etymologyHead: 'Etimologia',
       bherHead: '*bher-* — portare',
       bherBody: 'Una radice proto-indoeuropea dietro l\'inglese bear, burden e birth, il latino ferre e il greco pherein. La sua idea centrale non è il movimento fine a se stesso: qualcosa di prezioso esiste, e qualcuno ha la responsabilità di portarlo avanti. Il software fa esattamente questo — uno strumento digitale porta ricordi, preferenze, conoscenza e flussi di lavoro. Un\'applicazione non è solo codice; è un recipiente che permette a qualcosa di umano di sopravvivere oltre l\'istante.',
@@ -450,7 +452,7 @@
       markBody: 'Кастро — крепость, очерченная концентрическими кольцами, с хижинами, собранными внутри её стен, — делает *brigā* видимой: поселение, построенное на возвышенности, достаточно прочное, чтобы выстоять, и достаточно открытое, чтобы вместить в себе то, что важно.',
       lockupLight: 'Светлая',
       lockupDark: 'Тёмная',
-      lockupSpin: 'Загрузка',
+      lockupHint: 'Клик — перерисовать, двойной клик — вращать.',
       etymologyHead: 'Этимология',
       bherHead: '*bher-* — нести',
       bherBody: 'Праиндоевропейский корень, лежащий в основе английских bear, burden и birth, латинского ferre и греческого pherein. Его суть не в движении ради движения: существует нечто ценное, и кто-то несёт ответственность нести это дальше. Именно это делает программное обеспечение — цифровой инструмент несёт воспоминания, предпочтения, знания и рабочие процессы. Приложение — не просто код; это сосуд, позволяющий чему-то человеческому пережить момент.',
@@ -476,7 +478,7 @@
       markBody: '卡斯特罗(castro)——一座以同心环勾勒、内部聚居着房舍的山堡——让 *brigā* 变得可见:一处建于高地的聚落,坚固到足以长存,又开放到足以将重要之物汇聚其中。',
       lockupLight: '浅色',
       lockupDark: '深色',
-      lockupSpin: '加载中',
+      lockupHint: '点击重新绘制,双击旋转。',
       etymologyHead: '词源',
       bherHead: '*bher-*——承载',
       bherBody: '这是一个原始印欧语词根,是英语 bear、burden、birth,拉丁语 ferre,以及希腊语 pherein 的共同来源。它的核心并非单纯的移动:某种有价值的东西存在着,而某人有责任将它继续传递下去。软件正是如此——一款数字工具承载着记忆、偏好、知识与工作流程。一个应用程序不仅仅是代码;它是一个容器,让某种属于人的东西得以在当下之外延续。',
@@ -502,7 +504,7 @@
       markBody: 'カストロ——同心円状の環で描かれ、城壁の内側に住居が集まる丘の砦——は *brigā* を目に見える形にしたものです。高台に築かれ、存続できるほど強く、大切なものを内に集められるほど開かれた集落です。',
       lockupLight: 'ライト',
       lockupDark: 'ダーク',
-      lockupSpin: '読み込み中',
+      lockupHint: 'クリックで再描画、ダブルクリックで回転。',
       etymologyHead: '語源',
       bherHead: '*bher-*——運ぶ',
       bherBody: '英語の bear、burden、birth、ラテン語の ferre、ギリシャ語の pherein の背後にある印欧祖語の語根です。その核心にあるのは、単なる移動ではありません——価値あるものが存在し、誰かがそれを運び続ける責任を負う、という考えです。ソフトウェアはまさにそれを行います——デジタルツールは記憶、好み、知識、ワークフローを運びます。アプリケーションは単なるコードではなく、人間的な何かをその瞬間を超えて生き続けさせる器なのです。',
@@ -528,7 +530,7 @@
       markBody: '카스트로(castro) — 동심원 모양으로 그려진 성채로, 성벽 안에 오두막들이 모여 있는 — 는 *brigā*를 눈에 보이게 만듭니다: 높은 곳에 세워져 지속될 만큼 튼튼하고, 중요한 것을 안에 모을 만큼 열려 있는 정착지입니다.',
       lockupLight: '라이트',
       lockupDark: '다크',
-      lockupSpin: '로딩 중',
+      lockupHint: '클릭하면 다시 그리고, 더블클릭하면 회전합니다.',
       etymologyHead: '어원',
       bherHead: '*bher-* — 나르다',
       bherBody: '영어 bear, burden, birth, 라틴어 ferre, 그리스어 pherein의 뿌리가 된 인도유럽조어 어근입니다. 그 핵심은 단순한 이동이 아닙니다 — 가치 있는 무언가가 존재하고, 누군가가 그것을 계속 나를 책임을 진다는 것입니다. 소프트웨어가 하는 일이 바로 그것입니다 — 디지털 도구는 기억, 선호, 지식, 작업 흐름을 나릅니다. 애플리케이션은 단순한 코드가 아니라, 인간적인 무언가가 그 순간을 넘어 살아남게 하는 그릇입니다.',
@@ -554,7 +556,7 @@
       markBody: 'الكاسترو — حصن مرسوم في حلقات متحدة المركز، تتجمع الأكواخ داخل أسواره — يجعل *brigā* مرئية: مستوطنة بُنيت على مرتفع، قوية بما يكفي لتدوم، ومنفتحة بما يكفي لتجمع ما يهم بداخلها.',
       lockupLight: 'فاتح',
       lockupDark: 'داكن',
-      lockupSpin: 'جارٍ التحميل',
+      lockupHint: 'انقر لإعادة الرسم، وانقر نقرًا مزدوجًا للتدوير.',
       etymologyHead: 'أصل الكلمة',
       bherHead: '*bher-* — يحمل',
       bherBody: 'جذر هندي أوروبي بدائي يقف وراء الإنجليزية bear وburden وbirth، واللاتينية ferre، واليونانية pherein. فكرته الجوهرية ليست الحركة لذاتها: شيء ثمين موجود، وعلى أحد مسؤولية حمله إلى الأمام. هذا بالضبط ما تفعله البرمجيات — أداة رقمية تحمل الذكريات والتفضيلات والمعرفة وسير العمل. التطبيق ليس مجرد شيفرة؛ إنه وعاء يتيح لشيء إنساني أن يبقى بعد اللحظة.',
@@ -580,7 +582,7 @@
       markBody: 'कास्ट्रो — संकेंद्रित छल्लों में बना एक किला, जिसकी दीवारों के भीतर झोपड़ियाँ इकट्ठा हैं — *brigā* को दृश्य रूप देता है: ऊँचाई पर बना एक बसाव, इतना मज़बूत कि टिका रहे और इतना खुला कि जो महत्वपूर्ण है उसे अपने भीतर समेट सके।',
       lockupLight: 'हल्का',
       lockupDark: 'गहरा',
-      lockupSpin: 'लोड हो रहा है',
+      lockupHint: 'क्लिक करने पर फिर से बनेगा, डबल-क्लिक पर घूमेगा।',
       etymologyHead: 'व्युत्पत्ति',
       bherHead: '*bher-* — ले जाना',
       bherBody: 'एक प्रोटो-इंडो-यूरोपीय मूल जो अंग्रेज़ी के bear, burden और birth, लातिन के ferre, और यूनानी के pherein के पीछे है। इसका मूल विचार केवल गति नहीं है: कुछ मूल्यवान अस्तित्व में है, और किसी की ज़िम्मेदारी है उसे आगे ले जाना। सॉफ़्टवेयर ठीक यही करता है — एक डिजिटल उपकरण यादें, प्राथमिकताएँ, ज्ञान और कार्यप्रवाह ले जाता है। एक ऐप केवल कोड नहीं है; यह एक पात्र है जो किसी मानवीय चीज़ को उस पल से आगे जीवित रहने देता है।',
@@ -606,7 +608,7 @@
       markBody: 'কাস্ত্রো — কেন্দ্রীভূত বলয়ে আঁকা একটি দুর্গ, যার প্রাচীরের ভেতরে কুঁড়েঘরগুলো জড়ো হয়ে আছে — *brigā*-কে দৃশ্যমান করে তোলে: উঁচু জমিতে গড়া একটি বসতি, টিকে থাকার মতো শক্তিশালী এবং গুরুত্বপূর্ণ যা কিছু তার ভেতরে জড়ো করার মতো উন্মুক্ত।',
       lockupLight: 'হালকা',
       lockupDark: 'গাঢ়',
-      lockupSpin: 'লোড হচ্ছে',
+      lockupHint: 'ক্লিক করলে আবার আঁকা হবে, ডাবল-ক্লিক করলে ঘুরবে।',
       etymologyHead: 'ব্যুৎপত্তি',
       bherHead: '*bher-* — বহন করা',
       bherBody: 'একটি প্রোটো-ইন্দো-ইউরোপীয় মূল, যা ইংরেজি bear, burden ও birth, ল্যাটিন ferre এবং গ্রিক pherein-এর পেছনে রয়েছে। এর মূল ভাব শুধু গতি নয়: মূল্যবান কিছু বিদ্যমান, এবং কারো দায়িত্ব তা সামনে বহন করে নেওয়া। সফটওয়্যার ঠিক এটাই করে — একটি ডিজিটাল হাতিয়ার স্মৃতি, পছন্দ, জ্ঞান ও কর্মপ্রবাহ বহন করে। একটি অ্যাপ কেবল কোড নয়; এটি এমন এক পাত্র যা মানবিক কিছুকে মুহূর্তের পরেও টিকে থাকতে দেয়।',
@@ -632,7 +634,7 @@
       markBody: 'کاسترو — ایک قلعہ جو ہم مرکز حلقوں میں بنا ہے، جس کی دیواروں کے اندر جھونپڑیاں جمع ہیں — *brigā* کو نظر آنے کے قابل بناتا ہے: بلندی پر بنی ایک بستی، اتنی مضبوط کہ قائم رہے اور اتنی کھلی کہ اہم چیزوں کو اپنے اندر سمیٹ سکے۔',
       lockupLight: 'ہلکا',
       lockupDark: 'گہرا',
-      lockupSpin: 'لوڈ ہو رہا ہے',
+      lockupHint: 'کلک کرنے پر دوبارہ بنے گا، ڈبل کلک پر گھومے گا۔',
       etymologyHead: 'اشتقاقیات',
       bherHead: '*bher-* — لے جانا',
       bherBody: 'ایک پروٹو-انڈو-یورپی جڑ جو انگریزی کے bear، burden اور birth، لاطینی کے ferre، اور یونانی کے pherein کے پیچھے ہے۔ اس کا بنیادی خیال محض حرکت نہیں: کوئی قیمتی چیز موجود ہے، اور کسی کی ذمہ داری ہے اسے آگے لے جانا۔ سافٹ ویئر بالکل یہی کرتا ہے — ایک ڈیجیٹل ٹول یادیں، ترجیحات، علم اور ورک فلو لے جاتا ہے۔ ایک ایپ محض کوڈ نہیں؛ یہ ایک برتن ہے جو کسی انسانی چیز کو اُس لمحے سے آگے زندہ رہنے دیتا ہے۔',
@@ -658,7 +660,7 @@
       markBody: 'کاسترو — دژی ترسیم‌شده در حلقه‌های هم‌مرکز، با کلبه‌هایی که درون دیوارهایش گرد آمده‌اند — *brigā* را قابل‌مشاهده می‌کند: سکونتگاهی ساخته‌شده بر بلندا، به اندازه‌ای استوار که دوام بیاورد و به اندازه‌ای باز که آنچه اهمیت دارد را در خود گرد آورد.',
       lockupLight: 'روشن',
       lockupDark: 'تیره',
-      lockupSpin: 'در حال بارگذاری',
+      lockupHint: 'کلیک برای بازترسیم، دو بار کلیک برای چرخش.',
       etymologyHead: 'ریشه‌شناسی',
       bherHead: '*bher-* — بردن',
       bherBody: 'ریشه‌ای پروتوهندواروپایی که پشت واژه‌های انگلیسی bear، burden و birth، لاتین ferre، و یونانی pherein قرار دارد. ایده اصلی آن صرفاً حرکت نیست: چیزی ارزشمند وجود دارد و کسی مسئولیت دارد آن را به پیش ببرد. نرم‌افزار دقیقاً همین کار را می‌کند — ابزاری دیجیتال خاطرات، ترجیحات، دانش و روندهای کاری را حمل می‌کند. یک برنامه صرفاً کد نیست؛ ظرفی است که اجازه می‌دهد چیزی انسانی از آن لحظه فراتر باقی بماند.',
@@ -684,7 +686,7 @@
       markBody: "Castro — iç içe halkalar hâlinde çizilmiş, surlarının içinde kulübelerin toplandığı bir kale — *brigā*'yı görünür kılar: yükseklikte kurulmuş, dayanacak kadar güçlü ve içindeki önemli şeyleri toplayacak kadar açık bir yerleşim.",
       lockupLight: 'Aydınlık',
       lockupDark: 'Karanlık',
-      lockupSpin: 'Yükleniyor',
+      lockupHint: 'Tıkla yeniden çizilsin, çift tıkla dönsün.',
       etymologyHead: 'Köken bilgisi',
       bherHead: '*bher-* — taşımak',
       bherBody: 'İngilizce bear, burden ve birth, Latince ferre ve Yunanca pherein\'in ardındaki Proto-Hint-Avrupa kökü. Temel fikri kendi başına hareket değildir: değerli bir şey vardır ve birinin onu ileriye taşıma sorumluluğu vardır. Yazılım tam olarak bunu yapar — dijital bir araç anıları, tercihleri, bilgiyi ve iş akışlarını taşır. Bir uygulama yalnızca kod değildir; insani bir şeyin o andan öteye hayatta kalmasını sağlayan bir kaptır.',
@@ -710,7 +712,7 @@
       markBody: 'Castro — một pháo đài được vẽ thành các vòng đồng tâm, với những túp lều tụ họp bên trong tường thành — làm cho *brigā* trở nên hữu hình: một khu định cư xây trên cao, đủ vững chắc để tồn tại và đủ rộng mở để quy tụ những điều quan trọng bên trong nó.',
       lockupLight: 'Sáng',
       lockupDark: 'Tối',
-      lockupSpin: 'Đang tải',
+      lockupHint: 'Nhấp để vẽ lại, nhấp đúp để xoay.',
       etymologyHead: 'Từ nguyên',
       bherHead: '*bher-* — mang',
       bherBody: 'Một gốc từ Tiền Ấn-Âu đứng sau tiếng Anh bear, burden và birth, tiếng Latin ferre, và tiếng Hy Lạp pherein. Ý tưởng cốt lõi của nó không phải là sự chuyển động vì bản thân nó: một điều gì đó quý giá tồn tại, và ai đó có trách nhiệm mang nó tiếp tục về phía trước. Phần mềm làm chính xác điều đó — một công cụ số mang theo ký ức, sở thích, kiến thức và quy trình làm việc. Một ứng dụng không chỉ là mã nguồn; nó là một vật chứa cho phép điều gì đó thuộc về con người tồn tại vượt khỏi khoảnh khắc.',
@@ -736,7 +738,7 @@
       markBody: 'Castro — benteng yang digambar dalam cincin konsentris, dengan gubuk-gubuk berkumpul di dalam temboknya — membuat *brigā* menjadi nyata: sebuah permukiman yang dibangun di dataran tinggi, cukup kuat untuk bertahan dan cukup terbuka untuk mengumpulkan hal-hal penting di dalamnya.',
       lockupLight: 'Terang',
       lockupDark: 'Gelap',
-      lockupSpin: 'Memuat',
+      lockupHint: 'Klik untuk menggambar ulang, klik dua kali untuk berputar.',
       etymologyHead: 'Etimologi',
       bherHead: '*bher-* — membawa',
       bherBody: 'Akar Proto-Indo-Eropa di balik bahasa Inggris bear, burden, dan birth, bahasa Latin ferre, dan bahasa Yunani pherein. Gagasan intinya bukan sekadar gerakan: sesuatu yang berharga ada, dan seseorang memiliki tanggung jawab untuk membawanya maju. Perangkat lunak melakukan persis itu — alat digital membawa kenangan, preferensi, pengetahuan, dan alur kerja. Sebuah aplikasi bukan hanya kode; ia adalah wadah yang memungkinkan sesuatu yang manusiawi bertahan melampaui momennya.',
@@ -762,7 +764,7 @@
       markBody: 'คาสโตร — ป้อมปราการที่ลากเป็นวงแหวนซ้อนกัน มีกระท่อมรวมกันอยู่ภายในกำแพง — ทำให้ *brigā* มองเห็นได้: ถิ่นฐานที่สร้างบนที่สูง แข็งแกร่งพอจะยืนยงและเปิดกว้างพอจะรวบรวมสิ่งสำคัญไว้ภายใน',
       lockupLight: 'สว่าง',
       lockupDark: 'มืด',
-      lockupSpin: 'กำลังโหลด',
+      lockupHint: 'คลิกเพื่อวาดใหม่ ดับเบิลคลิกเพื่อหมุน',
       etymologyHead: 'รากศัพท์',
       bherHead: '*bher-* — แบก',
       bherBody: 'รากศัพท์ Proto-Indo-European ที่อยู่เบื้องหลังคำภาษาอังกฤษ bear, burden และ birth, ภาษาละติน ferre และภาษากรีก pherein แนวคิดหลักของมันไม่ใช่การเคลื่อนไหวเพื่อตัวมันเอง แต่คือ สิ่งมีค่าบางอย่างมีอยู่ และมีใครสักคนมีหน้าที่นำพามันต่อไปข้างหน้า ซอฟต์แวร์ทำสิ่งนี้เป๊ะ ๆ — เครื่องมือดิจิทัลแบกความทรงจำ ความชอบ ความรู้ และขั้นตอนการทำงาน แอปพลิเคชันไม่ใช่แค่โค้ด แต่เป็นภาชนะที่ทำให้สิ่งที่เป็นมนุษย์อยู่รอดเกินกว่าช่วงเวลานั้น',
@@ -788,7 +790,7 @@
       markBody: 'Castro — ngome iliyochorwa kwa miduara inayozunguka kituo kimoja, yenye vibanda vilivyokusanyika ndani ya kuta zake — inafanya *brigā* ionekane: makazi yaliyojengwa juu ya kilele, imara vya kutosha kudumu na wazi vya kutosha kukusanya yaliyo muhimu ndani yake.',
       lockupLight: 'Mwanga',
       lockupDark: 'Giza',
-      lockupSpin: 'Inapakia',
+      lockupHint: 'Bofya kuchora upya, bofya mara mbili kuzunguka.',
       etymologyHead: 'Asili ya neno',
       bherHead: '*bher-* — kubeba',
       bherBody: 'Mzizi wa Proto-Indo-European ulio nyuma ya maneno ya Kiingereza bear, burden na birth, Kilatini ferre, na Kigiriki pherein. Wazo lake kuu si mwendo wenyewe: kitu chenye thamani kipo, na mtu ana jukumu la kukibeba mbele. Programu hufanya hivyo hasa — chombo cha kidijitali hubeba kumbukumbu, mapendeleo, maarifa na mtiririko wa kazi. Programu si msimbo tu; ni chombo kinachoruhusu jambo la kibinadamu kuendelea kuishi zaidi ya wakati huo.',
@@ -814,7 +816,7 @@
       markBody: 'కాస్ట్రో — కేంద్రీకృత వలయాలలో గీయబడిన కోట, దాని గోడల లోపల గుడిసెలు సమావేశమై ఉంటాయి — *brigā*ను కనిపించేలా చేస్తుంది: ఎత్తైన ప్రదేశంలో నిర్మించిన ఒక నివాసం, నిలదొక్కుకునేంత బలంగా మరియు ముఖ్యమైనవాటిని తనలో సమకూర్చుకునేంత తెరిచి ఉంటుంది.',
       lockupLight: 'లైట్',
       lockupDark: 'డార్క్',
-      lockupSpin: 'లోడ్ అవుతోంది',
+      lockupHint: 'క్లిక్ చేస్తే మళ్లీ గీస్తుంది, డబుల్-క్లిక్ చేస్తే తిరుగుతుంది.',
       etymologyHead: 'పదవ్యుత్పత్తి',
       bherHead: '*bher-* — మోయడం',
       bherBody: 'ఆంగ్లంలోని bear, burden మరియు birth, లాటిన్ ferre, గ్రీక్ pherein వెనుక ఉన్న ప్రోటో-ఇండో-యూరోపియన్ మూలం. దీని ప్రధాన భావన కేవలం కదలిక కాదు: విలువైనది ఏదో ఉంది, మరియు దానిని ముందుకు మోసుకెళ్లే బాధ్యత ఎవరికైనా ఉంది. సాఫ్ట్‌వేర్ సరిగ్గా అదే చేస్తుంది — డిజిటల్ సాధనం జ్ఞాపకాలు, ప్రాధాన్యతలు, జ్ఞానం మరియు కార్యప్రవాహాలను మోస్తుంది. యాప్ కేవలం కోడ్ కాదు; అది మానవీయమైనది ఆ క్షణాన్ని దాటి మనుగడ సాగించేలా చేసే పాత్ర.',
@@ -840,7 +842,7 @@
       markBody: 'காஸ்ட்ரோ — செறிவான வளையங்களில் வரையப்பட்ட ஒரு கோட்டை, அதன் சுவர்களுக்குள் குடிசைகள் ஒன்றுகூடியிருக்கும் — *brigā*வை காணக்கூடியதாக ஆக்குகிறது: உயரமான இடத்தில் கட்டப்பட்ட ஒரு குடியேற்றம், நீடிக்கும் அளவுக்கு வலிமையானது மற்றும் முக்கியமானவற்றை தனக்குள் சேகரிக்கும் அளவுக்கு திறந்தது.',
       lockupLight: 'வெளிச்சம்',
       lockupDark: 'இருள்',
-      lockupSpin: 'ஏற்றுகிறது',
+      lockupHint: 'கிளிக் செய்தால் மீண்டும் வரையும், இரட்டை கிளிக் செய்தால் சுழலும்.',
       etymologyHead: 'சொல் வரலாறு',
       bherHead: '*bher-* — சுமப்பது',
       bherBody: 'ஆங்கிலத்தில் bear, burden, birth, லத்தீனில் ferre, கிரேக்கத்தில் pherein ஆகியவற்றுக்குப் பின்னால் உள்ள புரோட்டோ-இந்தோ-ஐரோப்பிய வேர். இதன் மையக் கருத்து வெறும் இயக்கம் அல்ல: மதிப்புமிக்க ஏதோ ஒன்று உள்ளது, அதை முன்னோக்கி சுமக்கும் பொறுப்பு ஒருவருக்கு உண்டு. மென்பொருள் சரியாக அதையே செய்கிறது — ஒரு டிஜிட்டல் கருவி நினைவுகள், விருப்பங்கள், அறிவு மற்றும் பணிப்பாய்வுகளை சுமக்கிறது. ஒரு பயன்பாடு வெறும் குறியீடு அல்ல; அது மனிதத்தன்மை கொண்ட ஏதோ ஒன்று அந்த தருணத்தைக் கடந்து உயிர்வாழ அனுமதிக்கும் ஒரு பாத்திரம்.',
@@ -866,7 +868,7 @@
       markBody: "ਕਾਸਤਰੋ — ਕੇਂਦਰਿਤ ਰਿੰਗਾਂ ਵਿੱਚ ਬਣਿਆ ਇੱਕ ਕਿਲ੍ਹਾ, ਜਿਸ ਦੀਆਂ ਦੀਵਾਰਾਂ ਅੰਦਰ ਝੌਂਪੜੀਆਂ ਇਕੱਠੀਆਂ ਹੁੰਦੀਆਂ ਹਨ — *brigā* ਨੂੰ ਦਿਖਾਈ ਦੇਣ ਯੋਗ ਬਣਾਉਂਦਾ ਹੈ: ਉਚਾਈ 'ਤੇ ਬਣੀ ਇੱਕ ਬਸਤੀ, ਟਿਕੇ ਰਹਿਣ ਜੋਗੀ ਮਜ਼ਬੂਤ ਅਤੇ ਜ਼ਰੂਰੀ ਚੀਜ਼ਾਂ ਨੂੰ ਆਪਣੇ ਅੰਦਰ ਇਕੱਠਾ ਕਰਨ ਜੋਗੀ ਖੁੱਲ੍ਹੀ।",
       lockupLight: 'ਹਲਕਾ',
       lockupDark: 'ਗੂੜ੍ਹਾ',
-      lockupSpin: 'ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ',
+      lockupHint: 'ਕਲਿੱਕ ਕਰਨ ਨਾਲ ਮੁੜ ਖਿੱਚਿਆ ਜਾਵੇਗਾ, ਡਬਲ-ਕਲਿੱਕ ਨਾਲ ਘੁੰਮੇਗਾ।',
       etymologyHead: 'ਵਿਉਤਪਤੀ',
       bherHead: '*bher-* — ਚੁੱਕਣਾ',
       bherBody: 'ਇੱਕ ਪ੍ਰੋਟੋ-ਇੰਡੋ-ਯੂਰਪੀਅਨ ਜੜ੍ਹ ਜੋ ਅੰਗਰੇਜ਼ੀ ਦੇ bear, burden ਅਤੇ birth, ਲਾਤੀਨੀ ਦੇ ferre, ਅਤੇ ਯੂਨਾਨੀ ਦੇ pherein ਪਿੱਛੇ ਹੈ। ਇਸਦਾ ਮੂਲ ਵਿਚਾਰ ਸਿਰਫ਼ ਹਿਲਜੁਲ ਨਹੀਂ: ਕੁਝ ਕੀਮਤੀ ਮੌਜੂਦ ਹੈ, ਅਤੇ ਕਿਸੇ ਦੀ ਜ਼ਿੰਮੇਵਾਰੀ ਹੈ ਇਸਨੂੰ ਅੱਗੇ ਲਿਜਾਣਾ। ਸਾਫਟਵੇਅਰ ਬਿਲਕੁਲ ਇਹੀ ਕਰਦਾ ਹੈ — ਇੱਕ ਡਿਜੀਟਲ ਸੰਦ ਯਾਦਾਂ, ਪਸੰਦਾਂ, ਗਿਆਨ ਅਤੇ ਕੰਮ-ਪ੍ਰਵਾਹ ਲੈ ਕੇ ਜਾਂਦਾ ਹੈ। ਇੱਕ ਐਪ ਸਿਰਫ਼ ਕੋਡ ਨਹੀਂ; ਇਹ ਇੱਕ ਭਾਂਡਾ ਹੈ ਜੋ ਕਿਸੇ ਮਨੁੱਖੀ ਚੀਜ਼ ਨੂੰ ਉਸ ਪਲ ਤੋਂ ਅੱਗੇ ਜਿਊਂਦਾ ਰਹਿਣ ਦਿੰਦਾ ਹੈ।',
@@ -929,7 +931,7 @@
     document.getElementById('mark-body').textContent = t('markBody');
     document.getElementById('lockup-light-caption').textContent = t('lockupLight');
     document.getElementById('lockup-dark-caption').textContent = t('lockupDark');
-    document.getElementById('lockup-spin-caption').textContent = t('lockupSpin');
+    document.getElementById('lockup-hint').textContent = t('lockupHint');
     document.getElementById('palette-head').textContent = t('paletteHead');
     document.getElementById('palette-body').textContent = t('paletteBody');
     document.getElementById('swatch-bg').textContent = t('swatchBg');
@@ -946,8 +948,8 @@
   currentLang = BrerenCommon.detectLang();
 
   BrerenCommon.setupLangPicker(function () { return currentLang; }, selectLang);
-  var repaintSpinLockup = setupMarkCard();
-  BrerenCommon.setupThemeToggle(t, function (theme) { repaintSpinLockup(theme === 'dark'); });
+  setupMarkCard();
+  BrerenCommon.setupThemeToggle(t);
   setupLogoMark();
   BrerenCommon.applyTheme(BrerenCommon.effectiveTheme(), t);
   BrerenCommon.applyDirection(currentLang);
@@ -1002,22 +1004,42 @@
     }
   }
 
-  // ---- mark card: light/dark lockups + a spinning (loading-state) demo ---
+  // ---- mark card: light/dark lockups, click = redraw, double-click = spin
+  //
   // The mark's colors normally switch via `@media (prefers-color-scheme)`
   // inside the fetched SVGs, which tracks the OS setting, not this page's
   // own light/dark toggle. The two lockups below need to show a *specific*
   // ground regardless of that toggle, so each fetched SVG gets a forced
-  // color override appended as its own <style> block (with !important,
-  // since specificity alone can't out-rank a later media-query match).
+  // color override appended as its own <style> block.
+  //
+  // Both lockups fetch and inject the *same* markup (draw-in reveal svg,
+  // then swapped for the spin svg on double-click), each into its own
+  // shadow root. Without that isolation, both copies' <style> blocks
+  // (identical class names and @keyframes, appended via innerHTML) become
+  // ordinary global stylesheet rules rather than being scoped to the
+  // fragment they arrived in — the later-inserted copy's rules then win
+  // the cascade for *every* instance on the page (including the header's
+  // own mark), and redefining running @keyframes out from under the
+  // earlier copy's in-flight animation resets it before it can finish
+  // drawing. A shadow root keeps each lockup's styles and keyframes
+  // entirely local, so the two never fight over the same rules.
   //
   // Static (non-media-query) source colors, copied from
   // icons/breren-logo.svg's default and dark blocks.
   var LIGHT_PALETTE = { outer: '#33302e', middle: '#4a4542', inner: '#635d59', hut: '#6b4423' };
   var DARK_PALETTE = { outer: '#b0a696', middle: '#a39d95', inner: '#928878', hut: '#c9944f' };
 
+  // Both overrides also force the root <svg>'s own size: the light-DOM
+  // `.lockup-frame svg` sizing rule can't reach in here once this markup
+  // lives inside a shadow root, so without this the fetched SVG would
+  // render at its native 512x512 intrinsic size instead of filling the
+  // 88px frame.
+  var SIZE_RULE = 'svg{display:block !important;width:100% !important;height:100% !important}';
+
   function forceFlatColors(svgText, palette) {
     var override =
-      '<style>.outer{stroke:' + palette.outer + ' !important}' +
+      '<style>' + SIZE_RULE +
+      '.outer{stroke:' + palette.outer + ' !important}' +
       '.middle{stroke:' + palette.middle + ' !important}' +
       '.inner{stroke:' + palette.inner + ' !important}' +
       '.hut{fill:' + palette.hut + ' !important}</style>';
@@ -1028,82 +1050,101 @@
   // shipped in both a light and a `-dark` id variant) rather than flat
   // colors, so forcing a ground here means forcing which gradient id each
   // rampart references, not a literal color.
-  function forceGradientColors(svgText, dark) {
+  function forceGradientColors(svgText, dark, palette) {
     var suffix = dark ? '-dark' : '';
-    var hut = dark ? DARK_PALETTE.hut : LIGHT_PALETTE.hut;
     var override =
-      '<style>.outer{stroke:url(#g-outer' + suffix + ') !important}' +
+      '<style>' + SIZE_RULE +
+      '.outer{stroke:url(#g-outer' + suffix + ') !important}' +
       '.middle{stroke:url(#g-middle' + suffix + ') !important}' +
       '.inner{stroke:url(#g-inner' + suffix + ') !important}' +
-      '.hut{fill:' + hut + ' !important}</style>';
+      '.hut{fill:' + palette.hut + ' !important}</style>';
     return svgText.replace('</svg>', override + '</svg>');
   }
 
-  function wireReplay(host) {
-    var busy = false;
-    function replay() {
-      if (busy) return;
-      var animated = host.querySelectorAll('.rampart, .hut');
-      if (animated.length === 0) return;
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-      busy = true;
-      var remaining = animated.length;
-      Array.prototype.forEach.call(animated, function (el) { el.style.animation = 'none'; });
-      void host.offsetWidth; // force reflow so the animation restarts
-      Array.prototype.forEach.call(animated, function (el) {
-        el.style.animation = '';
-        el.addEventListener('animationend', onEnd);
-      });
-
-      function onEnd(e) {
-        e.currentTarget.removeEventListener('animationend', onEnd);
-        remaining--;
-        if (remaining === 0) busy = false;
-      }
-    }
-    host.addEventListener('click', replay);
-    host.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        replay();
-      }
-    });
-  }
-
-  // Returns a `repaint(dark)` function the theme toggle calls so the
-  // spinning demo always matches the page's *current* theme, not just
-  // whatever the OS preference was when it first loaded.
-  function setupMarkCard() {
-    var lightHost = document.getElementById('lockup-light');
-    var darkHost = document.getElementById('lockup-dark');
-    var spinHost = document.getElementById('lockup-spin');
+  // One lockup: fetches both source SVGs once, then lets `playDraw`/
+  // `playSpin` repaint its private shadow root on demand.
+  function setupLockup(host, dark) {
+    var palette = dark ? DARK_PALETTE : LIGHT_PALETTE;
+    var root = host.attachShadow({ mode: 'open' });
+    var drawSvgText = null;
     var spinSvgText = null;
+    var busy = false;
+
+    function playDraw() {
+      if (busy || !drawSvgText) return;
+      busy = true;
+      root.innerHTML = forceFlatColors(drawSvgText, palette);
+      var animated = root.querySelectorAll('.rampart, .hut');
+      if (animated.length === 0 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        busy = false;
+        return;
+      }
+      var remaining = animated.length;
+      Array.prototype.forEach.call(animated, function (el) {
+        el.addEventListener('animationend', function onEnd(e) {
+          e.currentTarget.removeEventListener('animationend', onEnd);
+          remaining--;
+          if (remaining === 0) busy = false;
+        });
+      });
+    }
+
+    function playSpin() {
+      if (busy || !spinSvgText) return;
+      root.innerHTML = forceGradientColors(spinSvgText, dark, palette);
+      // Runs on an infinite CSS loop (a loading-indicator, not a one-shot
+      // reveal) until the next click swaps the draw svg back in, so there's
+      // no `animationend` to wait on and no busy-lock to hold here.
+    }
 
     fetch('../icons/breren-logo-animated.svg', { cache: 'no-store' })
       .then(function (r) { return r.text(); })
       .then(function (svgText) {
-        lightHost.innerHTML = forceFlatColors(svgText, LIGHT_PALETTE);
-        darkHost.innerHTML = forceFlatColors(svgText, DARK_PALETTE);
-        wireReplay(lightHost);
-        wireReplay(darkHost);
+        drawSvgText = svgText;
+        playDraw();
       })
       .catch(function () {}); // decorative; page works without it
 
-    function paint(dark) {
-      if (spinSvgText === null) return; // not fetched yet; initial fetch below paints once loaded
-      spinHost.innerHTML = forceGradientColors(spinSvgText, dark);
-    }
-
     fetch('../icons/breren-logo-spin.svg', { cache: 'no-store' })
       .then(function (r) { return r.text(); })
-      .then(function (svgText) {
-        spinSvgText = svgText;
-        paint(BrerenCommon.effectiveTheme() === 'dark');
-      })
+      .then(function (svgText) { spinSvgText = svgText; })
       .catch(function () {});
 
-    return paint;
+    return { playDraw: playDraw, playSpin: playSpin };
+  }
+
+  // Native `click`/`dblclick` both fire on a double-click (click, click,
+  // dblclick, in that order), so a naive click handler would replay the
+  // reveal twice before the spin ever got a chance to run. Hold each click
+  // for the standard double-click window and only act on it if a second
+  // click doesn't arrive to promote it to a double-click instead.
+  function wireGestures(host, lockup) {
+    var clickTimer = null;
+    host.addEventListener('click', function () {
+      if (clickTimer) return;
+      clickTimer = setTimeout(function () {
+        clickTimer = null;
+        lockup.playDraw();
+      }, 300);
+    });
+    host.addEventListener('dblclick', function () {
+      clearTimeout(clickTimer);
+      clickTimer = null;
+      lockup.playSpin();
+    });
+    host.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        lockup.playDraw();
+      }
+    });
+  }
+
+  function setupMarkCard() {
+    var lightLockup = setupLockup(document.getElementById('lockup-light'), false);
+    var darkLockup = setupLockup(document.getElementById('lockup-dark'), true);
+    wireGestures(document.getElementById('lockup-light'), lightLockup);
+    wireGestures(document.getElementById('lockup-dark'), darkLockup);
   }
 })();
 </script>

@@ -1,0 +1,37 @@
+name: Deploy Pages
+
+# Publishes the `public/` folder as breren.com's GitHub Pages site. Sources
+# are organized under public/ (about/, licenses/, vitralis/, icons/, ...)
+# while repo-meta files (README, LICENSE, docs/, ...) stay at the repo root;
+# this workflow is what bridges the two, since GitHub Pages' classic
+# "deploy from a branch" source only supports publishing from `/` or
+# `/docs`, not an arbitrary folder name.
+
+on:
+  push:
+    branches: [main]
+    paths: ["public/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - id: deployment
+        uses: actions/deploy-pages@v4

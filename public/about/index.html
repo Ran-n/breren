@@ -966,57 +966,27 @@
   applyTexts();
 
   // ---- logo mark ----------------------------------------------------
-  // Interactive header mark that matches index.html's redraw-on-click.
+  // Header mark is a home link here; the redraw animation only plays
+  // once the user is actually on the home page (index.html's own mark).
 
   function setupLogoMark() {
     var mark = document.getElementById('logo-mark');
-    var busy = false;
 
     fetch('../icons/breren-logo-animated.svg', { cache: 'no-store' })
       .then(function (r) { return r.text(); })
-      .then(function (svgText) {
-        mark.innerHTML = svgText;
-        mark.addEventListener('click', replay);
-        mark.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            replay();
-          }
-        });
-      })
+      .then(function (svgText) { mark.innerHTML = svgText; })
       .catch(function (err) { console.error('header mark failed to load/render', err); }); // decorative; page works without it
 
-    function replay() {
-      if (busy) {
-        window.location.href = '../';
-        return;
+    mark.addEventListener('click', goHome);
+    mark.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        goHome();
       }
-      var animated = mark.querySelectorAll('.rampart, .hut');
-      if (animated.length === 0 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        window.location.href = '../';
-        return;
-      }
+    });
 
-      busy = true;
-      mark.setAttribute('aria-disabled', 'true');
-      var remaining = animated.length;
-
-      Array.prototype.forEach.call(animated, function (el) { el.style.animation = 'none'; });
-      void mark.offsetWidth; // force reflow so the animation restarts
-      Array.prototype.forEach.call(animated, function (el) {
-        el.style.animation = '';
-        el.addEventListener('animationend', onEnd);
-      });
-
-      function onEnd(e) {
-        e.currentTarget.removeEventListener('animationend', onEnd);
-        remaining--;
-        if (remaining === 0) {
-          busy = false;
-          mark.setAttribute('aria-disabled', 'false');
-          window.location.href = '../';
-        }
-      }
+    function goHome() {
+      window.location.href = '../';
     }
   }
 

@@ -14,9 +14,20 @@ extension of human capability through software.
 ## Link dashboard
 
 This repo is published via GitHub Pages as a small link dashboard (in the
-style of Heimdall/Homer). Edit [links.toml](links.toml) to add, remove,
-or reorder tiles — `index.html` reads it at load time, so no other file
-needs to change.
+style of Heimdall/Homer). Edit [links.toml](public/links.toml) to add,
+remove, or reorder tiles — `index.html` reads it at load time, so no
+other file needs to change.
+
+## Repo layout
+
+Everything actually served at breren.com lives under
+[public/](public/) — `index.html`, `about/`, `licenses/`, `vitralis/`,
+`common.css`/`common.js`, `icons/`. Repo-only files (this README,
+`CHANGELOG.md`, `docs/`, the license text, ...) stay at the top level.
+GitHub Pages' classic "deploy from a branch" source only supports
+publishing from `/` or `/docs`, not an arbitrary folder name, so
+[.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml)
+publishes `public/` on every push to `main` instead.
 
 - **Theme** — light/dark toggle in the top-right corner (Gruvbox
   palette); follows the system preference until you override it, then

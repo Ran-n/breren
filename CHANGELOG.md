@@ -13,6 +13,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Moved everything actually served at breren.com (`index.html`,
+  `about/`, `licenses/`, `vitralis/`, `common.css`/`common.js`,
+  `icons/`, `links.toml`, `translations.toml`, `CNAME`, `.nojekyll`)
+  under a new `public/` folder, leaving only repo-meta files (this
+  changelog, `README.md`, `docs/`, the license text, ...) at the top
+  level. GitHub Pages' classic branch-deploy source can only publish
+  from `/` or `/docs`, not an arbitrary folder name, so
+  `.github/workflows/deploy-pages.yml` now publishes `public/` on every
+  push to `main` instead — the Pages source setting was switched from
+  "deploy from a branch" to "GitHub Actions" to match. Public URLs
+  (breren.com/about, breren.com/licenses/pbl, breren.com/vitralis)
+  are unchanged.
+
 ### Added
 
 - `about/index.html` — the mark card now shows the reveal animation on

@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/08/05 10:01:38.839202 )
+[//]: # (+ Revised: 	2026/08/05 10:09:05.330396 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -13,6 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- GitLab Pages deployment via [.gitlab-ci.yml](.gitlab-ci.yml) (`pages`
+  job, publishes `public/` on `main`) and a Codeberg Pages `pages`
+  branch (a `git subtree split --prefix=public` of `main`, kept in sync
+  on push) — `public/` was previously only actually served live via
+  GitHub Pages, with GitLab/Codeberg holding mirrored source only.
+
 ### Changed
 
 - Enlarged the light/dark logo lockup frames on the About page
@@ -20,11 +28,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- `public/icons/breren-logo-spin.svg`: the three ramparts now rotate as
-  true circles instead of the static logo's hand-drawn irregular
-  contour. A non-circular ring changes silhouette as it turns, so
-  spinning the organic shape read as a jittery wobble; circles are
-  rotationally invariant, so the spin is now smooth.
+- `public/icons/breren-logo-spin.svg`: the drop shadow (feDropShadow) no
+  longer sits on the same group as the continuously-rotating pieces.
+  SVG filters have to be re-rasterized on every frame their filtered
+  content changes, so keeping it there made the browser re-run the
+  (largely software) filter pass every animation frame just to keep the
+  shadow attached to the spin, which read as low-fps/janky. The shadow
+  is now a separate static copy of the ramparts and center hut rendered
+  once behind an unfiltered, plain-CSS-transform foreground; the five
+  orbiting huts (which actually translate, not just rotate in place, so
+  a static duplicate would be left exposed as they orbit away from it)
+  render without a shadow. Ramparts keep their original hand-drawn
+  contour.
 
 - Moved everything actually served at breren.com (`index.html`,
   `about/`, `licenses/`, `vitralis/`, `common.css`/`common.js`,

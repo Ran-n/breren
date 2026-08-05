@@ -6,13 +6,19 @@
        self-rotation, so orbiting is what makes their motion read).
        Polish: a soft drop shadow for depth, a subtle light-catching
        gradient along each rampart, and a gentle scale/fade entrance
-       before the loop settles in.
-       Unlike the static logo, the ramparts here are true circles rather
-       than the hand-drawn irregular contour: a non-circular ring changes
-       silhouette as it rotates, so spinning the static logo's organic
-       shape read as a jittery wobble instead of smooth motion. Circles
-       are rotationally invariant, so the same spin here is seamless.
-       Radii are the average distance of each source contour from center. -->
+       before the loop settles in. Same geometry as the static logo.
+
+       The drop shadow (feDropShadow) used to sit on the same group as
+       the continuously-rotating pieces. SVG filters are re-rasterized
+       every time their filtered content changes, so with the filter
+       there the browser had to re-run the whole (mostly software,
+       rarely GPU-composited) filter pass every animation frame just to
+       keep the shadow attached to the spin — that's what read as
+       low-fps/janky. A real light source doesn't rotate with the
+       object anyway, so the shadow doesn't need to either: it's now a
+       separate, static copy of the mark rendered once behind the
+       animated foreground, which has no filter on it and animates as
+       plain (GPU-friendly) CSS transforms. -->
   <defs>
     <linearGradient id="g-outer" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%"  stop-color="#3d3936"/>
@@ -78,6 +84,7 @@
       animation-iteration-count: infinite;
       animation-delay: 0.6s;
       animation-fill-mode: backwards;
+      will-change: transform;
     }
     .outer  { animation-name: spin-cw;  animation-duration: 16s; }
     .middle { animation-name: spin-ccw; animation-duration: 8s; }
@@ -92,15 +99,67 @@
     }
   </style>
 
-  <g class="enter" filter="url(#depth)">
-    <!-- Outer rampart, true circle so the spin reads smooth -->
-    <circle class="outer" fill="none" stroke-width="32" cx="256.0" cy="256.0" r="198"/>
+  <g class="enter">
+    <!-- Static shadow backdrop: an unanimated copy of the ramparts and
+         center hut, rendered once. Carries the only filter in the
+         document, so the filter pass runs once instead of on every
+         animation frame. Its own black fill/stroke never shows — the
+         animated foreground below is drawn in the same position on top
+         of it and covers it; only feDropShadow's offset, blurred halo
+         pokes out past the foreground's edges. Each rampart only
+         self-rotates (it doesn't translate), so its silhouette stays
+         close enough to this static copy that the halo reads as a
+         steady shadow rather than a trail.
+         The five orbiting huts are excluded: they genuinely translate
+         around the center as they spin, so a static duplicate would be
+         left exposed as they orbit away from it. They render without a
+         shadow instead — cheaper than keeping them filtered every
+         frame, and the loss is minor at this size. -->
+    <g filter="url(#depth)">
+      <path fill="none" stroke="#000000" stroke-width="32" stroke-linecap="round"
+            d="M 191.0 68.5 Q 256.0 59.9 321.7 67.6 Q 387.3 75.2 412.8 136.1
+               Q 438.2 196.8 449.0 259.5 Q 459.8 322.2 417.5 371.3
+               Q 375.2 420.2 315.6 452.1 Q 256.0 484.0 200.4 446.5
+               Q 144.7 409.1 97.4 366.0 Q 50.0 322.9 55.5 257.7
+               Q 60.8 192.6 93.4 134.8"/>
+      <path fill="none" stroke="#000000" stroke-width="26"
+            d="M 212.5 128.8 Q 256.0 121.5 300.2 127.9 Q 344.5 134.2 361.0 175.4
+               Q 377.4 216.6 386.1 258.9 Q 394.7 301.1 365.6 333.9
+               Q 336.4 366.7 296.2 387.7 Q 256.0 408.8 219.2 383.1
+               Q 182.2 357.5 150.9 329.0 Q 119.4 300.3 124.8 257.7
+               Q 130.3 215.2 149.5 175.6 Q 168.9 136.1 212.5 128.8 Z"/>
+      <path fill="none" stroke="#000000" stroke-width="19"
+            d="M 225.3 185.4 Q 256.0 176.2 288.3 183.8 Q 320.5 191.5 325.9 223.7
+               Q 331.2 256.0 325.1 287.5 Q 318.9 318.9 287.5 328.5
+               Q 256.0 338.1 222.9 330.1 Q 189.9 322.1 186.5 289.1
+               Q 183.0 256.0 188.9 225.3 Q 194.8 194.8 225.3 185.4 Z"/>
+      <circle cx="256.0" cy="256.0" r="18.0" fill="#000000"/>
+    </g>
 
-    <!-- Middle rampart, true circle so the spin reads smooth -->
-    <circle class="middle" fill="none" stroke-width="26" cx="256.0" cy="256.0" r="132"/>
+    <!-- Animated foreground: no filter, pure CSS transforms, so the
+         browser can composite the spin on the GPU. -->
+    <!-- Outer rampart, irregular contour, broken by a gate -->
+    <path class="outer" fill="none" stroke-width="32" stroke-linecap="round"
+          d="M 191.0 68.5 Q 256.0 59.9 321.7 67.6 Q 387.3 75.2 412.8 136.1
+             Q 438.2 196.8 449.0 259.5 Q 459.8 322.2 417.5 371.3
+             Q 375.2 420.2 315.6 452.1 Q 256.0 484.0 200.4 446.5
+             Q 144.7 409.1 97.4 366.0 Q 50.0 322.9 55.5 257.7
+             Q 60.8 192.6 93.4 134.8"/>
 
-    <!-- Inner rampart, true circle so the spin reads smooth -->
-    <circle class="inner" fill="none" stroke-width="19" cx="256.0" cy="256.0" r="77"/>
+    <!-- Middle rampart, irregular contour, closed -->
+    <path class="middle" fill="none" stroke-width="26"
+          d="M 212.5 128.8 Q 256.0 121.5 300.2 127.9 Q 344.5 134.2 361.0 175.4
+             Q 377.4 216.6 386.1 258.9 Q 394.7 301.1 365.6 333.9
+             Q 336.4 366.7 296.2 387.7 Q 256.0 408.8 219.2 383.1
+             Q 182.2 357.5 150.9 329.0 Q 119.4 300.3 124.8 257.7
+             Q 130.3 215.2 149.5 175.6 Q 168.9 136.1 212.5 128.8 Z"/>
+
+    <!-- Inner rampart, irregular contour, closed -->
+    <path class="inner" fill="none" stroke-width="19"
+          d="M 225.3 185.4 Q 256.0 176.2 288.3 183.8 Q 320.5 191.5 325.9 223.7
+             Q 331.2 256.0 325.1 287.5 Q 318.9 318.9 287.5 328.5
+             Q 256.0 338.1 222.9 330.1 Q 189.9 322.1 186.5 289.1
+             Q 183.0 256.0 188.9 225.3 Q 194.8 194.8 225.3 185.4 Z"/>
 
     <!-- Hut foundations, timber-and-thatch (bher— what the fort carries and protects).
          Outer huts orbit as a cluster; the center hut sits on the axis

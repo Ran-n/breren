@@ -336,7 +336,7 @@
     var mark = document.getElementById('logo-mark');
     var busy = false;
 
-    fetch('icons/breren-logo-animated.svg', { cache: 'no-store' })
+    fetch('icons/breren-logo-animated.svg')
       .then(function (r) { return r.text(); })
       .then(function (svgText) {
         mark.innerHTML = svgText;

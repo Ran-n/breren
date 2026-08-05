@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/08/05 10:34:41.600499 )
+[//]: # (+ Revised: 	2026/08/05 16:17:02.082451 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -28,6 +28,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   intermediate step).
 
 ### Fixed
+
+- `public/about/index.html`: the header mark and the light/dark mark-card
+  lockups each fetched the same three icon SVGs independently (once per
+  lockup instance, plus once more for the header) — 7 network requests
+  for 3 unique files, all issued with `cache: 'no-store'`, bypassing the
+  browser's HTTP cache on every load. Added a memoized `fetchSvgText()`
+  helper so each file is fetched once and shared, and dropped
+  `no-store` from icon fetches in both `public/index.html` and
+  `public/about/index.html` (the `links.toml`/`translations.toml`
+  fetches keep it, since that content should always be fresh). Fixes
+  slow first loads of the home and About pages.
 
 - `public/about/index.html`: double-clicking either lockup to spin it
   replayed `breren-logo-spin.svg`'s `.enter` entrance animation (a 0.6s

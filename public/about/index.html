@@ -931,6 +931,19 @@
   var LIGHT_PALETTE = { outer: '#33302e', middle: '#4a4542', inner: '#635d59', hut: '#6b4423' };
   var DARK_PALETTE = { outer: '#b0a696', middle: '#a39d95', inner: '#928878', hut: '#c9944f' };
 
+  // The header mark and both mark-card lockups (light/dark) each need one
+  // or more of the same three static icon SVGs. Without this, every one of
+  // those call sites fetched independently - 7 requests for 3 files. These
+  // never change at runtime, so a plain in-memory cache keyed by URL is
+  // enough to fetch each file once and let every consumer share the result;
+  // dropping `cache: 'no-store'` also lets the browser reuse it across page
+  // loads instead of forcing a fresh network round-trip every time.
+  var svgTextCache = {};
+  function fetchSvgText(url) {
+    if (!svgTextCache[url]) svgTextCache[url] = fetch(url).then(function (r) { return r.text(); });
+    return svgTextCache[url];
+  }
+
   function t(key, vars) {
     var dict = STRINGS[currentLang] || STRINGS.gl;
     var common = BrerenCommon.COMMON_STRINGS[currentLang] || BrerenCommon.COMMON_STRINGS.gl;
@@ -1001,8 +1014,7 @@
   function setupLogoMark() {
     var mark = document.getElementById('logo-mark');
 
-    fetch('../icons/breren-logo-animated.svg', { cache: 'no-store' })
-      .then(function (r) { return r.text(); })
+    fetchSvgText('../icons/breren-logo-animated.svg')
       .then(function (svgText) { mark.innerHTML = svgText; })
       .catch(function (err) { console.error('header mark failed to load/render', err); }); // decorative; page works without it
 
@@ -1141,21 +1153,18 @@
       }, SPIN_CYCLE_MS);
     }
 
-    fetch('../icons/breren-logo.svg', { cache: 'no-store' })
-      .then(function (r) { return r.text(); })
+    fetchSvgText('../icons/breren-logo.svg')
       .then(function (svgText) {
         staticSvgText = svgText;
         paintStatic();
       })
       .catch(function (err) { console.error('mark lockup static svg failed to load/render', err); }); // decorative; page works without it
 
-    fetch('../icons/breren-logo-animated.svg', { cache: 'no-store' })
-      .then(function (r) { return r.text(); })
+    fetchSvgText('../icons/breren-logo-animated.svg')
       .then(function (svgText) { drawSvgText = svgText; })
       .catch(function (err) { console.error('mark lockup draw svg failed to load', err); });
 
-    fetch('../icons/breren-logo-spin.svg', { cache: 'no-store' })
-      .then(function (r) { return r.text(); })
+    fetchSvgText('../icons/breren-logo-spin.svg')
       .then(function (svgText) { spinSvgText = svgText; })
       .catch(function (err) { console.error('mark lockup spin svg failed to load', err); });
 

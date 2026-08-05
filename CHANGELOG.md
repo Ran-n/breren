@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/08/04 20:48:13.450461 )
+[//]: # (+ Revised: 	2026/08/05 09:41:50.716615 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -134,6 +134,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `index.html`, `about/index.html` — added a `color-scheme` meta tag so
+  the browser picks the correct default canvas background (light or
+  dark) the instant navigation commits, before `common.css` has loaded
+  — removes the white flash when navigating between pages, most
+  visible in dark mode.
 - Language picker flags now render as inline SVGs instead of Unicode
   regional-indicator emoji, which several platforms/fonts (notably
   Windows) fail to compose into flag glyphs.

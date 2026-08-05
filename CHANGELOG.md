@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/08/05 10:18:11.282952 )
+[//]: # (+ Revised: 	2026/08/05 10:22:07.076003 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -28,42 +28,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- `public/icons/breren-logo-spin.svg`: the drop shadow (feDropShadow) no
-  longer sits on the same group as the continuously-rotating pieces.
-  SVG filters have to be re-rasterized on every frame their filtered
-  content changes, so keeping it there made the browser re-run the
-  (largely software) filter pass every animation frame just to keep the
-  shadow attached to the spin, which read as low-fps/janky. The shadow
-  is now a separate static copy of the ramparts and center hut rendered
-  once behind an unfiltered, plain-CSS-transform foreground; the five
-  orbiting huts (which actually translate, not just rotate in place, so
-  a static duplicate would be left exposed as they orbit away from it)
-  render without a shadow. Ramparts keep their original hand-drawn
-  contour.
-- Same file: the `#depth` filter was `feDropShadow`, which always
-  composites the original opaque shape back on top of its own blurred
-  shadow. That made the new static shadow group's black duplicate paths
-  render solid wherever the animated foreground didn't land exactly on
-  top of them — visible as a stray black smear in viewers that don't
-  run the spin animation at all (e.g. VS Code's SVG preview). Rebuilt
-  `#depth` by hand from its primitives (`feGaussianBlur` +
-  `feOffset` + `feFlood` + `feComposite`) so its output is only the
-  blurred, offset, flood-colored halo — never the source shape — with
-  nothing solid left to expose.
-- Same filter: SVG filter primitives default to `linearRGB` for their
-  internal math, not the `sRGB` the rest of the page renders in — the
-  hand-built `#depth` chain (unlike `feDropShadow`, which most browsers
-  special-case to already look right) was hitting that default and
-  showing a visibly tinted halo around the ramparts and hut circles
-  instead of a neutral one. Added `color-interpolation-filters="sRGB"`
-  on `#depth` to match.
-- Same file: the center hut circle was still in the static shadow
-  group. A circle that small barely has any interior for the shadow's
-  `dy=1.5` offset to hide under, so the halo kept poking out past its
-  rim on one side and, mixed with the hut's own warm brown/amber fill,
-  read as a yellowish-blackish tint rather than depth. Dropped the
-  shadow from all hut circles (center and orbiting) — it now only
-  applies to the three ramparts, where it has room to sit under them.
+- `public/icons/breren-logo-spin.svg`: the drop shadow (`feDropShadow`)
+  sat on the same group as the continuously-rotating pieces, which made
+  the browser re-run the (largely software) filter pass every
+  animation frame just to keep the shadow attached to the spin — that
+  read as low-fps/janky. Chasing that through a static shadow duplicate
+  and a hand-built shadow-only filter each fixed one artifact but
+  surfaced another (a black smear where the duplicate wasn't covered by
+  the animated foreground, a linearRGB color tint, an offset halo
+  bleeding color into the gaps between ramparts) — removed the drop
+  shadow entirely instead of continuing to chase filter edge cases.
+  Each rampart's existing light-catching gradient already gives it
+  depth without one, and with no filter anywhere in the file the spin
+  is plain CSS transforms the whole way through, so it's
+  GPU-composited and can't go janky either. Ramparts keep their
+  original hand-drawn contour throughout.
 
 - Moved everything actually served at breren.com (`index.html`,
   `about/`, `licenses/`, `vitralis/`, `common.css`/`common.js`,

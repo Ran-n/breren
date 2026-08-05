@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/08/05 09:41:50.716615 )
+[//]: # (+ Revised: 	2026/08/05 10:01:38.839202 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -14,6 +14,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+
+- Enlarged the light/dark logo lockup frames on the About page
+  (`public/about/index.html`) from 88px to 140px.
+
+### Fixed
+
+- `public/icons/breren-logo-spin.svg`: the three ramparts now rotate as
+  true circles instead of the static logo's hand-drawn irregular
+  contour. A non-circular ring changes silhouette as it turns, so
+  spinning the organic shape read as a jittery wobble; circles are
+  rotationally invariant, so the spin is now smooth.
 
 - Moved everything actually served at breren.com (`index.html`,
   `about/`, `licenses/`, `vitralis/`, `common.css`/`common.js`,

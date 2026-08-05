@@ -892,6 +892,16 @@
 
   var currentLang;
 
+  // Static (non-media-query) source colors for the mark card's light/dark
+  // lockups, copied from icons/breren-logo.svg's default and dark blocks.
+  // Declared here (ahead of setupMarkCard()'s call site further down) so
+  // they're already assigned by the time it runs synchronously - `var`
+  // hoisting only lifts the declaration, not the assignment, so defining
+  // these next to the functions that use them (as before) left them
+  // `undefined` at the moment setupLockup() captured them into its closure.
+  var LIGHT_PALETTE = { outer: '#33302e', middle: '#4a4542', inner: '#635d59', hut: '#6b4423' };
+  var DARK_PALETTE = { outer: '#b0a696', middle: '#a39d95', inner: '#928878', hut: '#c9944f' };
+
   function t(key, vars) {
     var dict = STRINGS[currentLang] || STRINGS.gl;
     var common = BrerenCommon.COMMON_STRINGS[currentLang] || BrerenCommon.COMMON_STRINGS.gl;
@@ -974,7 +984,7 @@
           }
         });
       })
-      .catch(function () {}); // decorative; page works without it
+      .catch(function (err) { console.error('header mark failed to load/render', err); }); // decorative; page works without it
 
     function replay() {
       if (busy) {
@@ -1030,11 +1040,9 @@
   // drawing. A shadow root keeps each lockup's styles and keyframes
   // entirely local, so the two never fight over the same rules.
   //
-  // Static (non-media-query) source colors, copied from
-  // icons/breren-logo.svg's default and dark blocks.
-  var LIGHT_PALETTE = { outer: '#33302e', middle: '#4a4542', inner: '#635d59', hut: '#6b4423' };
-  var DARK_PALETTE = { outer: '#b0a696', middle: '#a39d95', inner: '#928878', hut: '#c9944f' };
-
+  // LIGHT_PALETTE/DARK_PALETTE are declared near the top of the script,
+  // ahead of setupMarkCard()'s call site - see the comment there.
+  //
   // Both overrides also force the root <svg>'s own size: the light-DOM
   // `.lockup-frame svg` sizing rule can't reach in here once this markup
   // lives inside a shadow root, so without this the fetched SVG would
@@ -1109,12 +1117,12 @@
         drawSvgText = svgText;
         playDraw();
       })
-      .catch(function () {}); // decorative; page works without it
+      .catch(function (err) { console.error('mark lockup draw svg failed to load/render', err); }); // decorative; page works without it
 
     fetch('../icons/breren-logo-spin.svg', { cache: 'no-store' })
       .then(function (r) { return r.text(); })
       .then(function (svgText) { spinSvgText = svgText; })
-      .catch(function () {});
+      .catch(function (err) { console.error('mark lockup spin svg failed to load', err); });
 
     return { playDraw: playDraw, playSpin: playSpin };
   }

@@ -162,7 +162,7 @@
     <button class="theme-btn" id="theme-toggle" type="button"></button>
   </div>
   <header>
-    <div class="mark" id="logo-mark" role="button" tabindex="0" aria-label="Redraw logo" aria-disabled="false"></div>
+    <div class="mark" id="logo-mark" role="button" tabindex="0" aria-label="Go to home" aria-disabled="false"></div>
     <h1 id="page-title">Breren</h1>
     <p class="tagline" id="page-tagline"></p>
   </header>
@@ -977,10 +977,15 @@
       .catch(function () {}); // decorative; page works without it
 
     function replay() {
-      if (busy) return;
+      if (busy) {
+        window.location.href = '../';
+        return;
+      }
       var animated = mark.querySelectorAll('.rampart, .hut');
-      if (animated.length === 0) return;
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (animated.length === 0 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        window.location.href = '../';
+        return;
+      }
 
       busy = true;
       mark.setAttribute('aria-disabled', 'true');
@@ -999,6 +1004,7 @@
         if (remaining === 0) {
           busy = false;
           mark.setAttribute('aria-disabled', 'false');
+          window.location.href = '../';
         }
       }
     }

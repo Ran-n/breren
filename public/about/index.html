@@ -4,6 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
+<script>
+(function () {
+  var t = localStorage.getItem('breren-theme');
+  if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
+<style>
+  html[data-theme="dark"] { background: #282828; }
+  html[data-theme="light"] { background: #fbf1c7; }
+</style>
 <title>About Breren</title>
 <link rel="icon" type="image/svg+xml" href="../icons/breren-logo.svg">
 <link rel="alternate icon" href="../icons/breren.ico">
@@ -134,10 +145,15 @@
     align-items: center;
     gap: 0.8rem;
   }
+  .swatch-chips {
+    flex: none;
+    display: flex;
+    gap: 0.3rem;
+  }
   .swatch-chip {
     flex: none;
-    width: 1.7rem;
-    height: 1.7rem;
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: 6px;
     border: 1px solid var(--card-border);
   }
@@ -214,10 +230,22 @@
     <h2 id="palette-head"></h2>
     <p id="palette-body"></p>
     <div class="swatch-list">
-      <div class="swatch"><span class="swatch-chip" style="background: var(--bg);"></span><p id="swatch-bg"></p></div>
-      <div class="swatch"><span class="swatch-chip" style="background: var(--card-bg);"></span><p id="swatch-card"></p></div>
-      <div class="swatch"><span class="swatch-chip" style="background: var(--accent);"></span><p id="swatch-accent"></p></div>
-      <div class="swatch"><span class="swatch-chip" style="background: var(--fg);"></span><p id="swatch-ink"></p></div>
+      <div class="swatch">
+        <span class="swatch-chips"><span class="swatch-chip" style="background: #33302e;"></span><span class="swatch-chip" style="background: #b0a696;"></span></span>
+        <p id="swatch-outer"></p>
+      </div>
+      <div class="swatch">
+        <span class="swatch-chips"><span class="swatch-chip" style="background: #4a4542;"></span><span class="swatch-chip" style="background: #a39d95;"></span></span>
+        <p id="swatch-middle"></p>
+      </div>
+      <div class="swatch">
+        <span class="swatch-chips"><span class="swatch-chip" style="background: #635d59;"></span><span class="swatch-chip" style="background: #928878;"></span></span>
+        <p id="swatch-inner"></p>
+      </div>
+      <div class="swatch">
+        <span class="swatch-chips"><span class="swatch-chip" style="background: #6b4423;"></span><span class="swatch-chip" style="background: #c9944f;"></span></span>
+        <p id="swatch-hut"></p>
+      </div>
     </div>
   </section>
 
@@ -1031,29 +1059,51 @@
     return svgText.replace('</svg>', override + '</svg>');
   }
 
-  // breren-logo-spin.svg paints its ramparts with gradient fills (already
-  // shipped in both a light and a `-dark` id variant) rather than flat
-  // colors, so forcing a ground here means forcing which gradient id each
-  // rampart references, not a literal color.
-  function forceGradientColors(svgText, dark, palette) {
+  // breren-logo-spin.svg's four rotating pieces (.outer/.middle/.inner/
+  // .huts) loop forever at different periods (16s/8s/4s/8s, nested-gears
+  // style) with no built-in stopping point. 16s is their LCM: forcing each
+  // one's iteration-count to 16s-worth of its own period (1/2/4/2) makes
+  // every piece complete a whole number of its own revolutions and land
+  // back at its exact starting rotation at the same moment - "one full
+  // spin" of the whole composite mark, not just an arbitrary cutoff.
+  // `animation-fill-mode: forwards` holds that end state (the source's own
+  // rule uses `backwards`, which doesn't) so nothing snaps mid-turn; the
+  // caller then swaps back to the plain static mark once it's done. Also
+  // paints ramparts with gradient fills (shipped in both a light and a
+  // `-dark` id variant) rather than flat colors, so forcing a ground here
+  // means forcing which gradient id each rampart references.
+  function forceSpinColorsAndOneCycle(svgText, dark, palette) {
     var suffix = dark ? '-dark' : '';
     var override =
       '<style>' + SIZE_RULE +
-      '.outer{stroke:url(#g-outer' + suffix + ') !important}' +
-      '.middle{stroke:url(#g-middle' + suffix + ') !important}' +
-      '.inner{stroke:url(#g-inner' + suffix + ') !important}' +
+      '.outer{stroke:url(#g-outer' + suffix + ') !important;animation-iteration-count:1 !important;animation-fill-mode:forwards !important}' +
+      '.middle{stroke:url(#g-middle' + suffix + ') !important;animation-iteration-count:2 !important;animation-fill-mode:forwards !important}' +
+      '.inner{stroke:url(#g-inner' + suffix + ') !important;animation-iteration-count:4 !important;animation-fill-mode:forwards !important}' +
+      '.huts{animation-iteration-count:2 !important;animation-fill-mode:forwards !important}' +
       '.hut{fill:' + palette.hut + ' !important}</style>';
     return svgText.replace('</svg>', override + '</svg>');
   }
 
-  // One lockup: fetches both source SVGs once, then lets `playDraw`/
-  // `playSpin` repaint its private shadow root on demand.
+  // Matches forceSpinColorsAndOneCycle's forced timing: the 0.6s entry
+  // delay (source's own `.outer, .middle, .inner, .huts` rule) plus the
+  // 16s LCM cycle every piece now completes in lockstep.
+  var SPIN_CYCLE_MS = 16600;
+
+  // One lockup: fetches all three source SVGs once, then lets `playDraw`/
+  // `playSpin` repaint its private shadow root on demand. Rests on the
+  // plain static mark (no animation) until a gesture asks for one.
   function setupLockup(host, dark) {
     var palette = dark ? DARK_PALETTE : LIGHT_PALETTE;
     var root = host.attachShadow({ mode: 'open' });
+    var staticSvgText = null;
     var drawSvgText = null;
     var spinSvgText = null;
     var busy = false;
+
+    function paintStatic() {
+      if (!staticSvgText) return;
+      root.innerHTML = forceFlatColors(staticSvgText, palette);
+    }
 
     function playDraw() {
       if (busy || !drawSvgText) return;
@@ -1076,19 +1126,26 @@
 
     function playSpin() {
       if (busy || !spinSvgText) return;
-      root.innerHTML = forceGradientColors(spinSvgText, dark, palette);
-      // Runs on an infinite CSS loop (a loading-indicator, not a one-shot
-      // reveal) until the next click swaps the draw svg back in, so there's
-      // no `animationend` to wait on and no busy-lock to hold here.
+      busy = true;
+      root.innerHTML = forceSpinColorsAndOneCycle(spinSvgText, dark, palette);
+      setTimeout(function () {
+        paintStatic();
+        busy = false;
+      }, SPIN_CYCLE_MS);
     }
+
+    fetch('../icons/breren-logo.svg', { cache: 'no-store' })
+      .then(function (r) { return r.text(); })
+      .then(function (svgText) {
+        staticSvgText = svgText;
+        paintStatic();
+      })
+      .catch(function (err) { console.error('mark lockup static svg failed to load/render', err); }); // decorative; page works without it
 
     fetch('../icons/breren-logo-animated.svg', { cache: 'no-store' })
       .then(function (r) { return r.text(); })
-      .then(function (svgText) {
-        drawSvgText = svgText;
-        playDraw();
-      })
-      .catch(function (err) { console.error('mark lockup draw svg failed to load/render', err); }); // decorative; page works without it
+      .then(function (svgText) { drawSvgText = svgText; })
+      .catch(function (err) { console.error('mark lockup draw svg failed to load', err); });
 
     fetch('../icons/breren-logo-spin.svg', { cache: 'no-store' })
       .then(function (r) { return r.text(); })

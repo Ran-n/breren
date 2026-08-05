@@ -4,6 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
+<script>
+(function () {
+  var t = localStorage.getItem('breren-theme');
+  if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
+<style>
+  html[data-theme="dark"] { background: #282828; }
+  html[data-theme="light"] { background: #fbf1c7; }
+</style>
 <title>Breren</title>
 <link rel="icon" type="image/svg+xml" href="icons/breren-logo.svg">
 <link rel="alternate icon" href="icons/breren.ico">

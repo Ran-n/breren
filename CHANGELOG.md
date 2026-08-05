@@ -134,11 +134,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- `index.html`, `about/index.html` — added a `color-scheme` meta tag so
-  the browser picks the correct default canvas background (light or
-  dark) the instant navigation commits, before `common.css` has loaded
-  — removes the white flash when navigating between pages, most
-  visible in dark mode.
+- `index.html`, `about/index.html` — the `color-scheme` meta tag alone
+  didn't stop the white flash on navigation/reload, since it only
+  helps once the browser has actually painted with an opinion about
+  the page's theme; the real fix is an inline `<script>`+`<style>`
+  pair at the very top of `<head>`, ahead of the external stylesheet,
+  that reads `breren-theme`/`prefers-color-scheme` and paints the
+  right background synchronously from the HTML itself — no network
+  round-trip to `common.css` required before first paint.
 - Language picker flags now render as inline SVGs instead of Unicode
   regional-indicator emoji, which several platforms/fonts (notably
   Windows) fail to compose into flag glyphs.

@@ -60,7 +60,7 @@
          Built manually, this filter's output is only the blurred,
          offset, flood-colored alpha shape - never the source itself -
          so there's nothing solid to expose regardless of alignment. -->
-    <filter id="depth" x="-20%" y="-20%" width="140%" height="140%">
+    <filter id="depth" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
       <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="blur"/>
       <feOffset in="blur" dx="0" dy="1.5" result="offset-blur"/>
       <feFlood flood-color="#000000" flood-opacity="0.28" result="color"/>

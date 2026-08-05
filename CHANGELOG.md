@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/08/05 10:12:44.535005 )
+[//]: # (+ Revised: 	2026/08/05 10:15:28.478819 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -50,6 +50,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `feOffset` + `feFlood` + `feComposite`) so its output is only the
   blurred, offset, flood-colored halo — never the source shape — with
   nothing solid left to expose.
+- Same filter: SVG filter primitives default to `linearRGB` for their
+  internal math, not the `sRGB` the rest of the page renders in — the
+  hand-built `#depth` chain (unlike `feDropShadow`, which most browsers
+  special-case to already look right) was hitting that default and
+  showing a visibly tinted halo around the ramparts and hut circles
+  instead of a neutral one. Added `color-interpolation-filters="sRGB"`
+  on `#depth` to match.
 
 - Moved everything actually served at breren.com (`index.html`,
   `about/`, `licenses/`, `vitralis/`, `common.css`/`common.js`,

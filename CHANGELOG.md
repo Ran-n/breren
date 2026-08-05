@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/08/05 10:15:28.478819 )
+[//]: # (+ Revised: 	2026/08/05 10:18:11.282952 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -57,6 +57,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   showing a visibly tinted halo around the ramparts and hut circles
   instead of a neutral one. Added `color-interpolation-filters="sRGB"`
   on `#depth` to match.
+- Same file: the center hut circle was still in the static shadow
+  group. A circle that small barely has any interior for the shadow's
+  `dy=1.5` offset to hide under, so the halo kept poking out past its
+  rim on one side and, mixed with the hut's own warm brown/amber fill,
+  read as a yellowish-blackish tint rather than depth. Dropped the
+  shadow from all hut circles (center and orbiting) — it now only
+  applies to the three ramparts, where it has room to sit under them.
 
 - Moved everything actually served at breren.com (`index.html`,
   `about/`, `licenses/`, `vitralis/`, `common.css`/`common.js`,

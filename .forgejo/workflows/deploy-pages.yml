@@ -1,0 +1,41 @@
+name: Deploy Pages
+
+# Publishes the `public/` folder as breren.com's Codeberg Pages site.
+# Codeberg Pages serves static content straight from a `pages` branch root
+# (no build step, no arbitrary source folder), so this workflow pushes the
+# contents of public/ there on every push to main, alongside a .domains
+# file so Codeberg serves it under the breren.com custom domain.
+
+on:
+  push:
+    branches: [main]
+    paths: ["public/**"]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: docker
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Publish public/ to pages branch
+        run: |
+          git config user.name "forgejo-actions"
+          git config user.email "actions@noreply.codeberg.org"
+
+          cp public/CNAME /tmp/.domains
+
+          git checkout --orphan pages
+          git reset --hard
+          git checkout main -- public
+          find . -maxdepth 1 ! -name . ! -name public ! -name .git -exec rm -rf {} +
+          mv public/* .
+          rmdir public
+          cp /tmp/.domains .domains
+          rm -f CNAME
+
+          git add -A
+          git commit -m "deploy: publish public/ to pages branch"
+          git push --force origin pages

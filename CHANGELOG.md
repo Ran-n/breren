@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/08/14 14:02:00.834998 )
+[//]: # (+ Revised: 	2026/08/14 14:03:49.227933 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -28,7 +28,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   top-level navigation to a different origin can't carry a
   postMessage the way the vitralis/licenses iframes do. Mirrors
   `BrerenCommon.applyIncomingPreset()`, which already reads those same
-  params back on the way here.
+  params back on the way here. These tiles open in the current tab
+  (no `target="_blank"`) despite being a different origin, since
+  they're still part of the breren.com family rather than a truly
+  external site.
 
 - GitLab Pages deployment via [.gitlab-ci.yml](.gitlab-ci.yml) (`pages`
   job, publishes `public/` on `main`) and a Codeberg Pages `pages`

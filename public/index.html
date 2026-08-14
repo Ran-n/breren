@@ -500,9 +500,23 @@
     var a = document.createElement('a');
     a.className = 'tile';
     a.href = item.url || '#';
-    if (item.url && /^https?:\/\//i.test(item.url) && new URL(item.url, location.href).origin !== location.origin) {
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
+    if (item.url && /^https?:\/\//i.test(item.url)) {
+      var target = new URL(item.url, location.href);
+      // Sibling breren.com-family subdomains (life-path.breren.com,
+      // tyche.breren.com, ...) are a different origin, so a plain
+      // top-level navigation can't carry a postMessage - hand off the
+      // visitor's current lang/theme via query params instead, mirroring
+      // BrerenCommon.applyIncomingPreset() which reads them back on the
+      // way here.
+      if (/(^|\.)breren\.com$/i.test(target.hostname)) {
+        target.searchParams.set('lang', currentLang);
+        target.searchParams.set('theme', BrerenCommon.effectiveTheme());
+        a.href = target.toString();
+      }
+      if (target.origin !== location.origin) {
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+      }
     }
     if (item.color) a.style.setProperty('--tile-color', item.color);
 

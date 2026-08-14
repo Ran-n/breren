@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/08/14 13:56:12.447824 )
+[//]: # (+ Revised: 	2026/08/14 14:02:00.834998 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -20,6 +20,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   a new astrolabe-dial icon ([public/icons/life-path.svg](public/icons/life-path.svg))
   and translations for every supported locale in
   [public/translations.toml](public/translations.toml).
+
+- [public/index.html](public/index.html): portal tiles linking to a
+  breren.com-family subdomain (`life-path.breren.com`,
+  `tyche.breren.com`, ...) now hand off the visitor's current
+  language/theme via `?lang=&theme=` query params, since a plain
+  top-level navigation to a different origin can't carry a
+  postMessage the way the vitralis/licenses iframes do. Mirrors
+  `BrerenCommon.applyIncomingPreset()`, which already reads those same
+  params back on the way here.
 
 - GitLab Pages deployment via [.gitlab-ci.yml](.gitlab-ci.yml) (`pages`
   job, publishes `public/` on `main`) and a Codeberg Pages `pages`

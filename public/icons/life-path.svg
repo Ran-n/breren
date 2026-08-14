@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="lpBgGrad" cx="50%" cy="38%" r="60%">
+      <stop offset="0%" stop-color="#202744"/>
+      <stop offset="100%" stop-color="#0c0f1c"/>
+    </radialGradient>
+    <radialGradient id="lpDialGrad" cx="42%" cy="36%" r="65%">
+      <stop offset="0%" stop-color="#e3bc79"/>
+      <stop offset="55%" stop-color="#cda15a"/>
+      <stop offset="100%" stop-color="#8a6428"/>
+    </radialGradient>
+    <filter id="lpGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="14" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#lpBgGrad)"/>
+
+  <!-- faint stars, echoing the parchment-sky background of the app -->
+  <circle cx="96" cy="110" r="2.4" fill="#efe7d6" opacity="0.5"/>
+  <circle cx="420" cy="90" r="2" fill="#efe7d6" opacity="0.4"/>
+  <circle cx="440" cy="380" r="2.6" fill="#efe7d6" opacity="0.45"/>
+  <circle cx="80" cy="400" r="2" fill="#efe7d6" opacity="0.4"/>
+  <circle cx="256" cy="70" r="1.8" fill="#efe7d6" opacity="0.4"/>
+
+  <!-- ambient glow behind the dial -->
+  <circle cx="256" cy="256" r="150" fill="#cda15a" opacity="0.16" filter="url(#lpGlow)"/>
+
+  <!-- outer astrolabe ring with degree ticks -->
+  <circle cx="256" cy="256" r="176" fill="none" stroke="#cda15a" stroke-width="3" opacity="0.55"/>
+  <g stroke="#cda15a" stroke-width="3" stroke-linecap="round" opacity="0.5">
+    <path d="M256 80 L256 100"/>
+    <path d="M256 412 L256 432"/>
+    <path d="M80 256 L100 256"/>
+    <path d="M412 256 L432 256"/>
+    <path d="M141 141 L156 156"/>
+    <path d="M356 356 L371 371"/>
+    <path d="M371 141 L356 156"/>
+    <path d="M156 356 L141 371"/>
+  </g>
+
+  <!-- inner brass dial -->
+  <circle cx="256" cy="256" r="132" fill="url(#lpDialGrad)" filter="url(#lpGlow)"/>
+  <circle cx="256" cy="256" r="132" fill="none" stroke="#efe7d6" stroke-width="2" opacity="0.35"/>
+
+  <!-- engraved path spiral, tracing toward a single life-path digit -->
+  <path d="M256 336 Q192 336 192 279 Q192 231 240 231 Q276 231 276 264 Q276 289 251 289 Q233 289 233 271"
+        fill="none" stroke="#0c0f1c" stroke-width="9" stroke-linecap="round" opacity="0.55"/>
+
+  <text x="256" y="300"
+        font-family="Georgia, 'Fraunces', serif"
+        font-size="150"
+        font-weight="600"
+        text-anchor="middle"
+        fill="#0c0f1c"
+        opacity="0.88">7</text>
+
+  <!-- shine highlight -->
+  <ellipse cx="212" cy="196" rx="46" ry="28" fill="white" opacity="0.16" transform="rotate(-20 212 196)"/>
+</svg>

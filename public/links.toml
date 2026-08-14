@@ -13,6 +13,14 @@ name = "Get started"
   color = "#8f3f71"
 
   [[categories.items]]
+  id = "life-path"
+  name = "Life Path"
+  url = "https://life-path.breren.com"
+  description = "Calculates your numerology life path number from your date of birth, with a full breakdown of what each number means."
+  icon = "icons/life-path.svg"
+  color = "#cda15a"
+
+  [[categories.items]]
   id = "vitralis"
   name = "Vitralis"
   url = "https://breren.com/vitralis"

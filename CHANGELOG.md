@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/08/05 16:17:02.082451 )
+[//]: # (+ Revised: 	2026/08/14 13:56:12.447824 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+- Life Path portal tile in [public/links.toml](public/links.toml), linking
+  to the already-live `life-path.breren.com` numerology calculator, with
+  a new astrolabe-dial icon ([public/icons/life-path.svg](public/icons/life-path.svg))
+  and translations for every supported locale in
+  [public/translations.toml](public/translations.toml).
 
 - GitLab Pages deployment via [.gitlab-ci.yml](.gitlab-ci.yml) (`pages`
   job, publishes `public/` on `main`) and a Codeberg Pages `pages`

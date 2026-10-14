@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.586825 )
-[//]: # (+ Revised: 	2026/07/21 19:20:26.741894 )
+[//]: # (+ Revised: 	2026/10/14 09:49:35.427241 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Breren
@@ -21,7 +21,7 @@ other file needs to change.
 ## Repo layout
 
 Everything actually served at breren.com lives under
-[public/](public/) — `index.html`, `about/`, `licenses/`, `vitralis/`,
+[public/](public/) — `index.html`, `about/`, `licenses/`, `vitralis/`, `timtapper/`,
 `common.css`/`common.js`, `icons/`. Repo-only files (this README,
 `CHANGELOG.md`, `docs/`, the license text, ...) stay at the top level.
 GitHub Pages' classic "deploy from a branch" source only supports

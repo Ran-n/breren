@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/08/14 14:03:49.227933 )
+[//]: # (+ Revised: 	2026/10/14 09:49:35.341869 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -14,6 +14,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+- timtapper portal tile in [public/links.toml](public/links.toml), leading
+  to a new download page at `breren.com/timtapper/`
+  ([public/timtapper/index.html](public/timtapper/index.html)): Android
+  (universal APK) and Windows download buttons resolved to the latest
+  GitHub release's assets at load time (falling back to the releases page),
+  an "Open in browser" button to the web build that hands off the
+  visitor's lang/theme via `?lang=&theme=` like the breren.com-family
+  tiles, source links for GitHub/GitLab/Codeberg and app screenshots. New
+  icon ([public/icons/timtapper.png](public/icons/timtapper.png)) and
+  translations for every supported locale in the page and
+  [public/translations.toml](public/translations.toml).
 
 - Life Path portal tile in [public/links.toml](public/links.toml), linking
   to the already-live `life-path.breren.com` numerology calculator, with

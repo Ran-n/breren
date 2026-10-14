@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="gl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<script>
+(function () {
+  var t = localStorage.getItem('breren-theme');
+  if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
+<style>
+  html[data-theme="dark"] { background: #282828; }
+  html[data-theme="light"] { background: #fbf1c7; }
+</style>
+<title>timtapper</title>
+<meta name="description" content="timtapper: match tracker for the One Piece Trading Card Game. Android, Windows and the browser, fully offline.">
+<link rel="icon" type="image/png" href="../icons/timtapper.png">
+<link rel="stylesheet" href="../common.css">
+<style>
+  .home-link {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--fg-muted);
+  }
+  .app-icon {
+    display: block;
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 0.75rem;
+  }
+  h1 { text-transform: none; letter-spacing: 0.02em; }
+  .intro {
+    max-width: 34rem;
+    margin: 0.9rem auto 0;
+    line-height: 1.55;
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  .cta-row-primary { margin-bottom: 1rem; }
+  .cta-row-sources { margin-bottom: 0.75rem; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+  }
+  .btn svg { flex: none; width: 1.25em; height: 1.25em; }
+  .btn-lg {
+    padding: 0.9rem 1.4rem;
+    font-size: 1.02rem;
+    min-width: 15rem;
+    justify-content: center;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+  .btn-lg:hover { transform: translateY(-2px); box-shadow: 0 6px 16px var(--shadow); }
+  .btn-download {
+    background: var(--accent);
+    color: var(--bg);
+  }
+  .btn-browser {
+    background: #2b7fcc;
+    color: #ffffff;
+  }
+  .btn-sm {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--fg-muted);
+    border: 1px solid var(--card-border);
+    background: var(--card-bg);
+  }
+  .btn-sm:hover { border-color: var(--accent); color: var(--fg); }
+  .browser-note, .version-note {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--fg-muted);
+    margin: 0 0 1.4rem;
+  }
+  .version-note a { color: var(--fg-muted); text-underline-offset: 2px; }
+  .version-note a:hover { color: var(--accent); }
+  .shots {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+    gap: 1.25rem 1rem;
+    margin-top: 3rem;
+  }
+  .shots figure { margin: 0; text-align: center; }
+  .shots img {
+    display: block;
+    width: 100%;
+    max-width: 220px;
+    margin: 0 auto;
+    border-radius: 14px;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+  .shots figcaption {
+    margin-top: 0.55rem;
+    font-size: 0.82rem;
+    color: var(--fg-muted);
+  }
+  @media (max-width: 560px) {
+    main { padding: 5rem 1rem 4rem; }
+    .btn-lg { min-width: 0; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <a class="home-link" id="home-link" href="../"></a>
+  <div class="toolbar">
+    <div class="lang-picker">
+      <button class="lang-trigger" id="lang-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+        <span class="flag" id="lang-trigger-flag"></span>
+        <span id="lang-trigger-name"></span>
+        <span class="chevron">▾</span>
+      </button>
+      <ul class="lang-menu" id="lang-menu" role="listbox" hidden></ul>
+    </div>
+    <button class="theme-btn" id="theme-toggle" type="button"></button>
+  </div>
+  <header>
+    <img class="app-icon" src="../icons/timtapper.png" alt="">
+    <h1>timtapper</h1>
+    <p class="tagline" id="page-tagline"></p>
+    <p class="intro" id="page-intro"></p>
+  </header>
+
+  <div class="cta-row cta-row-primary">
+    <a class="btn btn-lg btn-download" id="dl-android" href="https://github.com/Ran-n/timtapper/releases/latest">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 9.48 19.44 6.3a.38.38 0 0 0-.66-.38l-1.86 3.22a11.5 11.5 0 0 0-9.84 0L5.22 5.92a.38.38 0 0 0-.66.38L6.4 9.48A10.8 10.8 0 0 0 1 18h22a10.8 10.8 0 0 0-5.4-8.52ZM7 15.25a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5Zm10 0a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5Z"/></svg>
+      <span id="dl-android-label"></span>
+    </a>
+    <a class="btn btn-lg btn-download" id="dl-windows" href="https://github.com/Ran-n/timtapper/releases/latest">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M0 3.45 9.75 2.1v9.45H0V3.45Zm10.95-1.5L24 0v11.4H10.95V1.95ZM0 12.6h9.75v9.45L0 20.7v-8.1Zm10.95 0H24V24l-13.05-1.8V12.6Z"/></svg>
+      <span id="dl-windows-label"></span>
+    </a>
+  </div>
+  <div class="cta-row cta-row-primary">
+    <a class="btn btn-lg btn-browser" id="open-browser" href="https://ran-n.github.io/timtapper/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z"/></svg>
+      <span id="open-browser-label"></span>
+    </a>
+  </div>
+  <p class="browser-note" id="browser-note"></p>
+
+  <div class="cta-row cta-row-sources">
+    <a class="btn btn-sm" href="https://github.com/Ran-n/timtapper" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.3 3.6 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.3-3.2-.1-.3-.6-1.6.1-3.2 0 0 1.1-.3 3.5 1.3a12 12 0 0 1 6.4 0c2.4-1.6 3.5-1.3 3.5-1.3.7 1.6.2 2.9.1 3.2.8.8 1.3 1.9 1.3 3.2 0 4.6-2.7 5.6-5.4 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"/></svg>
+      <span id="src-github"></span>
+    </a>
+    <a class="btn btn-sm" href="https://gitlab.com/Ran-n/timtapper" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m23.6004 9.5927-.0337-.0862L20.3.9814a.851.851 0 0 0-.3362-.405.8748.8748 0 0 0-.9997.0539.8748.8748 0 0 0-.29.4399l-2.2055 6.748H7.5375l-2.2057-6.748a.8573.8573 0 0 0-.29-.4412.8748.8748 0 0 0-.9997-.0537.8585.8585 0 0 0-.3362.4049L.4332 9.5015l-.0325.0862a6.0657 6.0657 0 0 0 2.0119 7.0105l.0113.0087.03.0213 4.976 3.7264 2.462 1.8633 1.4995 1.1321a1.0085 1.0085 0 0 0 1.2197 0l1.4995-1.1321 2.4619-1.8633 5.006-3.7489.0125-.01a6.0682 6.0682 0 0 0 2.0094-7.003z"/></svg>
+      <span id="src-gitlab"></span>
+    </a>
+    <a class="btn btn-sm" href="https://codeberg.org/ran-n/timtapper" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.999.747A11.974 11.974 0 0 0 0 12.75c0 2.254.635 4.465 1.833 6.376L11.837 6.19c.072-.092.251-.092.323 0l4.178 5.402h-2.992l.065.239h3.113l.882 1.138h-3.674l.103.374h3.86l.777 1.003h-4.358l.135.483h4.593l.695.894h-5.038l.165.589h5.326l.609.785h-5.717l.182.65h6.038l.562.727h-6.397l.183.65h6.717A12.003 12.003 0 0 0 24 12.75 11.977 11.977 0 0 0 11.999.747zm3.654 19.104.182.65h5.326c.173-.204.353-.433.513-.65zm.385 1.377.18.65h3.563c.233-.198.485-.428.712-.65zm.383 1.377.182.648h1.203c.356-.204.685-.412 1.042-.648zz"/></svg>
+      <span id="src-codeberg"></span>
+    </a>
+  </div>
+  <p class="version-note">
+    <a href="https://github.com/Ran-n/timtapper/releases" target="_blank" rel="noopener" id="all-releases"></a><span id="version-tag"></span>
+  </p>
+
+  <section class="shots">
+    <figure><img src="screenshots/events.png" alt="" loading="lazy"><figcaption id="cap-events"></figcaption></figure>
+    <figure><img src="screenshots/event.png" alt="" loading="lazy"><figcaption id="cap-event"></figcaption></figure>
+    <figure><img src="screenshots/stats.png" alt="" loading="lazy"><figcaption id="cap-stats"></figcaption></figure>
+    <figure><img src="screenshots/picker.png" alt="" loading="lazy"><figcaption id="cap-picker"></figcaption></figure>
+  </section>
+
+  <footer>
+    <a id="home-link-2" href="../"></a>
+    <span class="footer-sep">·</span>
+    <a id="license-link" href="/licenses/pbl">PayBack License (PBL) 2.0</a>
+  </footer>
+</main>
+<script src="../common.js"></script>
+<script>
+(function () {
+  var REPO = 'Ran-n/timtapper';
+  var RELEASES_API = 'https://api.github.com/repos/' + REPO + '/releases/latest';
+  // The web build's address. Like tyche.breren.com it gets the visitor's
+  // lang/theme via ?lang=&theme=; swap this for timtapper.breren.com once
+  // the web build is served there.
+  var WEB_APP_URL = 'https://ran-n.github.io/timtapper/';
+  // Release asset suffixes behind each download button (the names are
+  // versioned, e.g. timtapper-1.3.0-universal.apk, so they're resolved
+  // from the latest release at runtime; until then the buttons point at
+  // the releases/latest page, which is also the fallback on failure).
+  var ASSET_SUFFIX = { 'dl-android': '-universal.apk', 'dl-windows': '-windows-x64.zip' };
+
+  var STRINGS = {
+    gl: {
+      pageTitle: 'timtapper — rexistro de partidas de One Piece TCG',
+      tagline: 'Rexistro de partidas para o One Piece Trading Card Game.',
+      intro: 'Anota cada rolda, consulta os teus enfrontamentos e comparte os resultados. Sen contas nin servidor: todo funciona sen conexión.',
+      dlAndroid: 'Descargar para Android',
+      dlWindows: 'Descargar para Windows',
+      openBrowser: 'Abrir no navegador',
+      browserNote: 'Funciona en calquera navegador, iPhone incluído.',
+      srcGithub: 'Código en GitHub',
+      srcGitlab: 'Código en GitLab',
+      srcCodeberg: 'Código en Codeberg',
+      allReleases: 'Todas as versións',
+      capEvents: 'Eventos',
+      capEvent: 'Un evento e as súas roldas',
+      capStats: 'Estatísticas',
+      capPicker: 'Selector de líderes'
+    },
+    en: {
+      pageTitle: 'timtapper — One Piece TCG match tracker',
+      tagline: 'Match tracker for the One Piece Trading Card Game.',
+      intro: 'Log every round, see your matchups, share your results. No accounts, no server: everything works offline.',
+      dlAndroid: 'Download for Android',
+      dlWindows: 'Download for Windows',
+      openBrowser: 'Open in browser',
+      browserNote: 'Runs in any browser, iPhones included.',
+      srcGithub: 'Source on GitHub',
+      srcGitlab: 'Source on GitLab',
+      srcCodeberg: 'Source on Codeberg',
+      allReleases: 'All releases',
+      capEvents: 'Events',
+      capEvent: 'An event and its rounds',
+      capStats: 'Stats',
+      capPicker: 'Leader picker'
+    },
+    eo: {
+      pageTitle: 'timtapper — registrilo de matĉoj por One Piece TCG',
+      tagline: 'Registrilo de matĉoj por la One Piece Trading Card Game.',
+      intro: 'Notu ĉiun rondon, vidu viajn kontraŭulojn, kunhavigu viajn rezultojn. Sen kontoj, sen servilo: ĉio funkcias senrete.',
+      dlAndroid: 'Elŝuti por Android',
+      dlWindows: 'Elŝuti por Windows',
+      openBrowser: 'Malfermi en retumilo',
+      browserNote: 'Funkcias en iu ajn retumilo, ankaŭ en iPhone.',
+      srcGithub: 'Fontkodo ĉe GitHub',
+      srcGitlab: 'Fontkodo ĉe GitLab',
+      srcCodeberg: 'Fontkodo ĉe Codeberg',
+      allReleases: 'Ĉiuj eldonoj',
+      capEvents: 'Eventoj',
+      capEvent: 'Evento kaj ĝiaj rondoj',
+      capStats: 'Statistikoj',
+      capPicker: 'Elektilo de gvidantoj'
+    },
+    es: {
+      pageTitle: 'timtapper — registro de partidas de One Piece TCG',
+      tagline: 'Registro de partidas para el One Piece Trading Card Game.',
+      intro: 'Anota cada ronda, consulta tus enfrentamientos y comparte tus resultados. Sin cuentas ni servidor: todo funciona sin conexión.',
+      dlAndroid: 'Descargar para Android',
+      dlWindows: 'Descargar para Windows',
+      openBrowser: 'Abrir en el navegador',
+      browserNote: 'Funciona en cualquier navegador, iPhone incluido.',
+      srcGithub: 'Código en GitHub',
+      srcGitlab: 'Código en GitLab',
+      srcCodeberg: 'Código en Codeberg',
+      allReleases: 'Todas las versiones',
+      capEvents: 'Eventos',
+      capEvent: 'Un evento y sus rondas',
+      capStats: 'Estadísticas',
+      capPicker: 'Selector de líderes'
+    },
+    fr: {
+      pageTitle: 'timtapper — suivi de parties One Piece TCG',
+      tagline: 'Suivi de parties pour le One Piece Trading Card Game.',
+      intro: 'Notez chaque ronde, consultez vos matchups, partagez vos résultats. Ni compte ni serveur : tout fonctionne hors ligne.',
+      dlAndroid: 'Télécharger pour Android',
+      dlWindows: 'Télécharger pour Windows',
+      openBrowser: 'Ouvrir dans le navigateur',
+      browserNote: 'Fonctionne dans tout navigateur, iPhone compris.',
+      srcGithub: 'Code source sur GitHub',
+      srcGitlab: 'Code source sur GitLab',
+      srcCodeberg: 'Code source sur Codeberg',
+      allReleases: 'Toutes les versions',
+      capEvents: 'Événements',
+      capEvent: 'Un événement et ses rondes',
+      capStats: 'Statistiques',
+      capPicker: 'Choix du leader'
+    },
+    pt: {
+      pageTitle: 'timtapper — registo de partidas de One Piece TCG',
+      tagline: 'Registo de partidas para o One Piece Trading Card Game.',
+      intro: 'Regista cada ronda, vê os teus confrontos e partilha os resultados. Sem contas nem servidor: tudo funciona offline.',
+      dlAndroid: 'Transferir para Android',
+      dlWindows: 'Transferir para Windows',
+      openBrowser: 'Abrir no navegador',
+      browserNote: 'Funciona em qualquer navegador, incluindo iPhone.',
+      srcGithub: 'Código no GitHub',
+      srcGitlab: 'Código no GitLab',
+      srcCodeberg: 'Código no Codeberg',
+      allReleases: 'Todas as versões',
+      capEvents: 'Eventos',
+      capEvent: 'Um evento e as suas rondas',
+      capStats: 'Estatísticas',
+      capPicker: 'Seletor de líderes'
+    },
+    de: {
+      pageTitle: 'timtapper — Match-Tracker für One Piece TCG',
+      tagline: 'Match-Tracker für das One Piece Trading Card Game.',
+      intro: 'Erfasse jede Runde, sieh deine Matchups, teile deine Ergebnisse. Kein Konto, kein Server: alles funktioniert offline.',
+      dlAndroid: 'Für Android herunterladen',
+      dlWindows: 'Für Windows herunterladen',
+      openBrowser: 'Im Browser öffnen',
+      browserNote: 'Läuft in jedem Browser, auch auf dem iPhone.',
+      srcGithub: 'Quellcode auf GitHub',
+      srcGitlab: 'Quellcode auf GitLab',
+      srcCodeberg: 'Quellcode auf Codeberg',
+      allReleases: 'Alle Versionen',
+      capEvents: 'Events',
+      capEvent: 'Ein Event und seine Runden',
+      capStats: 'Statistiken',
+      capPicker: 'Leader-Auswahl'
+    },
+    it: {
+      pageTitle: 'timtapper — registro partite di One Piece TCG',
+      tagline: 'Registro partite per il One Piece Trading Card Game.',
+      intro: 'Annota ogni turno, guarda i tuoi matchup, condividi i risultati. Niente account né server: tutto funziona offline.',
+      dlAndroid: 'Scarica per Android',
+      dlWindows: 'Scarica per Windows',
+      openBrowser: 'Apri nel browser',
+      browserNote: 'Funziona in qualsiasi browser, iPhone compreso.',
+      srcGithub: 'Codice su GitHub',
+      srcGitlab: 'Codice su GitLab',
+      srcCodeberg: 'Codice su Codeberg',
+      allReleases: 'Tutte le versioni',
+      capEvents: 'Eventi',
+      capEvent: 'Un evento e i suoi turni',
+      capStats: 'Statistiche',
+      capPicker: 'Selettore di leader'
+    },
+    ru: {
+      pageTitle: 'timtapper — учёт матчей One Piece TCG',
+      tagline: 'Учёт матчей для One Piece Trading Card Game.',
+      intro: 'Записывайте каждый раунд, смотрите статистику против соперников, делитесь результатами. Без аккаунтов и сервера: всё работает офлайн.',
+      dlAndroid: 'Скачать для Android',
+      dlWindows: 'Скачать для Windows',
+      openBrowser: 'Открыть в браузере',
+      browserNote: 'Работает в любом браузере, включая iPhone.',
+      srcGithub: 'Исходный код на GitHub',
+      srcGitlab: 'Исходный код на GitLab',
+      srcCodeberg: 'Исходный код на Codeberg',
+      allReleases: 'Все версии',
+      capEvents: 'События',
+      capEvent: 'Событие и его раунды',
+      capStats: 'Статистика',
+      capPicker: 'Выбор лидера'
+    },
+    zh: {
+      pageTitle: 'timtapper — One Piece TCG 对局记录',
+      tagline: 'One Piece 集换式卡牌游戏的对局记录工具。',
+      intro: '记录每一轮,查看对阵数据,分享你的战绩。无需账号,无需服务器:完全离线运行。',
+      dlAndroid: '下载 Android 版',
+      dlWindows: '下载 Windows 版',
+      openBrowser: '在浏览器中打开',
+      browserNote: '可在任何浏览器中运行,包括 iPhone。',
+      srcGithub: '在 GitHub 上查看源代码',
+      srcGitlab: '在 GitLab 上查看源代码',
+      srcCodeberg: '在 Codeberg 上查看源代码',
+      allReleases: '所有版本',
+      capEvents: '赛事',
+      capEvent: '一场赛事及其轮次',
+      capStats: '统计',
+      capPicker: '领袖选择'
+    },
+    ja: {
+      pageTitle: 'timtapper — ワンピースカードゲーム対戦記録',
+      tagline: 'ONE PIECEカードゲームの対戦記録アプリ。',
+      intro: '毎ラウンドを記録し、対面ごとの成績を確認し、結果をシェア。アカウントもサーバーも不要で、すべてオフラインで動作します。',
+      dlAndroid: 'Android 版をダウンロード',
+      dlWindows: 'Windows 版をダウンロード',
+      openBrowser: 'ブラウザで開く',
+      browserNote: 'iPhone を含むあらゆるブラウザで動作します。',
+      srcGithub: 'GitHub でソースを見る',
+      srcGitlab: 'GitLab でソースを見る',
+      srcCodeberg: 'Codeberg でソースを見る',
+      allReleases: 'すべてのリリース',
+      capEvents: 'イベント',
+      capEvent: 'イベントとそのラウンド',
+      capStats: '統計',
+      capPicker: 'リーダー選択'
+    },
+    ko: {
+      pageTitle: 'timtapper — 원피스 카드게임 대전 기록',
+      tagline: '원피스 트레이딩 카드 게임 대전 기록 앱.',
+      intro: '모든 라운드를 기록하고, 상대별 전적을 보고, 결과를 공유하세요. 계정도 서버도 없이 모두 오프라인으로 작동합니다.',
+      dlAndroid: 'Android용 다운로드',
+      dlWindows: 'Windows용 다운로드',
+      openBrowser: '브라우저에서 열기',
+      browserNote: 'iPhone을 포함한 모든 브라우저에서 실행됩니다.',
+      srcGithub: 'GitHub에서 소스 보기',
+      srcGitlab: 'GitLab에서 소스 보기',
+      srcCodeberg: 'Codeberg에서 소스 보기',
+      allReleases: '모든 릴리스',
+      capEvents: '이벤트',
+      capEvent: '이벤트와 라운드',
+      capStats: '통계',
+      capPicker: '리더 선택'
+    },
+    ar: {
+      pageTitle: 'timtapper — متتبع مباريات One Piece TCG',
+      tagline: 'متتبع مباريات للعبة بطاقات One Piece.',
+      intro: 'سجّل كل جولة، واطّلع على نتائجك أمام كل خصم، وشارك نتائجك. بلا حسابات ولا خادم: كل شيء يعمل دون اتصال.',
+      dlAndroid: 'تنزيل لنظام Android',
+      dlWindows: 'تنزيل لنظام Windows',
+      openBrowser: 'فتح في المتصفح',
+      browserNote: 'يعمل في أي متصفح، بما في ذلك iPhone.',
+      srcGithub: 'الشيفرة على GitHub',
+      srcGitlab: 'الشيفرة على GitLab',
+      srcCodeberg: 'الشيفرة على Codeberg',
+      allReleases: 'كل الإصدارات',
+      capEvents: 'الفعاليات',
+      capEvent: 'فعالية وجولاتها',
+      capStats: 'الإحصائيات',
+      capPicker: 'اختيار القائد'
+    },
+    hi: {
+      pageTitle: 'timtapper — One Piece TCG मैच ट्रैकर',
+      tagline: 'One Piece ट्रेडिंग कार्ड गेम के लिए मैच ट्रैकर।',
+      intro: 'हर राउंड दर्ज करें, अपने मुकाबले देखें, अपने नतीजे साझा करें। न खाता, न सर्वर: सब कुछ ऑफ़लाइन चलता है।',
+      dlAndroid: 'Android के लिए डाउनलोड करें',
+      dlWindows: 'Windows के लिए डाउनलोड करें',
+      openBrowser: 'ब्राउज़र में खोलें',
+      browserNote: 'किसी भी ब्राउज़र में चलता है, iPhone सहित।',
+      srcGithub: 'GitHub पर सोर्स',
+      srcGitlab: 'GitLab पर सोर्स',
+      srcCodeberg: 'Codeberg पर सोर्स',
+      allReleases: 'सभी रिलीज़',
+      capEvents: 'इवेंट',
+      capEvent: 'एक इवेंट और उसके राउंड',
+      capStats: 'आँकड़े',
+      capPicker: 'लीडर चयन'
+    },
+    bn: {
+      pageTitle: 'timtapper — One Piece TCG ম্যাচ ট্র্যাকার',
+      tagline: 'One Piece ট্রেডিং কার্ড গেমের জন্য ম্যাচ ট্র্যাকার।',
+      intro: 'প্রতিটি রাউন্ড লিখে রাখুন, প্রতিপক্ষভিত্তিক ফল দেখুন, ফলাফল শেয়ার করুন। কোনো অ্যাকাউন্ট বা সার্ভার নেই: সবকিছু অফলাইনে চলে।',
+      dlAndroid: 'Android-এর জন্য ডাউনলোড করুন',
+      dlWindows: 'Windows-এর জন্য ডাউনলোড করুন',
+      openBrowser: 'ব্রাউজারে খুলুন',
+      browserNote: 'iPhone সহ যেকোনো ব্রাউজারে চলে।',
+      srcGithub: 'GitHub-এ সোর্স',
+      srcGitlab: 'GitLab-এ সোর্স',
+      srcCodeberg: 'Codeberg-এ সোর্স',
+      allReleases: 'সব রিলিজ',
+      capEvents: 'ইভেন্ট',
+      capEvent: 'একটি ইভেন্ট ও তার রাউন্ড',
+      capStats: 'পরিসংখ্যান',
+      capPicker: 'লিডার নির্বাচন'
+    },
+    ur: {
+      pageTitle: 'timtapper — One Piece TCG میچ ٹریکر',
+      tagline: 'One Piece ٹریڈنگ کارڈ گیم کے لیے میچ ٹریکر۔',
+      intro: 'ہر راؤنڈ درج کریں، اپنے مقابلے دیکھیں، اپنے نتائج شیئر کریں۔ نہ اکاؤنٹ، نہ سرور: سب کچھ آف لائن چلتا ہے۔',
+      dlAndroid: 'Android کے لیے ڈاؤن لوڈ کریں',
+      dlWindows: 'Windows کے لیے ڈاؤن لوڈ کریں',
+      openBrowser: 'براؤزر میں کھولیں',
+      browserNote: 'کسی بھی براؤزر میں چلتا ہے، iPhone سمیت۔',
+      srcGithub: 'GitHub پر سورس',
+      srcGitlab: 'GitLab پر سورس',
+      srcCodeberg: 'Codeberg پر سورس',
+      allReleases: 'تمام ریلیزز',
+      capEvents: 'ایونٹس',
+      capEvent: 'ایک ایونٹ اور اس کے راؤنڈ',
+      capStats: 'اعداد و شمار',
+      capPicker: 'لیڈر کا انتخاب'
+    },
+    fa: {
+      pageTitle: 'timtapper — ثبت مسابقات One Piece TCG',
+      tagline: 'ثبت مسابقات برای بازی کارتی One Piece.',
+      intro: 'هر دور را ثبت کنید، نتایج خود را در برابر هر حریف ببینید و نتایج را به اشتراک بگذارید. بدون حساب و بدون سرور: همه‌چیز آفلاین کار می‌کند.',
+      dlAndroid: 'دانلود برای Android',
+      dlWindows: 'دانلود برای Windows',
+      openBrowser: 'باز کردن در مرورگر',
+      browserNote: 'در هر مرورگری اجرا می‌شود، از جمله iPhone.',
+      srcGithub: 'کد منبع در GitHub',
+      srcGitlab: 'کد منبع در GitLab',
+      srcCodeberg: 'کد منبع در Codeberg',
+      allReleases: 'همه نسخه‌ها',
+      capEvents: 'رویدادها',
+      capEvent: 'یک رویداد و دورهای آن',
+      capStats: 'آمار',
+      capPicker: 'انتخاب رهبر'
+    },
+    tr: {
+      pageTitle: 'timtapper — One Piece TCG maç takipçisi',
+      tagline: 'One Piece Trading Card Game için maç takipçisi.',
+      intro: 'Her turu kaydet, eşleşmelerini gör, sonuçlarını paylaş. Hesap yok, sunucu yok: her şey çevrimdışı çalışır.',
+      dlAndroid: 'Android için indir',
+      dlWindows: 'Windows için indir',
+      openBrowser: 'Tarayıcıda aç',
+      browserNote: 'iPhone dahil her tarayıcıda çalışır.',
+      srcGithub: 'GitHub’da kaynak kod',
+      srcGitlab: 'GitLab’da kaynak kod',
+      srcCodeberg: 'Codeberg’de kaynak kod',
+      allReleases: 'Tüm sürümler',
+      capEvents: 'Etkinlikler',
+      capEvent: 'Bir etkinlik ve turları',
+      capStats: 'İstatistikler',
+      capPicker: 'Lider seçici'
+    },
+    vi: {
+      pageTitle: 'timtapper — theo dõi trận đấu One Piece TCG',
+      tagline: 'Ứng dụng theo dõi trận đấu cho One Piece Trading Card Game.',
+      intro: 'Ghi lại từng vòng, xem thành tích theo đối thủ, chia sẻ kết quả. Không tài khoản, không máy chủ: mọi thứ chạy ngoại tuyến.',
+      dlAndroid: 'Tải về cho Android',
+      dlWindows: 'Tải về cho Windows',
+      openBrowser: 'Mở trong trình duyệt',
+      browserNote: 'Chạy trên mọi trình duyệt, kể cả iPhone.',
+      srcGithub: 'Mã nguồn trên GitHub',
+      srcGitlab: 'Mã nguồn trên GitLab',
+      srcCodeberg: 'Mã nguồn trên Codeberg',
+      allReleases: 'Tất cả phiên bản',
+      capEvents: 'Sự kiện',
+      capEvent: 'Một sự kiện và các vòng đấu',
+      capStats: 'Thống kê',
+      capPicker: 'Chọn leader'
+    },
+    id: {
+      pageTitle: 'timtapper — pencatat pertandingan One Piece TCG',
+      tagline: 'Pencatat pertandingan untuk One Piece Trading Card Game.',
+      intro: 'Catat setiap ronde, lihat hasil melawan tiap lawan, bagikan hasilmu. Tanpa akun, tanpa server: semuanya berjalan offline.',
+      dlAndroid: 'Unduh untuk Android',
+      dlWindows: 'Unduh untuk Windows',
+      openBrowser: 'Buka di browser',
+      browserNote: 'Berjalan di browser apa pun, termasuk iPhone.',
+      srcGithub: 'Kode sumber di GitHub',
+      srcGitlab: 'Kode sumber di GitLab',
+      srcCodeberg: 'Kode sumber di Codeberg',
+      allReleases: 'Semua rilis',
+      capEvents: 'Acara',
+      capEvent: 'Sebuah acara dan rondenya',
+      capStats: 'Statistik',
+      capPicker: 'Pemilih leader'
+    },
+    th: {
+      pageTitle: 'timtapper — บันทึกการแข่งขัน One Piece TCG',
+      tagline: 'แอปบันทึกการแข่งขันสำหรับ One Piece Trading Card Game',
+      intro: 'บันทึกทุกรอบ ดูผลการเจอกับคู่แข่งแต่ละแบบ และแชร์ผลการแข่งขัน ไม่ต้องมีบัญชีหรือเซิร์ฟเวอร์ ทุกอย่างทำงานแบบออฟไลน์',
+      dlAndroid: 'ดาวน์โหลดสำหรับ Android',
+      dlWindows: 'ดาวน์โหลดสำหรับ Windows',
+      openBrowser: 'เปิดในเบราว์เซอร์',
+      browserNote: 'ใช้งานได้ในทุกเบราว์เซอร์ รวมถึง iPhone',
+      srcGithub: 'ซอร์สโค้ดบน GitHub',
+      srcGitlab: 'ซอร์สโค้ดบน GitLab',
+      srcCodeberg: 'ซอร์สโค้ดบน Codeberg',
+      allReleases: 'ทุกเวอร์ชัน',
+      capEvents: 'อีเวนต์',
+      capEvent: 'อีเวนต์และรอบการแข่งขัน',
+      capStats: 'สถิติ',
+      capPicker: 'ตัวเลือกลีดเดอร์'
+    },
+    sw: {
+      pageTitle: 'timtapper — kifuatiliaji cha mechi za One Piece TCG',
+      tagline: 'Kifuatiliaji cha mechi kwa One Piece Trading Card Game.',
+      intro: 'Rekodi kila raundi, ona matokeo dhidi ya kila mpinzani, shiriki matokeo yako. Hakuna akaunti wala seva: kila kitu hufanya kazi nje ya mtandao.',
+      dlAndroid: 'Pakua kwa Android',
+      dlWindows: 'Pakua kwa Windows',
+      openBrowser: 'Fungua kwenye kivinjari',
+      browserNote: 'Hufanya kazi kwenye kivinjari chochote, pamoja na iPhone.',
+      srcGithub: 'Msimbo kwenye GitHub',
+      srcGitlab: 'Msimbo kwenye GitLab',
+      srcCodeberg: 'Msimbo kwenye Codeberg',
+      allReleases: 'Matoleo yote',
+      capEvents: 'Matukio',
+      capEvent: 'Tukio na raundi zake',
+      capStats: 'Takwimu',
+      capPicker: 'Kichagua kiongozi'
+    },
+    te: {
+      pageTitle: 'timtapper — One Piece TCG మ్యాచ్ ట్రాకర్',
+      tagline: 'One Piece ట్రేడింగ్ కార్డ్ గేమ్ కోసం మ్యాచ్ ట్రాకర్.',
+      intro: 'ప్రతి రౌండ్‌ను నమోదు చేయండి, ప్రత్యర్థుల వారీగా ఫలితాలు చూడండి, మీ ఫలితాలను పంచుకోండి. ఖాతా లేదు, సర్వర్ లేదు: అంతా ఆఫ్‌లైన్‌లో పనిచేస్తుంది.',
+      dlAndroid: 'Android కోసం డౌన్‌లోడ్ చేయండి',
+      dlWindows: 'Windows కోసం డౌన్‌లోడ్ చేయండి',
+      openBrowser: 'బ్రౌజర్‌లో తెరవండి',
+      browserNote: 'iPhone తో సహా ఏ బ్రౌజర్‌లోనైనా పనిచేస్తుంది.',
+      srcGithub: 'GitHub లో సోర్స్',
+      srcGitlab: 'GitLab లో సోర్స్',
+      srcCodeberg: 'Codeberg లో సోర్స్',
+      allReleases: 'అన్ని విడుదలలు',
+      capEvents: 'ఈవెంట్‌లు',
+      capEvent: 'ఒక ఈవెంట్ మరియు దాని రౌండ్‌లు',
+      capStats: 'గణాంకాలు',
+      capPicker: 'లీడర్ ఎంపిక'
+    },
+    ta: {
+      pageTitle: 'timtapper — One Piece TCG போட்டி டிராக்கர்',
+      tagline: 'One Piece டிரேடிங் கார்டு கேமிற்கான போட்டி டிராக்கர்.',
+      intro: 'ஒவ்வொரு சுற்றையும் பதிவு செய்யுங்கள், எதிராளிகள் வாரியான முடிவுகளைப் பாருங்கள், உங்கள் முடிவுகளைப் பகிருங்கள். கணக்கு இல்லை, சர்வர் இல்லை: அனைத்தும் ஆஃப்லைனில் இயங்கும்.',
+      dlAndroid: 'Android-க்கு பதிவிறக்கு',
+      dlWindows: 'Windows-க்கு பதிவிறக்கு',
+      openBrowser: 'உலாவியில் திற',
+      browserNote: 'iPhone உட்பட எந்த உலாவியிலும் இயங்கும்.',
+      srcGithub: 'GitHub-இல் மூலக் குறியீடு',
+      srcGitlab: 'GitLab-இல் மூலக் குறியீடு',
+      srcCodeberg: 'Codeberg-இல் மூலக் குறியீடு',
+      allReleases: 'அனைத்து வெளியீடுகள்',
+      capEvents: 'நிகழ்வுகள்',
+      capEvent: 'ஒரு நிகழ்வும் அதன் சுற்றுகளும்',
+      capStats: 'புள்ளிவிவரங்கள்',
+      capPicker: 'லீடர் தேர்வு'
+    },
+    pa: {
+      pageTitle: 'timtapper — One Piece TCG ਮੈਚ ਟ੍ਰੈਕਰ',
+      tagline: 'One Piece ਟ੍ਰੇਡਿੰਗ ਕਾਰਡ ਗੇਮ ਲਈ ਮੈਚ ਟ੍ਰੈਕਰ।',
+      intro: 'ਹਰ ਰਾਊਂਡ ਦਰਜ ਕਰੋ, ਆਪਣੇ ਮੁਕਾਬਲੇ ਵੇਖੋ, ਆਪਣੇ ਨਤੀਜੇ ਸਾਂਝੇ ਕਰੋ। ਨਾ ਖਾਤਾ, ਨਾ ਸਰਵਰ: ਸਭ ਕੁਝ ਔਫਲਾਈਨ ਚੱਲਦਾ ਹੈ।',
+      dlAndroid: 'Android ਲਈ ਡਾਊਨਲੋਡ ਕਰੋ',
+      dlWindows: 'Windows ਲਈ ਡਾਊਨਲੋਡ ਕਰੋ',
+      openBrowser: 'ਬ੍ਰਾਊਜ਼ਰ ਵਿੱਚ ਖੋਲ੍ਹੋ',
+      browserNote: 'iPhone ਸਮੇਤ ਕਿਸੇ ਵੀ ਬ੍ਰਾਊਜ਼ਰ ਵਿੱਚ ਚੱਲਦਾ ਹੈ।',
+      srcGithub: 'GitHub ਉੱਤੇ ਸੋਰਸ',
+      srcGitlab: 'GitLab ਉੱਤੇ ਸੋਰਸ',
+      srcCodeberg: 'Codeberg ਉੱਤੇ ਸੋਰਸ',
+      allReleases: 'ਸਾਰੀਆਂ ਰਿਲੀਜ਼ਾਂ',
+      capEvents: 'ਇਵੈਂਟ',
+      capEvent: 'ਇੱਕ ਇਵੈਂਟ ਅਤੇ ਉਸਦੇ ਰਾਊਂਡ',
+      capStats: 'ਅੰਕੜੇ',
+      capPicker: 'ਲੀਡਰ ਚੋਣ'
+    }
+  };
+
+  var currentLang;
+
+  function t(key) {
+    var dict = STRINGS[currentLang] || STRINGS.gl;
+    var common = BrerenCommon.COMMON_STRINGS[currentLang] || BrerenCommon.COMMON_STRINGS.gl;
+    return dict[key] || common[key] || STRINGS.gl[key] || BrerenCommon.COMMON_STRINGS.gl[key] || key;
+  }
+
+  // Same hand-off as index.html's breren.com-family tiles: a top-level
+  // navigation to another origin can't carry a postMessage, so the
+  // visitor's current lang/theme ride along as ?lang=&theme= and the tab
+  // is reused rather than opening a new one.
+  function updateBrowserLink() {
+    var target = new URL(WEB_APP_URL);
+    target.searchParams.set('lang', currentLang);
+    target.searchParams.set('theme', BrerenCommon.effectiveTheme());
+    document.getElementById('open-browser').href = target.toString();
+  }
+
+  function selectLang(code) {
+    currentLang = code;
+    localStorage.setItem('breren-lang', code);
+    document.documentElement.lang = code;
+    BrerenCommon.applyDirection(code);
+    applyTexts();
+  }
+
+  function applyTexts() {
+    document.title = t('pageTitle');
+    var ids = {
+      'page-tagline': 'tagline', 'page-intro': 'intro', 'home-link': 'backToHome', 'home-link-2': 'backToHome',
+      'dl-android-label': 'dlAndroid', 'dl-windows-label': 'dlWindows', 'open-browser-label': 'openBrowser',
+      'browser-note': 'browserNote', 'src-github': 'srcGithub', 'src-gitlab': 'srcGitlab',
+      'src-codeberg': 'srcCodeberg', 'all-releases': 'allReleases', 'cap-events': 'capEvents',
+      'cap-event': 'capEvent', 'cap-stats': 'capStats', 'cap-picker': 'capPicker'
+    };
+    Object.keys(ids).forEach(function (id) {
+      document.getElementById(id).textContent = t(ids[id]);
+    });
+    updateBrowserLink();
+  }
+
+  function resolveDownloads() {
+    fetch(RELEASES_API, { headers: { Accept: 'application/vnd.github+json' } })
+      .then(function (r) {
+        if (!r.ok) throw new Error('GitHub API answered ' + r.status);
+        return r.json();
+      })
+      .then(function (release) {
+        Object.keys(ASSET_SUFFIX).forEach(function (id) {
+          var asset = (release.assets || []).filter(function (a) {
+            return a.name.slice(-ASSET_SUFFIX[id].length) === ASSET_SUFFIX[id];
+          })[0];
+          if (asset) document.getElementById(id).href = asset.browser_download_url;
+          else console.warn('timtapper: no release asset ending in ' + ASSET_SUFFIX[id] + ' in ' + release.tag_name);
+        });
+        if (release.tag_name) document.getElementById('version-tag').textContent = ' · ' + release.tag_name;
+      })
+      .catch(function (err) {
+        console.warn('timtapper: could not resolve the latest release, download buttons stay on the releases page:', err);
+      });
+  }
+
+  BrerenCommon.applyIncomingPreset();
+  currentLang = BrerenCommon.detectLang();
+  document.documentElement.lang = currentLang;
+
+  BrerenCommon.setupLangPicker(function () { return currentLang; }, selectLang);
+  BrerenCommon.setupThemeToggle(t, updateBrowserLink);
+  BrerenCommon.applyTheme(BrerenCommon.effectiveTheme(), t);
+  BrerenCommon.applyDirection(currentLang);
+  applyTexts();
+  resolveDownloads();
+
+  // Returning via the back button restores this page from the bfcache,
+  // so re-read lang/theme in case they changed on another breren.com page.
+  window.addEventListener('pageshow', function (e) {
+    if (!e.persisted) return;
+    currentLang = BrerenCommon.detectLang();
+    BrerenCommon.applyTheme(BrerenCommon.effectiveTheme(), t);
+    BrerenCommon.applyDirection(currentLang);
+    applyTexts();
+  });
+})();
+</script>
+</body>
+</html>

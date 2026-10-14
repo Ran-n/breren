@@ -27,3 +27,11 @@ name = "Get started"
   description = "Persistent screen overlay for drawing annotations over your live desktop — click-through, always-on-top, and saved across sessions."
   icon = "icons/vitralis.png"
   color = "#1a5fa8"
+
+  [[categories.items]]
+  id = "timtapper"
+  name = "timtapper"
+  url = "https://breren.com/timtapper/"
+  description = "Match tracker for the One Piece Trading Card Game — log every round, see your matchups, share your results. Android, Windows and the browser, fully offline."
+  icon = "icons/timtapper.png"
+  color = "#2b7fcc"

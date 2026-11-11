@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/11/11 11:27:06.325773 )
+[//]: # (+ Revised: 	2026/11/11 11:57:36.792663 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -25,8 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Windows installer button and a secondary portable-version button, both
   resolved to the latest GitHub release's `-setup.exe`/`-portable.exe`
   assets at load time (falling back to the releases page), a notes box on
-  the app's languages, the licence key (with the support address for
-  moving a key to another computer) and the SmartScreen warning, source
+  the app's languages, the licence key it needs and the SmartScreen
+  warning, source
   links for GitHub/GitLab/Codeberg, and screenshots in the app's light and
   dark themes that follow the page's theme. New icon
   ([public/icons/avalio-lite.svg](public/icons/avalio-lite.svg)) and

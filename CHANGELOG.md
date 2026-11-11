@@ -1,7 +1,7 @@
 [//]: # ( ---------------------------------------------------------------------- )
 [//]: # (+ Authors: 	Ran# <ran.hash@proton.me> )
 [//]: # (+ Created: 	2026/07/21 16:57:59.658784 )
-[//]: # (+ Revised: 	2026/10/14 09:49:35.341869 )
+[//]: # (+ Revised: 	2026/11/11 11:27:06.325773 )
 [//]: # ( ---------------------------------------------------------------------- )
 
 # Changelog
@@ -14,6 +14,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+- [TODO.md](TODO.md) backlog, linked from
+  [CONTRIBUTING.md](CONTRIBUTING.md), starting with telling avalio lite
+  visitors how to get a licence key once that route is decided.
+
+- avalio lite portal tile in [public/links.toml](public/links.toml), leading
+  to a new download page at `breren.com/avalio-lite/`
+  ([public/avalio-lite/index.html](public/avalio-lite/index.html)): a
+  Windows installer button and a secondary portable-version button, both
+  resolved to the latest GitHub release's `-setup.exe`/`-portable.exe`
+  assets at load time (falling back to the releases page), a notes box on
+  the app's languages, the licence key (with the support address for
+  moving a key to another computer) and the SmartScreen warning, source
+  links for GitHub/GitLab/Codeberg, and screenshots in the app's light and
+  dark themes that follow the page's theme. New icon
+  ([public/icons/avalio-lite.svg](public/icons/avalio-lite.svg)) and
+  translations for every supported locale in the page and
+  [public/translations.toml](public/translations.toml).
 
 - timtapper portal tile in [public/links.toml](public/links.toml), leading
   to a new download page at `breren.com/timtapper/`

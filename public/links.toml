@@ -35,3 +35,11 @@ name = "Get started"
   description = "Match tracker for the One Piece Trading Card Game — log every round, see your matchups, share your results. Android, Windows and the browser, fully offline."
   icon = "icons/timtapper.png"
   color = "#2b7fcc"
+
+  [[categories.items]]
+  id = "avalio-lite"
+  name = "avalio lite"
+  url = "https://breren.com/avalio-lite/"
+  description = "Gradebook for teachers that works like a spreadsheet — weight your tests, get final grades worked out for you, import and export Excel, lock it with a PIN. Windows, private, on your own computer."
+  icon = "icons/avalio-lite.svg"
+  color = "#2f54d6"

@@ -1,0 +1,858 @@
+<!doctype html>
+<html lang="gl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<script>
+(function () {
+  var t = localStorage.getItem('breren-theme');
+  if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
+<style>
+  html[data-theme="dark"] { background: #282828; }
+  html[data-theme="light"] { background: #fbf1c7; }
+</style>
+<title>avalio lite</title>
+<meta name="description" content="avalio lite: a simple, private gradebook for teachers. Works like a spreadsheet, does the maths for you, keeps everything on your own Windows computer.">
+<link rel="icon" type="image/svg+xml" href="../icons/avalio-lite.svg">
+<link rel="stylesheet" href="../common.css">
+<style>
+  .home-link {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--fg-muted);
+  }
+  .app-icon {
+    display: block;
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 0.75rem;
+  }
+  h1 { text-transform: none; letter-spacing: 0.02em; }
+  .intro {
+    max-width: 36rem;
+    margin: 0.9rem auto 0;
+    line-height: 1.55;
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  .cta-row-primary { margin-bottom: 0.75rem; }
+  .cta-row-secondary { margin-bottom: 1.25rem; }
+  .cta-row-sources { margin-bottom: 0.75rem; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+  }
+  .btn svg { flex: none; width: 1.25em; height: 1.25em; }
+  .btn-text { display: flex; flex-direction: column; align-items: flex-start; text-align: start; }
+  .btn-hint { font-size: 0.74rem; font-weight: 500; opacity: 0.85; margin-top: 0.1rem; }
+  .btn-lg {
+    padding: 0.85rem 1.5rem;
+    font-size: 1.05rem;
+    min-width: 17rem;
+    justify-content: center;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+  .btn-lg:hover { transform: translateY(-2px); box-shadow: 0 6px 16px var(--shadow); }
+  .btn-download {
+    background: var(--accent);
+    color: var(--bg);
+  }
+  .btn-md {
+    padding: 0.55rem 1rem;
+    font-size: 0.9rem;
+    color: var(--fg);
+    border: 1px solid var(--card-border);
+    background: var(--card-bg);
+  }
+  .btn-md:hover { border-color: var(--accent); }
+  .btn-sm {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--fg-muted);
+    border: 1px solid var(--card-border);
+    background: var(--card-bg);
+  }
+  .btn-sm:hover { border-color: var(--accent); color: var(--fg); }
+  .notes {
+    max-width: 36rem;
+    margin: 0 auto 1.4rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    background: var(--card-bg);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--fg-muted);
+  }
+  .notes p { margin: 0; }
+  .notes p + p { margin-top: 0.5rem; }
+  .notes a { color: var(--fg); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  .notes a:hover { color: var(--accent); }
+  .version-note {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--fg-muted);
+    margin: 0 0 1.4rem;
+  }
+  .version-note a { color: var(--fg-muted); text-underline-offset: 2px; }
+  .version-note a:hover { color: var(--accent); }
+  .shots { margin-top: 3rem; }
+  .shots-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 1.25rem;
+    margin-top: 1.5rem;
+  }
+  .shots figure { margin: 0; text-align: center; }
+  .shots img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+  /* Each screenshot comes in the app's light and dark theme; show the one
+     matching the page. Hidden lazy images are never fetched. */
+  html[data-theme="dark"] .shot-light,
+  html[data-theme="light"] .shot-dark { display: none; }
+  .shots figcaption {
+    margin-top: 0.55rem;
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+  }
+  @media (max-width: 560px) {
+    main { padding: 5rem 1rem 4rem; }
+    .btn-lg { min-width: 0; width: 100%; }
+    .shots-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>
+</head>
+<body>
+<main>
+  <a class="home-link" id="home-link" href="../"></a>
+  <div class="toolbar">
+    <div class="lang-picker">
+      <button class="lang-trigger" id="lang-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+        <span class="flag" id="lang-trigger-flag"></span>
+        <span id="lang-trigger-name"></span>
+        <span class="chevron">▾</span>
+      </button>
+      <ul class="lang-menu" id="lang-menu" role="listbox" hidden></ul>
+    </div>
+    <button class="theme-btn" id="theme-toggle" type="button"></button>
+  </div>
+  <header>
+    <img class="app-icon" src="../icons/avalio-lite.svg" alt="">
+    <h1>avalio lite</h1>
+    <p class="tagline" id="page-tagline"></p>
+    <p class="intro" id="page-intro"></p>
+  </header>
+
+  <div class="cta-row cta-row-primary">
+    <a class="btn btn-lg btn-download" id="dl-setup" href="https://github.com/Ran-n/avalio-lite/releases/latest">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M0 3.45 9.75 2.1v9.45H0V3.45Zm10.95-1.5L24 0v11.4H10.95V1.95ZM0 12.6h9.75v9.45L0 20.7v-8.1Zm10.95 0H24V24l-13.05-1.8V12.6Z"/></svg>
+      <span class="btn-text"><span id="dl-setup-label"></span><span class="btn-hint" id="dl-setup-hint"></span></span>
+    </a>
+  </div>
+  <div class="cta-row cta-row-secondary">
+    <a class="btn btn-md" id="dl-portable" href="https://github.com/Ran-n/avalio-lite/releases/latest">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="13" rx="1.5"/><path d="M9 15v5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-5"/><path d="M10 6h1M13 6h1"/></svg>
+      <span class="btn-text"><span id="dl-portable-label"></span><span class="btn-hint" id="dl-portable-hint"></span></span>
+    </a>
+  </div>
+
+  <div class="notes">
+    <p id="app-langs"></p>
+    <p><span id="licence-text"></span> <a href="mailto:support.avalio.lite@breren.com">support.avalio.lite@breren.com</a></p>
+    <p id="smartscreen"></p>
+  </div>
+
+  <div class="cta-row cta-row-sources">
+    <a class="btn btn-sm" href="https://github.com/Ran-n/avalio-lite" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.3 3.6 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.3-3.2-.1-.3-.6-1.6.1-3.2 0 0 1.1-.3 3.5 1.3a12 12 0 0 1 6.4 0c2.4-1.6 3.5-1.3 3.5-1.3.7 1.6.2 2.9.1 3.2 .8 .8 1.3 1.9 1.3 3.2 0 4.6-2.7 5.6-5.4 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"/></svg>
+      <span id="src-github"></span>
+    </a>
+    <a class="btn btn-sm" href="https://gitlab.com/Ran-n/avalio-lite" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m23.6004 9.5927-.0337-.0862L20.3.9814a.851.851 0 0 0-.3362-.405.8748.8748 0 0 0-.9997.0539.8748.8748 0 0 0-.29.4399l-2.2055 6.748H7.5375l-2.2057-6.748a.8573.8573 0 0 0-.29-.4412.8748.8748 0 0 0-.9997-.0537.8585.8585 0 0 0-.3362.4049L.4332 9.5015l-.0325.0862a6.0657 6.0657 0 0 0 2.0119 7.0105l.0113.0087.03.0213 4.976 3.7264 2.462 1.8633 1.4995 1.1321a1.0085 1.0085 0 0 0 1.2197 0l1.4995-1.1321 2.4619-1.8633 5.006-3.7489.0125-.01a6.0682 6.0682 0 0 0 2.0094-7.003z"/></svg>
+      <span id="src-gitlab"></span>
+    </a>
+    <a class="btn btn-sm" href="https://codeberg.org/ran-n/avalio-lite" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.999.747A11.974 11.974 0 0 0 0 12.75c0 2.254.635 4.465 1.833 6.376L11.837 6.19c.072-.092.251-.092.323 0l4.178 5.402h-2.992l.065.239h3.113l.882 1.138h-3.674l.103.374h3.86l.777 1.003h-4.358l.135.483h4.593l.695.894h-5.038l.165.589h5.326l.609.785h-5.717l.182.65h6.038l.562.727h-6.397l.183.65h6.717A12.003 12.003 0 0 0 24 12.75 11.977 11.977 0 0 0 11.999.747zm3.654 19.104.182.65h5.326c.173-.204.353-.433.513-.65zm.385 1.377.18.65h3.563c.233-.198.485-.428.712-.65zm.383 1.377.182.648h1.203c.356-.204.685-.412 1.042-.648zz"/></svg>
+      <span id="src-codeberg"></span>
+    </a>
+  </div>
+  <p class="version-note">
+    <a href="https://github.com/Ran-n/avalio-lite/releases" target="_blank" rel="noopener" id="all-releases"></a><span id="version-tag"></span>
+  </p>
+
+  <section class="shots">
+    <figure>
+      <img class="shot-light" src="screenshots/sheet-light.png" width="1280" height="800" alt="" loading="lazy">
+      <img class="shot-dark" src="screenshots/sheet-dark.png" width="1280" height="800" alt="" loading="lazy">
+      <figcaption id="cap-sheet"></figcaption>
+    </figure>
+    <div class="shots-grid">
+      <figure>
+        <img class="shot-light" src="screenshots/column-panel-light.png" width="1280" height="800" alt="" loading="lazy">
+        <img class="shot-dark" src="screenshots/column-panel-dark.png" width="1280" height="800" alt="" loading="lazy">
+        <figcaption id="cap-column"></figcaption>
+      </figure>
+      <figure>
+        <img class="shot-light" src="screenshots/sheet-menu-light.png" width="1280" height="800" alt="" loading="lazy">
+        <img class="shot-dark" src="screenshots/sheet-menu-dark.png" width="1280" height="800" alt="" loading="lazy">
+        <figcaption id="cap-menu"></figcaption>
+      </figure>
+      <figure>
+        <img class="shot-light" src="screenshots/lock-light.png" width="1280" height="800" alt="" loading="lazy">
+        <img class="shot-dark" src="screenshots/lock-dark.png" width="1280" height="800" alt="" loading="lazy">
+        <figcaption id="cap-lock"></figcaption>
+      </figure>
+      <figure>
+        <img class="shot-light" src="screenshots/settings-backup-light.png" width="1280" height="800" alt="" loading="lazy">
+        <img class="shot-dark" src="screenshots/settings-backup-dark.png" width="1280" height="800" alt="" loading="lazy">
+        <figcaption id="cap-backup"></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <footer>
+    <a id="home-link-2" href="../"></a>
+    <span class="footer-sep">·</span>
+    <a id="license-link" href="/licenses/pbl">PayBack License (PBL) 2.0</a>
+  </footer>
+</main>
+<script src="../common.js"></script>
+<script>
+(function () {
+  var REPO = 'Ran-n/avalio-lite';
+  var RELEASES_API = 'https://api.github.com/repos/' + REPO + '/releases/latest';
+  // Release asset suffixes behind each download button. The names are
+  // versioned (avalio-lite-0.7.0-setup.exe), so they're resolved from the
+  // latest release at runtime; until then, and on failure, the buttons
+  // point at the releases/latest page. The suffixes can't match the
+  // .exe.sig/.exe.b3 files published next to each exe.
+  var ASSET_SUFFIX = { 'dl-setup': '-setup.exe', 'dl-portable': '-portable.exe' };
+
+  var STRINGS = {
+    gl: {
+      pageTitle: 'avalio lite — caderno de notas sinxelo para docentes',
+      tagline: 'As notas das túas clases nunha app sinxela e privada.',
+      intro: 'Un caderno de notas para docentes que funciona como unha folla de cálculo, fai as contas por ti e garda todo no teu propio ordenador. Sen nube nin rastrexo; cun PIN, o ficheiro vai cifrado.',
+      dlSetup: 'Descargar para Windows',
+      setupHint: 'Instalador · non precisa permisos de administrador',
+      dlPortable: 'Versión portátil',
+      portableHint: 'Un só ficheiro, sen instalar, mesmo desde un USB',
+      appLangs: 'A app está en galego e inglés.',
+      licence: 'Precisa unha chave de licenza (BRN-…). Para pasala a outro ordenador, escribe a',
+      smartscreen: 'Se Windows di «Windows protexeu o teu PC», preme «Máis información» → «Executar de todos os xeitos»: os ficheiros non están asinados cun certificado de Windows.',
+      srcGithub: 'Código en GitHub',
+      srcGitlab: 'Código en GitLab',
+      srcCodeberg: 'Código en Codeberg',
+      allReleases: 'Todas as versións',
+      capSheet: 'Unha folla por clase: as notas finais calcúlanse soas',
+      capColumn: 'Peso e nota máxima de cada proba',
+      capMenu: 'Importar e exportar Excel',
+      capLock: 'Bloqueo con PIN e ficheiro cifrado',
+      capBackup: 'Copias de seguridade cun clic'
+    },
+    en: {
+      pageTitle: 'avalio lite — a simple gradebook for teachers',
+      tagline: 'Your class marks in one simple, private app.',
+      intro: 'A gradebook for teachers that works like a spreadsheet, does the maths for you and keeps everything on your own computer. No cloud, no tracking; add a PIN and the file is encrypted.',
+      dlSetup: 'Download for Windows',
+      setupHint: 'Installer · no administrator rights needed',
+      dlPortable: 'Portable version',
+      portableHint: 'One file, nothing to install, runs from a USB stick',
+      appLangs: 'The app itself is in Galician and English.',
+      licence: 'Needs a licence key (BRN-…). To move it to another computer, write to',
+      smartscreen: 'If Windows says “Windows protected your PC”, click More info → Run anyway: the files aren’t signed with a Windows certificate.',
+      srcGithub: 'Source on GitHub',
+      srcGitlab: 'Source on GitLab',
+      srcCodeberg: 'Source on Codeberg',
+      allReleases: 'All releases',
+      capSheet: 'One sheet per class; final grades work themselves out',
+      capColumn: 'Weight and maximum for each test',
+      capMenu: 'Excel in and out',
+      capLock: 'PIN lock, encrypted file',
+      capBackup: 'One-click backups'
+    },
+    eo: {
+      pageTitle: 'avalio lite — simpla notlibro por instruistoj',
+      tagline: 'La notoj de viaj klasoj en unu simpla, privata aplikaĵo.',
+      intro: 'Notlibro por instruistoj, kiu funkcias kiel kalkultabelo, faras la kalkulojn por vi kaj konservas ĉion en via propra komputilo. Sen nubo, sen spurado; kun PIN la dosiero estas ĉifrita.',
+      dlSetup: 'Elŝuti por Windows',
+      setupHint: 'Instalilo · ne bezonas administrantajn rajtojn',
+      dlPortable: 'Portebla versio',
+      portableHint: 'Unu dosiero, nenio por instali, funkcias eĉ de USB-memorilo',
+      appLangs: 'La aplikaĵo mem estas en la galega kaj la angla.',
+      licence: 'Necesas licencoŝlosilo (BRN-…). Por movi ĝin al alia komputilo, skribu al',
+      smartscreen: 'Se Windows diras “Windows protected your PC”, alklaku “More info” → “Run anyway”: la dosieroj ne estas subskribitaj per Windows-atestilo.',
+      srcGithub: 'Fontkodo ĉe GitHub',
+      srcGitlab: 'Fontkodo ĉe GitLab',
+      srcCodeberg: 'Fontkodo ĉe Codeberg',
+      allReleases: 'Ĉiuj eldonoj',
+      capSheet: 'Unu folio por ĉiu klaso; la finaj notoj kalkuliĝas mem',
+      capColumn: 'Pezo kaj maksimumo de ĉiu testo',
+      capMenu: 'Importo kaj eksporto de Excel',
+      capLock: 'PIN-ŝlosilo, ĉifrita dosiero',
+      capBackup: 'Sekurkopioj per unu klako'
+    },
+    es: {
+      pageTitle: 'avalio lite — cuaderno de notas sencillo para docentes',
+      tagline: 'Las notas de tus clases en una app sencilla y privada.',
+      intro: 'Un cuaderno de notas para docentes que funciona como una hoja de cálculo, hace las cuentas por ti y guarda todo en tu propio ordenador. Sin nube ni rastreo; con un PIN, el archivo va cifrado.',
+      dlSetup: 'Descargar para Windows',
+      setupHint: 'Instalador · no necesita permisos de administrador',
+      dlPortable: 'Versión portátil',
+      portableHint: 'Un solo archivo, sin instalar, incluso desde un USB',
+      appLangs: 'La app está en gallego e inglés.',
+      licence: 'Necesita una clave de licencia (BRN-…). Para pasarla a otro ordenador, escribe a',
+      smartscreen: 'Si Windows dice «Windows protegió su PC», pulsa «Más información» → «Ejecutar de todas formas»: los archivos no están firmados con un certificado de Windows.',
+      srcGithub: 'Código en GitHub',
+      srcGitlab: 'Código en GitLab',
+      srcCodeberg: 'Código en Codeberg',
+      allReleases: 'Todas las versiones',
+      capSheet: 'Una hoja por clase: las notas finales se calculan solas',
+      capColumn: 'Peso y nota máxima de cada prueba',
+      capMenu: 'Importar y exportar Excel',
+      capLock: 'Bloqueo con PIN y archivo cifrado',
+      capBackup: 'Copias de seguridad con un clic'
+    },
+    fr: {
+      pageTitle: 'avalio lite — un carnet de notes simple pour enseignants',
+      tagline: 'Les notes de vos classes dans une appli simple et privée.',
+      intro: 'Un carnet de notes pour enseignants qui fonctionne comme un tableur, fait les calculs pour vous et garde tout sur votre propre ordinateur. Ni cloud ni pistage ; avec un code PIN, le fichier est chiffré.',
+      dlSetup: 'Télécharger pour Windows',
+      setupHint: 'Installateur · sans droits d’administrateur',
+      dlPortable: 'Version portable',
+      portableHint: 'Un seul fichier, rien à installer, fonctionne depuis une clé USB',
+      appLangs: 'L’appli elle-même est en galicien et en anglais.',
+      licence: 'Une clé de licence (BRN-…) est nécessaire. Pour la transférer sur un autre ordinateur, écrivez à',
+      smartscreen: 'Si Windows affiche « Windows a protégé votre ordinateur », cliquez sur « Informations complémentaires » → « Exécuter quand même » : les fichiers ne sont pas signés avec un certificat Windows.',
+      srcGithub: 'Code source sur GitHub',
+      srcGitlab: 'Code source sur GitLab',
+      srcCodeberg: 'Code source sur Codeberg',
+      allReleases: 'Toutes les versions',
+      capSheet: 'Une feuille par classe ; les moyennes se calculent toutes seules',
+      capColumn: 'Coefficient et note maximale de chaque épreuve',
+      capMenu: 'Import et export Excel',
+      capLock: 'Verrou par code PIN, fichier chiffré',
+      capBackup: 'Sauvegardes en un clic'
+    },
+    pt: {
+      pageTitle: 'avalio lite — caderneta de notas simples para professores',
+      tagline: 'As notas das tuas turmas numa app simples e privada.',
+      intro: 'Uma caderneta de notas para professores que funciona como uma folha de cálculo, faz as contas por ti e guarda tudo no teu próprio computador. Sem nuvem nem rastreio; com um PIN, o ficheiro fica cifrado.',
+      dlSetup: 'Transferir para Windows',
+      setupHint: 'Instalador · não precisa de permissões de administrador',
+      dlPortable: 'Versão portátil',
+      portableHint: 'Um só ficheiro, sem instalar, funciona até a partir de uma pen USB',
+      appLangs: 'A app está em galego e inglês.',
+      licence: 'Precisa de uma chave de licença (BRN-…). Para a passar para outro computador, escreve para',
+      smartscreen: 'Se o Windows disser «O Windows protegeu o seu PC», clica em «Mais informações» → «Executar mesmo assim»: os ficheiros não estão assinados com um certificado Windows.',
+      srcGithub: 'Código no GitHub',
+      srcGitlab: 'Código no GitLab',
+      srcCodeberg: 'Código no Codeberg',
+      allReleases: 'Todas as versões',
+      capSheet: 'Uma folha por turma: as notas finais calculam-se sozinhas',
+      capColumn: 'Peso e nota máxima de cada teste',
+      capMenu: 'Importar e exportar Excel',
+      capLock: 'Bloqueio com PIN e ficheiro cifrado',
+      capBackup: 'Cópias de segurança num clique'
+    },
+    de: {
+      pageTitle: 'avalio lite — ein einfaches Notenbuch für Lehrkräfte',
+      tagline: 'Die Noten deiner Klassen in einer einfachen, privaten App.',
+      intro: 'Ein Notenbuch für Lehrkräfte, das wie eine Tabelle funktioniert, die Rechnerei übernimmt und alles auf deinem eigenen Computer speichert. Keine Cloud, kein Tracking; mit einer PIN wird die Datei verschlüsselt.',
+      dlSetup: 'Für Windows herunterladen',
+      setupHint: 'Installationsprogramm · keine Administratorrechte nötig',
+      dlPortable: 'Portable Version',
+      portableHint: 'Eine Datei, keine Installation, läuft auch vom USB-Stick',
+      appLangs: 'Die App selbst gibt es auf Galicisch und Englisch.',
+      licence: 'Benötigt einen Lizenzschlüssel (BRN-…). Um ihn auf einen anderen Computer zu übertragen, schreib an',
+      smartscreen: 'Zeigt Windows „Der Computer wurde durch Windows geschützt“, klicke auf „Weitere Informationen“ → „Trotzdem ausführen“: Die Dateien sind nicht mit einem Windows-Zertifikat signiert.',
+      srcGithub: 'Quellcode auf GitHub',
+      srcGitlab: 'Quellcode auf GitLab',
+      srcCodeberg: 'Quellcode auf Codeberg',
+      allReleases: 'Alle Versionen',
+      capSheet: 'Ein Blatt pro Klasse; die Endnoten rechnen sich von selbst',
+      capColumn: 'Gewichtung und Höchstpunktzahl je Test',
+      capMenu: 'Excel-Import und -Export',
+      capLock: 'PIN-Sperre, verschlüsselte Datei',
+      capBackup: 'Sicherung mit einem Klick'
+    },
+    it: {
+      pageTitle: 'avalio lite — un registro dei voti semplice per insegnanti',
+      tagline: 'I voti delle tue classi in un’app semplice e privata.',
+      intro: 'Un registro dei voti per insegnanti che funziona come un foglio di calcolo, fa i conti al posto tuo e tiene tutto sul tuo computer. Niente cloud, niente tracciamento; con un PIN il file è cifrato.',
+      dlSetup: 'Scarica per Windows',
+      setupHint: 'Programma di installazione · non servono diritti di amministratore',
+      dlPortable: 'Versione portatile',
+      portableHint: 'Un solo file, niente da installare, funziona anche da chiavetta USB',
+      appLangs: 'L’app è in galiziano e in inglese.',
+      licence: 'Serve una chiave di licenza (BRN-…). Per spostarla su un altro computer, scrivi a',
+      smartscreen: 'Se Windows mostra «PC protetto da Windows», fai clic su «Ulteriori informazioni» → «Esegui comunque»: i file non sono firmati con un certificato Windows.',
+      srcGithub: 'Codice su GitHub',
+      srcGitlab: 'Codice su GitLab',
+      srcCodeberg: 'Codice su Codeberg',
+      allReleases: 'Tutte le versioni',
+      capSheet: 'Un foglio per classe: i voti finali si calcolano da soli',
+      capColumn: 'Peso e voto massimo di ogni prova',
+      capMenu: 'Importa ed esporta Excel',
+      capLock: 'Blocco con PIN, file cifrato',
+      capBackup: 'Backup con un clic'
+    },
+    ru: {
+      pageTitle: 'avalio lite — простой журнал оценок для учителей',
+      tagline: 'Оценки ваших классов в одном простом и приватном приложении.',
+      intro: 'Журнал оценок для учителей, который работает как электронная таблица, сам всё считает и хранит данные только на вашем компьютере. Без облака и слежки; с PIN-кодом файл шифруется.',
+      dlSetup: 'Скачать для Windows',
+      setupHint: 'Установщик · права администратора не нужны',
+      dlPortable: 'Портативная версия',
+      portableHint: 'Один файл, без установки, запускается даже с флешки',
+      appLangs: 'Само приложение на галисийском и английском.',
+      licence: 'Нужен лицензионный ключ (BRN-…). Чтобы перенести его на другой компьютер, напишите на',
+      smartscreen: 'Если Windows пишет «Система Windows защитила ваш компьютер», нажмите «Подробнее» → «Выполнить в любом случае»: файлы не подписаны сертификатом Windows.',
+      srcGithub: 'Исходный код на GitHub',
+      srcGitlab: 'Исходный код на GitLab',
+      srcCodeberg: 'Исходный код на Codeberg',
+      allReleases: 'Все версии',
+      capSheet: 'Один лист на класс; итоговые оценки считаются сами',
+      capColumn: 'Вес и максимальный балл каждой работы',
+      capMenu: 'Импорт и экспорт Excel',
+      capLock: 'Блокировка PIN-кодом, файл зашифрован',
+      capBackup: 'Резервная копия в один клик'
+    },
+    zh: {
+      pageTitle: 'avalio lite — 简单的教师成绩册',
+      tagline: '把班级成绩放进一个简单、私密的应用。',
+      intro: '一款像电子表格一样使用的教师成绩册,自动帮你计算,所有数据都保存在你自己的电脑上。没有云端,没有跟踪;设置 PIN 后文件会被加密。',
+      dlSetup: '下载 Windows 版',
+      setupHint: '安装程序 · 无需管理员权限',
+      dlPortable: '便携版',
+      portableHint: '单个文件,无需安装,可从 U 盘运行',
+      appLangs: '应用本身提供加利西亚语和英语界面。',
+      licence: '需要许可证密钥(BRN-…)。如需转移到另一台电脑,请写信至',
+      smartscreen: '如果 Windows 显示“Windows 已保护你的电脑”,请点击“更多信息”→“仍要运行”:这些文件没有使用 Windows 证书签名。',
+      srcGithub: '在 GitHub 上查看源代码',
+      srcGitlab: '在 GitLab 上查看源代码',
+      srcCodeberg: '在 Codeberg 上查看源代码',
+      allReleases: '所有版本',
+      capSheet: '每个班级一张表,最终成绩自动计算',
+      capColumn: '每次测试的权重和满分',
+      capMenu: 'Excel 导入导出',
+      capLock: 'PIN 锁定,文件加密',
+      capBackup: '一键备份'
+    },
+    ja: {
+      pageTitle: 'avalio lite — 先生のためのシンプルな成績簿',
+      tagline: 'クラスの成績を、シンプルでプライベートなアプリにまとめて。',
+      intro: '表計算ソフトのように使える先生向けの成績簿。計算は自動で、データはすべて自分のパソコンに保存されます。クラウドもトラッキングもなし。PIN を設定するとファイルが暗号化されます。',
+      dlSetup: 'Windows 版をダウンロード',
+      setupHint: 'インストーラー · 管理者権限は不要',
+      dlPortable: 'ポータブル版',
+      portableHint: 'ファイル 1 つ、インストール不要、USB メモリからも起動',
+      appLangs: 'アプリ本体はガリシア語と英語に対応しています。',
+      licence: 'ライセンスキー(BRN-…)が必要です。別のパソコンへの移行は、こちらへご連絡ください:',
+      smartscreen: '「WindowsによってPCが保護されました」と表示されたら、「詳細情報」→「実行」をクリックしてください。ファイルは Windows 証明書で署名されていません。',
+      srcGithub: 'GitHub でソースを見る',
+      srcGitlab: 'GitLab でソースを見る',
+      srcCodeberg: 'Codeberg でソースを見る',
+      allReleases: 'すべてのリリース',
+      capSheet: 'クラスごとに 1 シート、最終成績は自動計算',
+      capColumn: 'テストごとの配点比率と満点',
+      capMenu: 'Excel の読み込みと書き出し',
+      capLock: 'PIN ロックと暗号化ファイル',
+      capBackup: 'ワンクリックでバックアップ'
+    },
+    ko: {
+      pageTitle: 'avalio lite — 교사를 위한 간단한 성적부',
+      tagline: '학급 성적을 간단하고 안전한 앱 하나에.',
+      intro: '스프레드시트처럼 쓰는 교사용 성적부입니다. 계산은 앱이 대신하고, 모든 데이터는 내 컴퓨터에만 저장됩니다. 클라우드도 추적도 없으며, PIN을 설정하면 파일이 암호화됩니다.',
+      dlSetup: 'Windows용 다운로드',
+      setupHint: '설치 프로그램 · 관리자 권한 필요 없음',
+      dlPortable: '포터블 버전',
+      portableHint: '파일 하나, 설치 없이 USB에서도 실행',
+      appLangs: '앱 자체는 갈리시아어와 영어를 지원합니다.',
+      licence: '라이선스 키(BRN-…)가 필요합니다. 다른 컴퓨터로 옮기려면 다음 주소로 연락하세요:',
+      smartscreen: '“Windows의 PC 보호” 창이 뜨면 “추가 정보” → “실행”을 누르세요. 파일이 Windows 인증서로 서명되어 있지 않기 때문입니다.',
+      srcGithub: 'GitHub에서 소스 보기',
+      srcGitlab: 'GitLab에서 소스 보기',
+      srcCodeberg: 'Codeberg에서 소스 보기',
+      allReleases: '모든 릴리스',
+      capSheet: '학급마다 시트 하나, 최종 성적은 자동 계산',
+      capColumn: '시험별 가중치와 만점',
+      capMenu: 'Excel 가져오기·내보내기',
+      capLock: 'PIN 잠금, 암호화된 파일',
+      capBackup: '클릭 한 번으로 백업'
+    },
+    ar: {
+      pageTitle: 'avalio lite — دفتر درجات بسيط للمعلمين',
+      tagline: 'درجات صفوفك في تطبيق بسيط وخاص.',
+      intro: 'دفتر درجات للمعلمين يعمل مثل جدول البيانات، ويجري الحسابات عنك، ويحفظ كل شيء على حاسوبك. بلا سحابة ولا تتبع؛ وعند إضافة رمز PIN يُشفَّر الملف.',
+      dlSetup: 'تنزيل لنظام Windows',
+      setupHint: 'مثبّت · لا يحتاج صلاحيات المسؤول',
+      dlPortable: 'النسخة المحمولة',
+      portableHint: 'ملف واحد، دون تثبيت، يعمل حتى من ذاكرة USB',
+      appLangs: 'التطبيق نفسه متوفر بالجاليكية والإنجليزية.',
+      licence: 'يحتاج إلى مفتاح ترخيص (BRN-…). لنقله إلى حاسوب آخر، راسل',
+      smartscreen: 'إذا ظهرت رسالة «قام Windows بحماية الكمبيوتر»، فانقر «مزيد من المعلومات» ← «تشغيل على أي حال»: الملفات غير موقّعة بشهادة Windows.',
+      srcGithub: 'الشيفرة على GitHub',
+      srcGitlab: 'الشيفرة على GitLab',
+      srcCodeberg: 'الشيفرة على Codeberg',
+      allReleases: 'كل الإصدارات',
+      capSheet: 'ورقة لكل صف، والدرجات النهائية تُحسب تلقائيًا',
+      capColumn: 'وزن كل اختبار ودرجته القصوى',
+      capMenu: 'استيراد وتصدير Excel',
+      capLock: 'قفل برمز PIN وملف مشفّر',
+      capBackup: 'نسخ احتياطي بنقرة واحدة'
+    },
+    hi: {
+      pageTitle: 'avalio lite — शिक्षकों के लिए सरल ग्रेडबुक',
+      tagline: 'आपकी कक्षाओं के अंक, एक सरल और निजी ऐप में।',
+      intro: 'शिक्षकों के लिए ग्रेडबुक जो स्प्रेडशीट की तरह चलती है, हिसाब खुद लगाती है और सब कुछ आपके अपने कंप्यूटर पर रखती है। न क्लाउड, न ट्रैकिंग; PIN लगाएँ तो फ़ाइल एन्क्रिप्ट हो जाती है।',
+      dlSetup: 'Windows के लिए डाउनलोड करें',
+      setupHint: 'इंस्टॉलर · एडमिनिस्ट्रेटर अधिकार की ज़रूरत नहीं',
+      dlPortable: 'पोर्टेबल संस्करण',
+      portableHint: 'एक ही फ़ाइल, इंस्टॉल की ज़रूरत नहीं, USB स्टिक से भी चलती है',
+      appLangs: 'ऐप स्वयं गैलिशियन और अंग्रेज़ी में है।',
+      licence: 'लाइसेंस कुंजी (BRN-…) ज़रूरी है। उसे दूसरे कंप्यूटर पर ले जाने के लिए लिखें:',
+      smartscreen: 'अगर Windows कहे “Windows ने आपके PC को सुरक्षित किया”, तो “अधिक जानकारी” → “फिर भी चलाएँ” पर क्लिक करें: फ़ाइलें Windows प्रमाणपत्र से हस्ताक्षरित नहीं हैं।',
+      srcGithub: 'GitHub पर सोर्स',
+      srcGitlab: 'GitLab पर सोर्स',
+      srcCodeberg: 'Codeberg पर सोर्स',
+      allReleases: 'सभी रिलीज़',
+      capSheet: 'हर कक्षा के लिए एक शीट, अंतिम ग्रेड अपने आप',
+      capColumn: 'हर टेस्ट का भार और अधिकतम अंक',
+      capMenu: 'Excel में आयात और निर्यात',
+      capLock: 'PIN लॉक, एन्क्रिप्टेड फ़ाइल',
+      capBackup: 'एक क्लिक में बैकअप'
+    },
+    bn: {
+      pageTitle: 'avalio lite — শিক্ষকদের জন্য সহজ গ্রেডবুক',
+      tagline: 'আপনার ক্লাসের নম্বর, একটি সহজ ও ব্যক্তিগত অ্যাপে।',
+      intro: 'শিক্ষকদের জন্য একটি গ্রেডবুক যা স্প্রেডশিটের মতো কাজ করে, হিসাব নিজেই করে এবং সবকিছু আপনার নিজের কম্পিউটারে রাখে। কোনো ক্লাউড নেই, কোনো ট্র্যাকিং নেই; PIN দিলে ফাইল এনক্রিপ্ট হয়।',
+      dlSetup: 'Windows-এর জন্য ডাউনলোড করুন',
+      setupHint: 'ইনস্টলার · অ্যাডমিনিস্ট্রেটর অধিকার লাগে না',
+      dlPortable: 'পোর্টেবল সংস্করণ',
+      portableHint: 'একটিমাত্র ফাইল, ইনস্টল লাগে না, USB স্টিক থেকেও চলে',
+      appLangs: 'অ্যাপটি নিজে গ্যালিসীয় ও ইংরেজিতে।',
+      licence: 'একটি লাইসেন্স কী (BRN-…) প্রয়োজন। অন্য কম্পিউটারে সরাতে লিখুন:',
+      smartscreen: 'Windows যদি বলে “Windows আপনার PC সুরক্ষিত করেছে”, তাহলে “আরও তথ্য” → “তবুও চালান” ক্লিক করুন: ফাইলগুলো Windows সার্টিফিকেট দিয়ে স্বাক্ষরিত নয়।',
+      srcGithub: 'GitHub-এ সোর্স',
+      srcGitlab: 'GitLab-এ সোর্স',
+      srcCodeberg: 'Codeberg-এ সোর্স',
+      allReleases: 'সব রিলিজ',
+      capSheet: 'প্রতিটি ক্লাসের জন্য একটি শিট, চূড়ান্ত গ্রেড নিজে থেকেই',
+      capColumn: 'প্রতিটি পরীক্ষার ভার ও সর্বোচ্চ নম্বর',
+      capMenu: 'Excel আমদানি ও রপ্তানি',
+      capLock: 'PIN লক, এনক্রিপ্ট করা ফাইল',
+      capBackup: 'এক ক্লিকে ব্যাকআপ'
+    },
+    ur: {
+      pageTitle: 'avalio lite — اساتذہ کے لیے سادہ گریڈ بک',
+      tagline: 'آپ کی کلاسوں کے نمبر، ایک سادہ اور نجی ایپ میں۔',
+      intro: 'اساتذہ کے لیے گریڈ بک جو اسپریڈشیٹ کی طرح کام کرتی ہے، حساب خود لگاتی ہے اور سب کچھ آپ کے اپنے کمپیوٹر پر رکھتی ہے۔ نہ کلاؤڈ، نہ ٹریکنگ؛ PIN لگائیں تو فائل انکرپٹ ہو جاتی ہے۔',
+      dlSetup: 'Windows کے لیے ڈاؤن لوڈ کریں',
+      setupHint: 'انسٹالر · ایڈمنسٹریٹر اختیارات کی ضرورت نہیں',
+      dlPortable: 'پورٹیبل ورژن',
+      portableHint: 'ایک ہی فائل، انسٹال کی ضرورت نہیں، USB سے بھی چلتی ہے',
+      appLangs: 'ایپ خود گالیشیائی اور انگریزی میں ہے۔',
+      licence: 'لائسنس کلید (BRN-…) درکار ہے۔ اسے دوسرے کمپیوٹر پر منتقل کرنے کے لیے لکھیں:',
+      smartscreen: 'اگر Windows کہے ”Windows نے آپ کے PC کو محفوظ کیا“ تو ”مزید معلومات“ ← ”پھر بھی چلائیں“ پر کلک کریں: فائلیں Windows سرٹیفکیٹ سے دستخط شدہ نہیں ہیں۔',
+      srcGithub: 'GitHub پر سورس',
+      srcGitlab: 'GitLab پر سورس',
+      srcCodeberg: 'Codeberg پر سورس',
+      allReleases: 'تمام ریلیزز',
+      capSheet: 'ہر کلاس کے لیے ایک شیٹ، حتمی گریڈ خود بخود',
+      capColumn: 'ہر ٹیسٹ کا وزن اور زیادہ سے زیادہ نمبر',
+      capMenu: 'Excel درآمد اور برآمد',
+      capLock: 'PIN لاک، انکرپٹڈ فائل',
+      capBackup: 'ایک کلک میں بیک اپ'
+    },
+    fa: {
+      pageTitle: 'avalio lite — دفتر نمرهٔ ساده برای معلمان',
+      tagline: 'نمره‌های کلاس‌هایتان در یک برنامهٔ ساده و خصوصی.',
+      intro: 'دفتر نمره‌ای برای معلمان که مثل صفحه‌گسترده کار می‌کند، محاسبات را برایتان انجام می‌دهد و همه چیز را روی رایانهٔ خودتان نگه می‌دارد. بدون فضای ابری و بدون ردیابی؛ با گذاشتن PIN، فایل رمزنگاری می‌شود.',
+      dlSetup: 'دانلود برای Windows',
+      setupHint: 'نصب‌کننده · بدون نیاز به دسترسی مدیر',
+      dlPortable: 'نسخهٔ قابل‌حمل',
+      portableHint: 'یک فایل، بدون نصب، حتی از روی فلش USB',
+      appLangs: 'خود برنامه به زبان‌های گالیسیایی و انگلیسی است.',
+      licence: 'به کلید مجوز (BRN-…) نیاز دارد. برای انتقالش به رایانهٔ دیگر، بنویسید به',
+      smartscreen: 'اگر Windows پیام «Windows از رایانهٔ شما محافظت کرد» را نشان داد، روی «اطلاعات بیشتر» ← «در هر صورت اجرا شود» بزنید: فایل‌ها با گواهی Windows امضا نشده‌اند.',
+      srcGithub: 'کد منبع در GitHub',
+      srcGitlab: 'کد منبع در GitLab',
+      srcCodeberg: 'کد منبع در Codeberg',
+      allReleases: 'همه نسخه‌ها',
+      capSheet: 'یک برگه برای هر کلاس، نمرهٔ نهایی خودکار حساب می‌شود',
+      capColumn: 'وزن و نمرهٔ کامل هر آزمون',
+      capMenu: 'ورود و خروج Excel',
+      capLock: 'قفل با PIN، فایل رمزنگاری‌شده',
+      capBackup: 'پشتیبان‌گیری با یک کلیک'
+    },
+    tr: {
+      pageTitle: 'avalio lite — öğretmenler için basit not defteri',
+      tagline: 'Sınıflarının notları tek bir basit ve gizli uygulamada.',
+      intro: 'Elektronik tablo gibi çalışan, hesapları senin yerine yapan ve her şeyi kendi bilgisayarında tutan bir öğretmen not defteri. Bulut yok, izleme yok; PIN eklersen dosya şifrelenir.',
+      dlSetup: 'Windows için indir',
+      setupHint: 'Yükleyici · yönetici hakları gerekmez',
+      dlPortable: 'Taşınabilir sürüm',
+      portableHint: 'Tek dosya, kurulum yok, USB bellekten bile çalışır',
+      appLangs: 'Uygulamanın kendisi Galiçyaca ve İngilizcedir.',
+      licence: 'Bir lisans anahtarı (BRN-…) gerekir. Başka bir bilgisayara taşımak için şu adrese yaz:',
+      smartscreen: 'Windows “Windows bilgisayarınızı korudu” derse “Ek bilgi” → “Yine de çalıştır”a tıkla: dosyalar bir Windows sertifikasıyla imzalanmamıştır.',
+      srcGithub: 'GitHub’da kaynak kod',
+      srcGitlab: 'GitLab’da kaynak kod',
+      srcCodeberg: 'Codeberg’de kaynak kod',
+      allReleases: 'Tüm sürümler',
+      capSheet: 'Her sınıf için bir sayfa; dönem notları kendiliğinden hesaplanır',
+      capColumn: 'Her sınavın ağırlığı ve tam puanı',
+      capMenu: 'Excel içe ve dışa aktarma',
+      capLock: 'PIN kilidi, şifreli dosya',
+      capBackup: 'Tek tıkla yedekleme'
+    },
+    vi: {
+      pageTitle: 'avalio lite — sổ điểm đơn giản cho giáo viên',
+      tagline: 'Điểm số các lớp của bạn trong một ứng dụng đơn giản và riêng tư.',
+      intro: 'Sổ điểm cho giáo viên hoạt động như bảng tính, tự tính toán giúp bạn và lưu mọi thứ trên chính máy tính của bạn. Không đám mây, không theo dõi; đặt mã PIN thì tệp được mã hóa.',
+      dlSetup: 'Tải về cho Windows',
+      setupHint: 'Trình cài đặt · không cần quyền quản trị',
+      dlPortable: 'Bản di động',
+      portableHint: 'Một tệp duy nhất, không cần cài đặt, chạy được cả từ USB',
+      appLangs: 'Bản thân ứng dụng có tiếng Galicia và tiếng Anh.',
+      licence: 'Cần có khóa bản quyền (BRN-…). Để chuyển khóa sang máy tính khác, hãy viết thư tới',
+      smartscreen: 'Nếu Windows báo “Windows đã bảo vệ PC của bạn”, hãy nhấn “Thông tin thêm” → “Vẫn chạy”: các tệp không được ký bằng chứng chỉ Windows.',
+      srcGithub: 'Mã nguồn trên GitHub',
+      srcGitlab: 'Mã nguồn trên GitLab',
+      srcCodeberg: 'Mã nguồn trên Codeberg',
+      allReleases: 'Tất cả phiên bản',
+      capSheet: 'Mỗi lớp một trang, điểm tổng kết tự tính',
+      capColumn: 'Trọng số và điểm tối đa của từng bài kiểm tra',
+      capMenu: 'Nhập và xuất Excel',
+      capLock: 'Khóa bằng PIN, tệp được mã hóa',
+      capBackup: 'Sao lưu chỉ một cú nhấp'
+    },
+    id: {
+      pageTitle: 'avalio lite — buku nilai sederhana untuk guru',
+      tagline: 'Nilai kelas-kelasmu dalam satu aplikasi yang sederhana dan privat.',
+      intro: 'Buku nilai untuk guru yang bekerja seperti spreadsheet, menghitung semuanya untukmu, dan menyimpan semuanya di komputermu sendiri. Tanpa cloud, tanpa pelacakan; tambahkan PIN dan berkasnya dienkripsi.',
+      dlSetup: 'Unduh untuk Windows',
+      setupHint: 'Penginstal · tidak perlu hak administrator',
+      dlPortable: 'Versi portabel',
+      portableHint: 'Satu berkas, tanpa instalasi, bisa dijalankan dari flashdisk',
+      appLangs: 'Aplikasinya sendiri tersedia dalam bahasa Galisia dan Inggris.',
+      licence: 'Perlu kunci lisensi (BRN-…). Untuk memindahkannya ke komputer lain, tulis ke',
+      smartscreen: 'Jika Windows menampilkan “Windows melindungi PC Anda”, klik “Info selengkapnya” → “Tetap jalankan”: berkasnya tidak ditandatangani dengan sertifikat Windows.',
+      srcGithub: 'Kode sumber di GitHub',
+      srcGitlab: 'Kode sumber di GitLab',
+      srcCodeberg: 'Kode sumber di Codeberg',
+      allReleases: 'Semua rilis',
+      capSheet: 'Satu lembar per kelas; nilai akhir terhitung sendiri',
+      capColumn: 'Bobot dan nilai maksimum tiap tes',
+      capMenu: 'Impor dan ekspor Excel',
+      capLock: 'Kunci PIN, berkas terenkripsi',
+      capBackup: 'Cadangan sekali klik'
+    },
+    th: {
+      pageTitle: 'avalio lite — สมุดคะแนนแบบง่ายสำหรับครู',
+      tagline: 'คะแนนของทุกชั้นเรียน รวมไว้ในแอปเดียวที่เรียบง่ายและเป็นส่วนตัว',
+      intro: 'สมุดคะแนนสำหรับครูที่ใช้งานเหมือนสเปรดชีต คำนวณให้อัตโนมัติ และเก็บทุกอย่างไว้ในคอมพิวเตอร์ของคุณเอง ไม่มีคลาวด์ ไม่มีการติดตาม และเมื่อตั้ง PIN ไฟล์จะถูกเข้ารหัส',
+      dlSetup: 'ดาวน์โหลดสำหรับ Windows',
+      setupHint: 'ตัวติดตั้ง · ไม่ต้องใช้สิทธิ์ผู้ดูแลระบบ',
+      dlPortable: 'เวอร์ชันพกพา',
+      portableHint: 'ไฟล์เดียว ไม่ต้องติดตั้ง รันจาก USB ได้',
+      appLangs: 'ตัวแอปมีภาษากาลิเซียและภาษาอังกฤษ',
+      licence: 'ต้องใช้คีย์ใบอนุญาต (BRN-…) หากต้องการย้ายไปคอมพิวเตอร์เครื่องอื่น เขียนถึง',
+      smartscreen: 'หาก Windows แสดง “Windows ปกป้องพีซีของคุณ” ให้คลิก “ข้อมูลเพิ่มเติม” → “เรียกใช้ต่อไป” เพราะไฟล์ไม่ได้ลงนามด้วยใบรับรองของ Windows',
+      srcGithub: 'ซอร์สโค้ดบน GitHub',
+      srcGitlab: 'ซอร์สโค้ดบน GitLab',
+      srcCodeberg: 'ซอร์สโค้ดบน Codeberg',
+      allReleases: 'ทุกเวอร์ชัน',
+      capSheet: 'หนึ่งชีตต่อหนึ่งชั้นเรียน เกรดสุดท้ายคำนวณให้เอง',
+      capColumn: 'น้ำหนักและคะแนนเต็มของแต่ละการทดสอบ',
+      capMenu: 'นำเข้าและส่งออก Excel',
+      capLock: 'ล็อกด้วย PIN ไฟล์เข้ารหัส',
+      capBackup: 'สำรองข้อมูลในคลิกเดียว'
+    },
+    sw: {
+      pageTitle: 'avalio lite — daftari rahisi la alama kwa walimu',
+      tagline: 'Alama za madarasa yako katika programu moja rahisi na ya faragha.',
+      intro: 'Daftari la alama kwa walimu linalofanya kazi kama lahajedwali, linakufanyia hesabu na kuhifadhi kila kitu kwenye kompyuta yako mwenyewe. Hakuna wingu, hakuna ufuatiliaji; ukiweka PIN, faili husimbwa kwa njia fiche.',
+      dlSetup: 'Pakua kwa Windows',
+      setupHint: 'Kisakinishi · hakihitaji haki za msimamizi',
+      dlPortable: 'Toleo linalobebeka',
+      portableHint: 'Faili moja, bila kusakinisha, hata kutoka kwenye USB',
+      appLangs: 'Programu yenyewe iko kwa Kigalisia na Kiingereza.',
+      licence: 'Inahitaji ufunguo wa leseni (BRN-…). Ili kuuhamishia kompyuta nyingine, andika kwa',
+      smartscreen: 'Windows ikisema “Windows protected your PC”, bofya “More info” → “Run anyway”: faili hazijatiwa saini kwa cheti cha Windows.',
+      srcGithub: 'Msimbo kwenye GitHub',
+      srcGitlab: 'Msimbo kwenye GitLab',
+      srcCodeberg: 'Msimbo kwenye Codeberg',
+      allReleases: 'Matoleo yote',
+      capSheet: 'Karatasi moja kwa kila darasa; alama za mwisho hujihesabu',
+      capColumn: 'Uzito na alama ya juu ya kila jaribio',
+      capMenu: 'Kuingiza na kutoa Excel',
+      capLock: 'Kufuli ya PIN, faili iliyosimbwa',
+      capBackup: 'Nakala rudufu kwa mbofyo mmoja'
+    },
+    te: {
+      pageTitle: 'avalio lite — ఉపాధ్యాయుల కోసం సరళమైన గ్రేడ్‌బుక్',
+      tagline: 'మీ తరగతుల మార్కులు, ఒక సరళమైన, వ్యక్తిగత యాప్‌లో.',
+      intro: 'స్ప్రెడ్‌షీట్‌లా పనిచేసే ఉపాధ్యాయుల గ్రేడ్‌బుక్: లెక్కలు అదే చేస్తుంది, అన్నింటినీ మీ సొంత కంప్యూటర్‌లోనే ఉంచుతుంది. క్లౌడ్ లేదు, ట్రాకింగ్ లేదు; PIN పెడితే ఫైల్ ఎన్‌క్రిప్ట్ అవుతుంది.',
+      dlSetup: 'Windows కోసం డౌన్‌లోడ్ చేయండి',
+      setupHint: 'ఇన్‌స్టాలర్ · అడ్మినిస్ట్రేటర్ హక్కులు అవసరం లేదు',
+      dlPortable: 'పోర్టబుల్ వెర్షన్',
+      portableHint: 'ఒకే ఫైల్, ఇన్‌స్టాల్ అవసరం లేదు, USB నుండి కూడా నడుస్తుంది',
+      appLangs: 'యాప్ గలీషియన్, ఇంగ్లీష్ భాషల్లో ఉంది.',
+      licence: 'లైసెన్స్ కీ (BRN-…) అవసరం. దాన్ని వేరే కంప్యూటర్‌కు మార్చడానికి ఇక్కడ రాయండి:',
+      smartscreen: 'Windows “Windows మీ PCని రక్షించింది” అని చూపిస్తే, “మరింత సమాచారం” → “అయినా రన్ చేయి” క్లిక్ చేయండి: ఫైళ్లు Windows సర్టిఫికేట్‌తో సంతకం చేయబడలేదు.',
+      srcGithub: 'GitHub లో సోర్స్',
+      srcGitlab: 'GitLab లో సోర్స్',
+      srcCodeberg: 'Codeberg లో సోర్స్',
+      allReleases: 'అన్ని విడుదలలు',
+      capSheet: 'ప్రతి తరగతికి ఒక షీట్, తుది గ్రేడ్‌లు వాటంతట అవే',
+      capColumn: 'ప్రతి పరీక్ష బరువు, గరిష్ఠ మార్కులు',
+      capMenu: 'Excel దిగుమతి, ఎగుమతి',
+      capLock: 'PIN లాక్, ఎన్‌క్రిప్ట్ చేసిన ఫైల్',
+      capBackup: 'ఒక్క క్లిక్‌తో బ్యాకప్'
+    },
+    ta: {
+      pageTitle: 'avalio lite — ஆசிரியர்களுக்கான எளிய மதிப்பெண் புத்தகம்',
+      tagline: 'உங்கள் வகுப்புகளின் மதிப்பெண்கள், ஒரு எளிய, தனிப்பட்ட செயலியில்.',
+      intro: 'விரிதாள் போல வேலை செய்யும் ஆசிரியர் மதிப்பெண் புத்தகம்: கணக்குகளைத் தானே செய்கிறது, எல்லாவற்றையும் உங்கள் சொந்தக் கணினியிலேயே வைக்கிறது. மேகம் இல்லை, கண்காணிப்பு இல்லை; PIN அமைத்தால் கோப்பு மறையாக்கப்படும்.',
+      dlSetup: 'Windows-க்கு பதிவிறக்கு',
+      setupHint: 'நிறுவி · நிர்வாகி உரிமைகள் தேவையில்லை',
+      dlPortable: 'கையடக்கப் பதிப்பு',
+      portableHint: 'ஒரே கோப்பு, நிறுவத் தேவையில்லை, USB-இலிருந்தும் இயங்கும்',
+      appLangs: 'செயலி காலிசியன் மற்றும் ஆங்கிலத்தில் உள்ளது.',
+      licence: 'உரிம விசை (BRN-…) தேவை. வேறு கணினிக்கு மாற்ற இங்கு எழுதவும்:',
+      smartscreen: 'Windows “Windows உங்கள் கணினியைப் பாதுகாத்தது” என்று காட்டினால், “மேலும் தகவல்” → “எப்படியும் இயக்கு” என்பதைக் கிளிக் செய்யவும்: கோப்புகள் Windows சான்றிதழால் கையொப்பமிடப்படவில்லை.',
+      srcGithub: 'GitHub-இல் மூலக் குறியீடு',
+      srcGitlab: 'GitLab-இல் மூலக் குறியீடு',
+      srcCodeberg: 'Codeberg-இல் மூலக் குறியீடு',
+      allReleases: 'அனைத்து வெளியீடுகள்',
+      capSheet: 'ஒவ்வொரு வகுப்புக்கும் ஒரு தாள், இறுதி மதிப்பெண் தானாகவே',
+      capColumn: 'ஒவ்வொரு தேர்வின் எடையும் அதிகபட்ச மதிப்பெண்ணும்',
+      capMenu: 'Excel இறக்குமதி, ஏற்றுமதி',
+      capLock: 'PIN பூட்டு, மறையாக்கப்பட்ட கோப்பு',
+      capBackup: 'ஒரே கிளிக்கில் காப்புப்பிரதி'
+    },
+    pa: {
+      pageTitle: 'avalio lite — ਅਧਿਆਪਕਾਂ ਲਈ ਸਰਲ ਗ੍ਰੇਡਬੁੱਕ',
+      tagline: 'ਤੁਹਾਡੀਆਂ ਜਮਾਤਾਂ ਦੇ ਅੰਕ, ਇੱਕ ਸਰਲ ਅਤੇ ਨਿੱਜੀ ਐਪ ਵਿੱਚ।',
+      intro: 'ਅਧਿਆਪਕਾਂ ਲਈ ਗ੍ਰੇਡਬੁੱਕ ਜੋ ਸਪ੍ਰੈਡਸ਼ੀਟ ਵਾਂਗ ਕੰਮ ਕਰਦੀ ਹੈ, ਹਿਸਾਬ ਆਪ ਲਗਾਉਂਦੀ ਹੈ ਅਤੇ ਸਭ ਕੁਝ ਤੁਹਾਡੇ ਆਪਣੇ ਕੰਪਿਊਟਰ ’ਤੇ ਰੱਖਦੀ ਹੈ। ਨਾ ਕਲਾਊਡ, ਨਾ ਟ੍ਰੈਕਿੰਗ; PIN ਲਗਾਓ ਤਾਂ ਫ਼ਾਈਲ ਇਨਕ੍ਰਿਪਟ ਹੋ ਜਾਂਦੀ ਹੈ।',
+      dlSetup: 'Windows ਲਈ ਡਾਊਨਲੋਡ ਕਰੋ',
+      setupHint: 'ਇੰਸਟਾਲਰ · ਐਡਮਿਨਿਸਟ੍ਰੇਟਰ ਅਧਿਕਾਰਾਂ ਦੀ ਲੋੜ ਨਹੀਂ',
+      dlPortable: 'ਪੋਰਟੇਬਲ ਵਰਜਨ',
+      portableHint: 'ਇੱਕੋ ਫ਼ਾਈਲ, ਇੰਸਟਾਲ ਦੀ ਲੋੜ ਨਹੀਂ, USB ਤੋਂ ਵੀ ਚੱਲਦੀ ਹੈ',
+      appLangs: 'ਐਪ ਆਪ ਗੈਲੀਸ਼ੀਅਨ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਹੈ।',
+      licence: 'ਲਾਇਸੈਂਸ ਕੁੰਜੀ (BRN-…) ਲੋੜੀਂਦੀ ਹੈ। ਇਸਨੂੰ ਦੂਜੇ ਕੰਪਿਊਟਰ ’ਤੇ ਲਿਜਾਣ ਲਈ ਲਿਖੋ:',
+      smartscreen: 'ਜੇ Windows ਕਹੇ “Windows ਨੇ ਤੁਹਾਡੇ PC ਦੀ ਰੱਖਿਆ ਕੀਤੀ”, ਤਾਂ “ਹੋਰ ਜਾਣਕਾਰੀ” → “ਫਿਰ ਵੀ ਚਲਾਓ” ’ਤੇ ਕਲਿੱਕ ਕਰੋ: ਫ਼ਾਈਲਾਂ Windows ਸਰਟੀਫ਼ਿਕੇਟ ਨਾਲ ਦਸਤਖ਼ਤ ਨਹੀਂ ਹਨ।',
+      srcGithub: 'GitHub ਉੱਤੇ ਸੋਰਸ',
+      srcGitlab: 'GitLab ਉੱਤੇ ਸੋਰਸ',
+      srcCodeberg: 'Codeberg ਉੱਤੇ ਸੋਰਸ',
+      allReleases: 'ਸਾਰੀਆਂ ਰਿਲੀਜ਼ਾਂ',
+      capSheet: 'ਹਰ ਜਮਾਤ ਲਈ ਇੱਕ ਸ਼ੀਟ, ਅੰਤਿਮ ਗ੍ਰੇਡ ਆਪਣੇ ਆਪ',
+      capColumn: 'ਹਰ ਟੈਸਟ ਦਾ ਭਾਰ ਅਤੇ ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ',
+      capMenu: 'Excel ਆਯਾਤ ਅਤੇ ਨਿਰਯਾਤ',
+      capLock: 'PIN ਲਾਕ, ਇਨਕ੍ਰਿਪਟ ਕੀਤੀ ਫ਼ਾਈਲ',
+      capBackup: 'ਇੱਕ ਕਲਿੱਕ ਵਿੱਚ ਬੈਕਅੱਪ'
+    }
+  };
+
+  var currentLang;
+
+  function t(key) {
+    var dict = STRINGS[currentLang] || STRINGS.gl;
+    var common = BrerenCommon.COMMON_STRINGS[currentLang] || BrerenCommon.COMMON_STRINGS.gl;
+    return dict[key] || common[key] || STRINGS.gl[key] || BrerenCommon.COMMON_STRINGS.gl[key] || key;
+  }
+
+  function selectLang(code) {
+    currentLang = code;
+    localStorage.setItem('breren-lang', code);
+    document.documentElement.lang = code;
+    BrerenCommon.applyDirection(code);
+    applyTexts();
+  }
+
+  function applyTexts() {
+    document.title = t('pageTitle');
+    var ids = {
+      'page-tagline': 'tagline', 'page-intro': 'intro', 'home-link': 'backToHome', 'home-link-2': 'backToHome',
+      'dl-setup-label': 'dlSetup', 'dl-setup-hint': 'setupHint', 'dl-portable-label': 'dlPortable',
+      'dl-portable-hint': 'portableHint', 'app-langs': 'appLangs', 'licence-text': 'licence',
+      'smartscreen': 'smartscreen', 'src-github': 'srcGithub', 'src-gitlab': 'srcGitlab',
+      'src-codeberg': 'srcCodeberg', 'all-releases': 'allReleases', 'cap-sheet': 'capSheet',
+      'cap-column': 'capColumn', 'cap-menu': 'capMenu', 'cap-lock': 'capLock', 'cap-backup': 'capBackup'
+    };
+    Object.keys(ids).forEach(function (id) {
+      document.getElementById(id).textContent = t(ids[id]);
+    });
+  }
+
+  function resolveDownloads() {
+    fetch(RELEASES_API, { headers: { Accept: 'application/vnd.github+json' } })
+      .then(function (r) {
+        if (!r.ok) throw new Error('GitHub API answered ' + r.status);
+        return r.json();
+      })
+      .then(function (release) {
+        Object.keys(ASSET_SUFFIX).forEach(function (id) {
+          var asset = (release.assets || []).filter(function (a) {
+            return a.name.slice(-ASSET_SUFFIX[id].length) === ASSET_SUFFIX[id];
+          })[0];
+          if (asset) document.getElementById(id).href = asset.browser_download_url;
+          else console.warn('avalio-lite: no release asset ending in ' + ASSET_SUFFIX[id] + ' in ' + release.tag_name);
+        });
+        if (release.tag_name) document.getElementById('version-tag').textContent = ' · ' + release.tag_name;
+      })
+      .catch(function (err) {
+        console.warn('avalio-lite: could not resolve the latest release, download buttons stay on the releases page:', err);
+      });
+  }
+
+  BrerenCommon.applyIncomingPreset();
+  currentLang = BrerenCommon.detectLang();
+  document.documentElement.lang = currentLang;
+
+  BrerenCommon.setupLangPicker(function () { return currentLang; }, selectLang);
+  BrerenCommon.setupThemeToggle(t);
+  BrerenCommon.applyTheme(BrerenCommon.effectiveTheme(), t);
+  BrerenCommon.applyDirection(currentLang);
+  applyTexts();
+  resolveDownloads();
+
+  // Returning via the back button restores this page from the bfcache,
+  // so re-read lang/theme in case they changed on another breren.com page.
+  window.addEventListener('pageshow', function (e) {
+    if (!e.persisted) return;
+    currentLang = BrerenCommon.detectLang();
+    BrerenCommon.applyTheme(BrerenCommon.effectiveTheme(), t);
+    BrerenCommon.applyDirection(currentLang);
+    applyTexts();
+  });
+})();
+</script>
+</body>
+</html>
